@@ -1,43 +1,43 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LobbyManager : MonoBehaviourPunCallbacks
+public class ConnectionManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private LobbyUIController ui;
+    [SerializeField] private ConnectionUIController ui;
 
-    // Æ÷Åæ ¼­¹ö ¼³Á¤
+    // í¬í†¤ ì„œë²„ ì„¤ì •
     private string gameVersion = "1";
     private string region = "kr";
 
     private void Start()
     {
-        ui.SetUIState(LobbyUIState.Initial);
+        ui.SetUIState(LobbyUIState.Default);
 
         EnsureConnected();
     }
 
     /// <summary>
-    /// ¼­¹ö¿¡ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎ ¹× ¿¬°áµÇÁö ¾ÊÀº °æ¿ì ¿¬°á ½Ãµµ
+    /// ì„œë²„ì— ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸ ë° ì—°ê²°ë˜ì§€ ì•Šì€ ê²½ìš° ì—°ê²° ì‹œë„
     /// </summary>
     private void EnsureConnected()
     {
         if (!PhotonNetwork.IsConnectedAndReady)
         {
-            ui.SetStatusText("¼­¹ö ¿¬°á Áß...");
+            ui.SetStatusText("ì„œë²„ ì—°ê²° ì¤‘...");
             ui.SetUIState(LobbyUIState.Loading);
 
             ConnectToMasterServer();
         }
         else
         {
-            ui.SetStatusText("¼­¹ö¿¡ ¿¬°áµÇ¾î ÀÖ½À´Ï´Ù.");
+            ui.SetStatusText("ì„œë²„ì— ì—°ê²°ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
             ui.SetUIState(LobbyUIState.Ready);
         }
     }
     /// <summary>
-    /// Æ÷Åæ ¼­¹ö¿¡ ¿¬°á
+    /// í¬í†¤ ì„œë²„ì— ì—°ê²°
     /// </summary>
     private void ConnectToMasterServer()
     {
@@ -49,42 +49,42 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    // ¼­¹ö ¿¬°á °ü·Ã Äİ¹é
+    // ì„œë²„ ì—°ê²° ê´€ë ¨ ì½œë°±
     public override void OnDisconnected(DisconnectCause cause)
     {
-        ui.SetStatusText("¼­¹ö ¿¬°áÀÌ ²÷¾îÁ³½À´Ï´Ù. Àç¿¬°á Áß...");
+        ui.SetStatusText("ì„œë²„ ì—°ê²°ì´ ëŠì–´ì¡ŒìŠµë‹ˆë‹¤. ì¬ì—°ê²° ì¤‘...");
         ui.SetUIState(LobbyUIState.Loading);
 
         ConnectToMasterServer();
     }
     public override void OnConnectedToMaster()
     {
-        ui.SetStatusText("¼­¹ö¿¡ ¿¬°áµÇ¾ú½À´Ï´Ù.");
+        ui.SetStatusText("ì„œë²„ì— ì—°ê²°ë˜ì—ˆìŠµë‹ˆë‹¤.");
         ui.SetUIState(LobbyUIState.Ready);
     }
 
     /// <summary>
-    /// ·ë ÀÔÀå ½Ãµµ
+    /// ë£¸ ì…ì¥ ì‹œë„
     /// </summary>
     public void TryJoinRoom()
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            ui.SetStatusText("·ë ÀÔÀå Áß...");
+            ui.SetStatusText("ë£¸ ì…ì¥ ì¤‘...");
             ui.SetUIState(LobbyUIState.Loading);
 
             JoinOrCreateRoom();
         }
         else
         {
-            ui.SetStatusText("¼­¹ö¿¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù. Àç¿¬°á Áß... Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+            ui.SetStatusText("ì„œë²„ì— ì—°ê²°ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤. ì¬ì—°ê²° ì¤‘... ì ì‹œ í›„ ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
             ui.SetUIState(LobbyUIState.Loading);
 
             ConnectToMasterServer();
         }
     }
     /// <summary>
-    /// ±âº» ·ëÀ¸·Î ÀÔÀå ½Ãµµ ¹× ¾øÀ» °æ¿ì ·ë »ı¼º
+    /// ê¸°ë³¸ ë£¸ìœ¼ë¡œ ì…ì¥ ì‹œë„ ë° ì—†ì„ ê²½ìš° ë£¸ ìƒì„±
     /// </summary>
     private void JoinOrCreateRoom()
     {
@@ -98,21 +98,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         );
     }
 
-    // ·ë °ü·Ã Äİ¹é
+    // ë£¸ ê´€ë ¨ ì½œë°±
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        ui.SetStatusText("·ë ÀÔÀå¿¡ ½ÇÆĞÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+        ui.SetStatusText("ë£¸ ì…ì¥ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
         ui.SetUIState(LobbyUIState.Ready);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        ui.SetStatusText("·ë »ı¼º¿¡ ½ÇÆĞÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+        ui.SetStatusText("ë£¸ ìƒì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
         ui.SetUIState(LobbyUIState.Ready);
     }
     public override void OnJoinedRoom()
     {
-        ui.SetStatusText("·ë¿¡ ¼º°øÀûÀ¸·Î ÀÔÀåÇß½À´Ï´Ù.");
-        ui.SetUIState(LobbyUIState.JoinedRoom);
+        ui.SetStatusText("ë£¸ì— ì„±ê³µì ìœ¼ë¡œ ì…ì¥í–ˆìŠµë‹ˆë‹¤.");
+        ui.SetUIState(LobbyUIState.Default);
 
         SceneManager.LoadScene("MainGameScene");
     }

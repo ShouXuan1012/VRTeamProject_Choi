@@ -1,21 +1,20 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public enum LobbyUIState
 {
-    Initial,
+    Default,
     Loading,
-    Ready,
-    JoinedRoom
+    Ready
 }
-public class LobbyUIController : MonoBehaviour
+public class ConnectionUIController : MonoBehaviour
 {
     [SerializeField] private Text statusText;
     [SerializeField] private Image loadingImage;
     [SerializeField] private Button joinRoomButton;
 
     /// <summary>
-    /// »óÅÂ ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+    /// ìƒíƒœ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
     /// </summary>
     /// <param name="message"></param>
     public void SetStatusText(string message)
@@ -26,15 +25,14 @@ public class LobbyUIController : MonoBehaviour
         }
     }
     /// <summary>
-    /// ·Îºñ »óÅÂ¿¡ µû¶ó UI »óÅÂ ¼³Á¤
+    /// ë¡œë¹„ ìƒíƒœì— ë”°ë¼ UI ìƒíƒœ ì„¤ì •
     /// </summary>
     /// <param name="state"></param>
     public void SetUIState(LobbyUIState state)
     {
         switch (state)
         {
-            case LobbyUIState.Initial:
-                statusText.gameObject.SetActive(true);
+            case LobbyUIState.Default:
                 loadingImage.gameObject.SetActive(false);
                 joinRoomButton.interactable = false;
                 break;
@@ -45,10 +43,6 @@ public class LobbyUIController : MonoBehaviour
             case LobbyUIState.Ready:
                 loadingImage.gameObject.SetActive(false);
                 joinRoomButton.interactable = true;
-                break;
-            case LobbyUIState.JoinedRoom:
-                loadingImage.gameObject.SetActive(false);
-                joinRoomButton.interactable = false;
                 break;
         }
     }
