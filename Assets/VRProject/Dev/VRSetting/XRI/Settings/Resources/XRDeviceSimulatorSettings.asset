@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AutomaticallyInstantiateSimulatorPrefab: 1
   m_AutomaticallyInstantiateInEditorOnly: 1
-  m_SimulatorPrefab: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
+  m_SimulatorPrefab: {fileID: 6598815579406187037, guid: 8ebf808186967724a978b43d5e69b0fd,
     type: 3}
