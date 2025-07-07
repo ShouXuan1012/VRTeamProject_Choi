@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7863142641316027155}
   - component: {fileID: 6534904509197538486}
   - component: {fileID: 9030933652002939004}
-  - component: {fileID: 8509825097306061032}
   m_Layer: 0
   m_Name: commercial-building-fastfood-shop
   m_TagString: Untagged
@@ -169,18 +168,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8509825097306061032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7373710074636534185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed30bcd987450da4ebab77b8c7d28e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  windowMaterialIndex: 1
-  lightColor: {r: 0.41568628, g: 0.36078432, b: 0.14117648, a: 1}
-  areLightsOn: 0
