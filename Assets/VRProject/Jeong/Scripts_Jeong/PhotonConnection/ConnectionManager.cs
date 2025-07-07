@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,6 +47,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.GameVersion = gameVersion;
         PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = region;
+        PhotonNetwork.AuthValues = new AuthenticationValues(Guid.NewGuid().ToString());
         PhotonNetwork.ConnectUsingSettings();
     }
 
