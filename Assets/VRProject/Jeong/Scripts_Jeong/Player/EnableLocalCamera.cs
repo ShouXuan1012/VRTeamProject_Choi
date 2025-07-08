@@ -1,13 +1,19 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class CameraSetUp : MonoBehaviourPun
+public class EnableLocalCamera : MonoBehaviourPun
 {
     public Camera playerCamera;
 
-    void Start()
+    void Awake()
     {
         if (photonView.IsMine)
+        {
             playerCamera.gameObject.SetActive(true);
+        }
+        else
+        {
+            playerCamera.gameObject.SetActive(false);
+        }
     }
 }

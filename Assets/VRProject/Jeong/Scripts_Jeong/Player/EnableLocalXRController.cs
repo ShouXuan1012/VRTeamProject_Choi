@@ -1,8 +1,7 @@
 ﻿using Photon.Pun;
-using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class DisableRemoteXRController : MonoBehaviourPun
+public class EnableLocalXRController : MonoBehaviourPun
 {
     public XRBaseController gazeInteractor;
     public XRBaseController leftController;
@@ -10,7 +9,13 @@ public class DisableRemoteXRController : MonoBehaviourPun
 
     void Awake()
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine)
+        {
+            gazeInteractor.enabled = true;
+            leftController.enabled = true;
+            rightController.enabled = true;
+        }
+        else
         {
             gazeInteractor.enabled = false;
             leftController.enabled = false;
