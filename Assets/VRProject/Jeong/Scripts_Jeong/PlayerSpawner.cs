@@ -9,6 +9,6 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
+        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
     }
 }
