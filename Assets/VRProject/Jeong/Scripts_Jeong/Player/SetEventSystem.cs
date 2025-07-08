@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine.EventSystems;
 
-public class EnableLocalEventSystem : MonoBehaviourPun
+public class SetEventSystem : MonoBehaviourPun
 {
     public EventSystem eventSystem;
 

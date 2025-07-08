@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class EnableLocalCamera : MonoBehaviourPun
+public class SetCamera : MonoBehaviourPun
 {
     public Camera playerCamera;
 

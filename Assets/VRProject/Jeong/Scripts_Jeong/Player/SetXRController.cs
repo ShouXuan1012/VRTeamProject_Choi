@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class EnableLocalXRController : MonoBehaviourPun
+public class SetXRController : MonoBehaviourPun
 {
     public XRBaseController gazeInteractor;
     public XRBaseController leftController;
