@@ -1352,7 +1352,7 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: 3475282811176295168}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &3475282811176295168
@@ -1380,12 +1380,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717954561962503725}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910385dbdafb7ac46b66dc1523faebcd, type: 3}
+  m_Script: {fileID: 11500000, guid: 4338d98c52e37b54c8159250bf09515f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1767192433}
-  leftHand: {fileID: 202364687}
-  rightHand: {fileID: 1670256624}
+  inputManager: {fileID: 0}
 --- !u!1 &1787516059220952802
 GameObject:
   m_ObjectHideFlags: 0

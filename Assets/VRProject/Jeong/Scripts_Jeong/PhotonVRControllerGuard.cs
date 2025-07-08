@@ -1,16 +1,25 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class PhotonVRControllerGuard : MonoBehaviourPun
 {
     [Header("내가 조작 가능한 오브젝트들")]
-    [SerializeField] GameObject mainCamera;
-    [SerializeField] GameObject leftHand;
-    [SerializeField] GameObject rightHand;
+    //[SerializeField] private GameObject mainCamera;
+    //[SerializeField] private GameObject leftHand;
+    //[SerializeField] private GameObject rightHand;
+    private InputActionManager inputManager; // 추가
 
+    private void Awake()
+    {
+        inputManager = FindObjectOfType<InputActionManager>();
+    }
     void Start()
     {
+        Debug.Log($"[Guard] IsMine: {photonView.IsMine}");
+
         if (!photonView.IsMine)
         {
             DisableOthers();
@@ -18,16 +27,23 @@ public class PhotonVRControllerGuard : MonoBehaviourPun
     }
 
     void DisableOthers()
-    {
-        // 내 것만 카메라와 사운드 사용
+    {/*
+        // 카메라 & 오디오
         if (mainCamera.TryGetComponent(out Camera cam))
             cam.enabled = false;
         if (mainCamera.TryGetComponent(out AudioListener listener))
             listener.enabled = false;
 
-        // 입력 막기
+        // 입력 막기 (손)
         DisableInput(leftHand);
-        DisableInput(rightHand);
+        DisableInput(rightHand);*/
+
+        // 내 입력만 켜지도록 InputActionManager 비활성화
+        if (inputManager != null)
+        {
+            Debug.Log("[Guard] Disabling InputActionManager for non-owner.");
+            inputManager.enabled = false;
+        }
     }
 
     void DisableInput(GameObject hand)
