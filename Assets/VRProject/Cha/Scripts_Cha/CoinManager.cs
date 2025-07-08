@@ -24,7 +24,7 @@ public class CoinManager
     }
 
     /// <summary>
-    /// 코인을 추가합니다. 최대 금액을 초과할 수 없습니다.
+    /// 코인 추가. 최대 금액 초과 X.
     /// </summary>
     /// <returns>성공 여부</returns>
     public bool AddCoins(int amount)
@@ -42,7 +42,7 @@ public class CoinManager
     }
 
     /// <summary>
-    /// 코인을 차감합니다. 보유 금액보다 클 경우 실패합니다.
+    /// 코인 차감. 보유 금액보다 클 경우 실패.
     /// </summary>
     /// <returns>성공 여부</returns>
     public bool UseCoins(int amount)
