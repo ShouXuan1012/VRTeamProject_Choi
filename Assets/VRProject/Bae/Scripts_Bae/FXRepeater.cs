@@ -11,7 +11,7 @@ public class FXRepeater : MonoBehaviour
     public float destroyDelay = 5f;
 
     [Header("이펙트 생성 위치")]
-    public Transform spawnPoint;
+    public Transform[] spawnPoints;
 
     void Start()
     {
@@ -22,11 +22,11 @@ public class FXRepeater : MonoBehaviour
     {
         while (true)
         {
-            // 이펙트 생성
-            GameObject fx = Instantiate(fxPrefab, spawnPoint.position, spawnPoint.rotation);
-
-            // 이펙트 파괴
-            Destroy(fx, destroyDelay);
+            foreach(Transform point in spawnPoints)
+            {
+                GameObject fx = Instantiate(fxPrefab, point.position, point.rotation);
+                Destroy(fx, destroyDelay);
+            }
 
             // 다음 반복 까지 대기
             yield return new WaitForSeconds(interval);
