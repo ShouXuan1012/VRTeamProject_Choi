@@ -27,6 +27,9 @@ public class VRAvatarIKController : MonoBehaviourPun
     [Header("머리 본 (아바타 머리 뼈)")]
     public Transform headBone;
 
+    [SerializeField] private Transform chest;
+    [SerializeField] private float maxHeadOffset = 0.3f;
+
     private Animator animator;
 
     void Start()
@@ -60,9 +63,14 @@ public class VRAvatarIKController : MonoBehaviourPun
             handModelRight.position = rightHandTarget.position;
             handModelRight.rotation = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
         }
-        if (headTarget != null && headBone != null)
+        if (headTarget != null && headBone != null && chest != null)
         {
-            headBone.position = headTarget.position;
+            Vector3 offset = headTarget.position - chest.position;
+
+            if (offset.magnitude > maxHeadOffset)
+                offset = offset.normalized * maxHeadOffset;
+
+            headBone.position = chest.position + offset;
             headBone.rotation = headTarget.rotation;
         }
     }

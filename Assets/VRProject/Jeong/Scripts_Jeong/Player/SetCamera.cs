@@ -9,11 +9,15 @@ public class SetCamera : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            playerCamera.gameObject.SetActive(true);
+            playerCamera.enabled = true;
+            var listener = playerCamera.GetComponent<AudioListener>();
+            if (listener != null) listener.enabled = true;
         }
         else
         {
-            playerCamera.gameObject.SetActive(false);
+            playerCamera.enabled = false;
+            var listener = playerCamera.GetComponent<AudioListener>();
+            if (listener != null) listener.enabled = false;
         }
     }
 }
