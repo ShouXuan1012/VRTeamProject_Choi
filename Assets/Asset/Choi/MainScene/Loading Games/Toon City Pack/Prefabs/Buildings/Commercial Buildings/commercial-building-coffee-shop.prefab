@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8287941426295723801}
   - component: {fileID: 4948177557487278268}
   - component: {fileID: 7156081322937953398}
-  - component: {fileID: -3149321796277699223}
+  - component: {fileID: 2920459890120064320}
   m_Layer: 0
   m_Name: commercial-building-coffee-shop
   m_TagString: Untagged
@@ -112,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.4981999, z: 1.5610901}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4843124822054798842}
@@ -169,18 +169,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-3149321796277699223
-MonoBehaviour:
+--- !u!64 &2920459890120064320
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8669286879879335331}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed30bcd987450da4ebab77b8c7d28e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  windowMaterialIndex: 1
-  lightColor: {r: 0.41568628, g: 0.36078432, b: 0.14117648, a: 1}
-  areLightsOn: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 662440170046851550, guid: 4e452fc9aaac34b03b583851cfe966d4, type: 3}
