@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class VRAvatarIKControllerPun2 : MonoBehaviourPun
+public class VRAvatarIKController : MonoBehaviourPun
 {
     [Header("IK 타겟 (컨트롤러 위치)")]
     public Transform leftHandTarget;
