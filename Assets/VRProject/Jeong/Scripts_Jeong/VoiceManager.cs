@@ -1,18 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Voice.Unity;
 using UnityEngine;
 
 public class VoiceManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static VoiceManager instance;
+
+    private Recorder recorder;
+    private bool isMuted = false;
+
+    void Awake()
     {
-        
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        recorder = GetComponent<Recorder>();
+        if (recorder == null)
+        {
+            recorder = FindObjectOfType<Recorder>();
+        }
     }
+    public void ToggleMute()
+    {
+        if (recorder == null) return;
+
+        isMuted = !isMuted;
+        recorder.TransmitEnabled = !isMuted;
+    }
+    public bool IsMuted()
+    {
+        return isMuted;
+    }
+
 }
