@@ -39,5 +39,8 @@ public class VoiceManager : MonoBehaviour
     {
         return isMuted;
     }
-
+    public bool IsMicrophoneAvailable()
+    {
+        return Microphone.devices != null && Microphone.devices.Length > 0;
+    }
 }
