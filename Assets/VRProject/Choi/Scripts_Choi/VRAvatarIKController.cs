@@ -1,7 +1,8 @@
-using Photon.Pun;
 using UnityEngine;
+// using Photon.Pun; // 멀티 붙일 때 다시 활성화
 
-public class VRAvatarIKController : MonoBehaviourPun
+// public class VRAvatarIKControllerPun2 : MonoBehaviourPun
+public class VRAvatarIKControllerPun2 : MonoBehaviour
 {
     [Header("IK 타겟 (컨트롤러 위치)")]
     public Transform leftHandTarget;
@@ -29,25 +30,25 @@ public class VRAvatarIKController : MonoBehaviourPun
         animator = GetComponent<Animator>();
 
         // 멀티 체크 제거 → 항상 내 시점 기준
-        if (photonView.IsMine)
-        {
-            if (bodyMeshRoot != null) bodyMeshRoot.SetActive(false);
-            if (handMeshRoot != null) handMeshRoot.SetActive(true);
-        }
-        else
-        {
-            if (bodyMeshRoot != null) bodyMeshRoot.SetActive(true);
-            if (handMeshRoot != null) handMeshRoot.SetActive(false);
-        }
+        // if (photonView.IsMine)
+        // {
+        if (bodyMeshRoot != null) bodyMeshRoot.SetActive(false);
+        if (handMeshRoot != null) handMeshRoot.SetActive(true);
+        // }
+        // else
+        // {
+        //     if (bodyMeshRoot != null) bodyMeshRoot.SetActive(true);
+        //     if (handMeshRoot != null) handMeshRoot.SetActive(false);
+        // }
     }
 
     void LateUpdate()
     {
-        if (!photonView.IsMine) return;
+        // if (!photonView.IsMine) return;
 
         if (handModelLeft != null && leftHandTarget != null)
         {
-            handModelLeft.position = leftHandTarget.position;
+            handModelLeft.position = leftHandTarget.position; 
             handModelLeft.rotation = leftHandTarget.rotation * Quaternion.Euler(leftHandRotationOffset);
         }
 
@@ -60,7 +61,7 @@ public class VRAvatarIKController : MonoBehaviourPun
 
     void OnAnimatorIK(int layerIndex)
     {
-        if (!photonView.IsMine || animator == null) return;
+        // if (!photonView.IsMine || animator == null) return;
         if (animator == null) return;
 
         if (leftHandTarget != null)
