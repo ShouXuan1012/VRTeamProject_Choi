@@ -1,7 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
@@ -114,6 +113,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         ui.SetStatusText("룸에 성공적으로 입장했습니다.");
         ui.SetUIState(LobbyUIState.Default);
 
-        SceneManager.LoadScene("MainGameScene");
+        PhotonNetwork.LoadLevel("MainGameScene");
     }
 }
