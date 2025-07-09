@@ -1,8 +1,7 @@
 using UnityEngine;
-// using Photon.Pun; // 멀티 붙일 때 다시 활성화
+using Photon.Pun; // 멀티 붙일 때 다시 활성화
 
-// public class VRAvatarIKControllerPun2 : MonoBehaviourPun
-public class VRAvatarIKControllerPun2 : MonoBehaviour
+public class VRAvatarIKController : MonoBehaviourPun
 {
     [Header("IK 타겟 (컨트롤러 위치)")]
     public Transform leftHandTarget;
@@ -22,6 +21,11 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
     [Header("오른손 오프셋")]
     public Vector3 rightHandRotationOffset;
 
+    [Header("머리 타겟 (HMD)")]
+    public Transform headTarget;
+
+    [Header("머리 본 (아바타 머리 뼈)")]
+    public Transform headBone;
 
     private Animator animator;
 
@@ -30,21 +34,20 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // 멀티 체크 제거 → 항상 내 시점 기준
-        // if (photonView.IsMine)
-        // {
+         if (photonView.IsMine)
+         {
         if (bodyMeshRoot != null) bodyMeshRoot.SetActive(false);
         if (handMeshRoot != null) handMeshRoot.SetActive(true);
-        // }
-        // else
-        // {
-        //     if (bodyMeshRoot != null) bodyMeshRoot.SetActive(true);
-        //     if (handMeshRoot != null) handMeshRoot.SetActive(false);
-        // }
+         }
+         else
+         {
+             if (bodyMeshRoot != null) bodyMeshRoot.SetActive(true);
+             if (handMeshRoot != null) handMeshRoot.SetActive(false);
+         }
     }
 
     void LateUpdate()
     {
-        // if (!photonView.IsMine) return;
 
         if (handModelLeft != null && leftHandTarget != null)
         {
@@ -57,11 +60,15 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
             handModelRight.position = rightHandTarget.position;
             handModelRight.rotation = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
         }
+        if (headTarget != null && headBone != null)
+        {
+            headBone.position = headTarget.position;
+            headBone.rotation = headTarget.rotation;
+        }
     }
 
     void OnAnimatorIK(int layerIndex)
     {
-        // if (!photonView.IsMine || animator == null) return;
         if (animator == null) return;
 
         if (leftHandTarget != null)
@@ -78,6 +85,6 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
             animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
             animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandTarget.position);
             animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandTarget.rotation);
-        }
+        }      
     }
 }
