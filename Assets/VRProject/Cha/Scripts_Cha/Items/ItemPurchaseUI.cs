@@ -15,7 +15,7 @@ public class ItemPurchaseUI : MonoBehaviour
 
     private void OnClickYes()
     {
-        CoinManager.Instance.UseCoins(price);
+        
 
         if (CoinManager.Instance.UseCoins(price))
         {

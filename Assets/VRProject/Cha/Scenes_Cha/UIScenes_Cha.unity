@@ -200,6 +200,8 @@ MonoBehaviour:
   magnifierUI: {fileID: 4308587512261277144, guid: 001cfcef695a614459eca33bb4391999,
     type: 3}
   maxDistance: 20
+  holdDuration: 0.3
+  sphereRadius: 0.1
   itemLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1497,11 +1499,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinCounterUI
       objectReference: {fileID: 0}
-    - target: {fileID: 5400737043346039710, guid: c3d1268b9b15c434f9a862e8016de959,
-        type: 3}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7174721538269757684, guid: c3d1268b9b15c434f9a862e8016de959,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1580,7 +1577,7 @@ PrefabInstance:
     - target: {fileID: 7174721538269757684, guid: c3d1268b9b15c434f9a862e8016de959,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.25
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: 7174721538269757684, guid: c3d1268b9b15c434f9a862e8016de959,
         type: 3}
@@ -1620,24 +1617,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeatMarket
       objectReference: {fileID: 0}
-    - target: {fileID: 6213337736370835905, guid: 1b84dc89ed020554c9cc2588c53037f0,
-        type: 3}
-      propertyPath: purchaseUIPrefab
-      value: 
-      objectReference: {fileID: 4701628549377017102, guid: 500fb168ccb47b348b07accd01e04794,
-        type: 3}
-    - target: {fileID: 7970123635345056582, guid: 1b84dc89ed020554c9cc2588c53037f0,
-        type: 3}
-      propertyPath: purchaseUIPrefab
-      value: 
-      objectReference: {fileID: 4701628549377017102, guid: 500fb168ccb47b348b07accd01e04794,
-        type: 3}
-    - target: {fileID: 8340690474598716448, guid: 1b84dc89ed020554c9cc2588c53037f0,
-        type: 3}
-      propertyPath: purchaseUIPrefab
-      value: 
-      objectReference: {fileID: 4701628549377017102, guid: 500fb168ccb47b348b07accd01e04794,
-        type: 3}
     - target: {fileID: 8780020690617722238, guid: 1b84dc89ed020554c9cc2588c53037f0,
         type: 3}
       propertyPath: m_LocalPosition.x
