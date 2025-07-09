@@ -119,6 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a92c79c4ff72594ba0a62748fc54a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoPanel: {fileID: 3984295267772590472, guid: 1792308d2a9f65c48aa2ca59f4de2ba9,
+  purchaseUIPrefab: {fileID: 4814735091203177957, guid: 1e857259050e5d1409896beebe422e51,
     type: 3}
-  price: 10000
+  uiParent: {fileID: 0}

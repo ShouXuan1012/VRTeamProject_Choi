@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    private static CoinManager instance;
-    public static CoinManager Instance
-    {
-        get
-        {
-            if (instance == null)
-                instance = new CoinManager();
-            return instance;
-        }
-    }
+    
+    public static CoinManager Instance { get; private set; }
+    
 
     private const int MAX_COINS = 316000;
     private int currentCoins;
 
     public int CurrentCoins => currentCoins;
 
-    private CoinManager()
+  
+    private void Awake()
     {
-        currentCoins = MAX_COINS; // 초기 자본
-    }
+        if(Instance!=null&&Instance!=this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        Instance = this;
+        currentCoins = MAX_COINS;
+        DontDestroyOnLoad(gameObject);
+    }
     /// <summary>
     /// 코인 추가. 최대 금액 초과 X.
     /// </summary>
@@ -50,9 +51,10 @@ public class CoinManager : MonoBehaviour
     public bool UseCoins(int amount)
     {
         if (amount <= 0 || amount > currentCoins)
-            return false;
+        { return false; }
 
-        currentCoins -= amount;
+        if (currentCoins > amount)
+        { currentCoins -= amount; }
         return true;
     }
 }

@@ -4,33 +4,12 @@ using UnityEngine;
 
 public class InspectableItem : MonoBehaviour
 {
-    public GameObject infoPanel;
-    public int price;
-    //public AudioClip useSound;
-    //public GameObject usevfx;
+    public GameObject purchaseUIPrefab;
+   
 
-    public void ShowInfo()
+    public void ShowPurchaseUI()
     {
-        infoPanel.SetActive(true);
+        Instantiate(purchaseUIPrefab);
     }
-    public void HideInfo()
-    {
-        infoPanel.SetActive(false);
-    }
-    public void TryPurchase()
-    {
-        PurchasePopup.Instance.Show(() =>
-        {
-            if (CoinManager.Instance.UseCoins(price))
-            { //if (useSound != null)
-                   // AudioManager.Instance.Play(useSound.name);
-                //if (usevfx != null)
-                    //Instantiate(usevfx, transform.position, Quaternion.identity);
-
-            }
-            else
-            { Debug.Log("코인이 부족합니다."); }
-
-        },this);
-    }
+   
 }

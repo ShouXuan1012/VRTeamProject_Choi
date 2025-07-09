@@ -127,7 +127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000030013075}
+  m_AnchoredPosition: {x: 0, y: 0.0007670022}
   m_SizeDelta: {x: 0, y: 364.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &9130423729549899902
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c443feab0fd7e294ea953fd6adaf885a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 409186a09ee0f29409f46b9a3f8aeadc, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -484,7 +484,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "100% \uC624\uB80C\uC9C0 \uC8FC\uC2A4"
+  m_Text: "\uC218\uD604\uC655\uAC08\uBE44"
 --- !u!114 &2359380678160734756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 5551337890408589030}
   - component: {fileID: 3887093904590750326}
   m_Layer: 5
-  m_Name: OrangeJuiceInfoUI
+  m_Name: MeatInfoUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,9 +650,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3984295267772590472}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8257157497739188392}
@@ -878,7 +878,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uB378\uBAAC\uD2B8\uB3C4 \uBD80\uB7EC\uC6CC\uD558\uB294\""
+  m_Text: "\"\uC18C\uBB38\uB09C \uD56B\uD50C \uACE0\uAE43\uC9D1\""
 --- !u!114 &2042303358155496813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,7 +978,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "20000\uC6D0"
+  m_Text: "100,000\uC6D0"
 --- !u!114 &7569613164805081906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,8 +1034,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.010009766, y: -18.5}
-  m_SizeDelta: {x: -27.55, y: -83.6}
+  m_AnchoredPosition: {x: 0.010009766, y: -13.349991}
+  m_SizeDelta: {x: -27.550018, y: -73.30002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2967048359845803348
 MonoBehaviour:
@@ -1227,9 +1227,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC218\uD604\uD2B9\uB840\uC2DC \uC2DC\uC7A5\uAED8\uC11C \n\uC9C1\uC811
-    \uB534 \uC624\uB80C\uC9C0\uB97C \n\uC190\uC218 \uAC08\uC544 \uB9CC\uB4E0\n\uD2B9\uAE09
-    \uC624\uB80C\uC9C0\uC8FC\uC2A4\n"
+  m_Text: "\uC9C0\uAE00\uAC70\uB9AC\uB294 \uC18C\uB9AC\uB294\n\uB9C8\uCE58 \uBE57\uC18C\uB9AC
+    \uAC19\uACE0\n\uC785\uC548\uC5D0\uC11C \uB179\uB294 \uC18D\uB3C4\uB294\n\uD1B5\uC7A5\uC5D0
+    \uC788\uB294 \uB3C8\uC774 \uC0AC\uB77C\uC9C0\uB294\n\uC18D\uB3C4\uBCF4\uB2E4
+    \uBE60\uB974\uB2E4"
 --- !u!1 &9011085941388126970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,7 +1309,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Orange Juice
+  m_Text: Meat
 --- !u!1 &9199043583470510426
 GameObject:
   m_ObjectHideFlags: 0

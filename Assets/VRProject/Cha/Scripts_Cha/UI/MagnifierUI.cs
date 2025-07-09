@@ -1,27 +1,34 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MagnifierUI : MonoBehaviour
 {
     private InspectableItem currentTarget;
 
-    public void SetTarget(InspectableItem item)
+    public Transform uiParent;  
+
+    public void SetTarget(InspectableItem item ,Transform Parent)
     {
         currentTarget = item;
-        gameObject.SetActive(true); // µ¸º¸±â UI º¸ÀÌ±â
+        uiParent = Parent;
     }
 
-    public void ClearTarget()
-    {
-        currentTarget = null;
-        gameObject.SetActive(false); // ½Ã¾ß ¹þ¾î³ª¸é ¼û±è
+   public void ClearTarget()
+    { 
+        currentTarget = null; 
     }
-
     public void OnClick()
     {
-        if (currentTarget != null)
+        if (currentTarget == null)
         {
-            currentTarget.TryPurchase();
-            currentTarget.ShowInfo();
+            return;
         }
+        if(currentTarget.purchaseUIPrefab==null)
+        {
+            return;
+        }
+        Instantiate(currentTarget.purchaseUIPrefab,uiParent);
     }
+
+
 }
