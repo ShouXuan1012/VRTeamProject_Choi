@@ -17,11 +17,9 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
     public GameObject handMeshRoot;  // 내가 보는 손 오브젝트 묶음
 
     [Header("왼손 오프셋")]
-    public Vector3 leftHandPositionOffset;
     public Vector3 leftHandRotationOffset;
 
     [Header("오른손 오프셋")]
-    public Vector3 rightHandPositionOffset;
     public Vector3 rightHandRotationOffset;
 
 
@@ -50,13 +48,13 @@ public class VRAvatarIKControllerPun2 : MonoBehaviour
 
         if (handModelLeft != null && leftHandTarget != null)
         {
-            handModelLeft.position = leftHandTarget.position + leftHandPositionOffset;
+            handModelLeft.position = leftHandTarget.position; 
             handModelLeft.rotation = leftHandTarget.rotation * Quaternion.Euler(leftHandRotationOffset);
         }
 
         if (handModelRight != null && rightHandTarget != null)
         {
-            handModelRight.position = rightHandTarget.position + rightHandPositionOffset;
+            handModelRight.position = rightHandTarget.position;
             handModelRight.rotation = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
         }
     }
