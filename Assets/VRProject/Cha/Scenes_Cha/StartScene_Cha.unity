@@ -21726,10 +21726,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_Select
       objectReference: {fileID: 0}
+    - target: {fileID: 6234423429400649683, guid: 8399f7c600bbf9a438605e1381f5b327,
+        type: 3}
+      propertyPath: m_Text
+      value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234423429400649683, guid: 8399f7c600bbf9a438605e1381f5b327,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234423429400649683, guid: 8399f7c600bbf9a438605e1381f5b327,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6259521711777822521, guid: 8399f7c600bbf9a438605e1381f5b327,
         type: 3}
       propertyPath: m_Interactable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311790559080914341, guid: 8399f7c600bbf9a438605e1381f5b327,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 7483691224095192651, guid: 8399f7c600bbf9a438605e1381f5b327,
         type: 3}
