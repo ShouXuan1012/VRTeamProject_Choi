@@ -5,8 +5,34 @@ public class CoinUI : MonoBehaviour
 {
     public Text coinText;
 
-    void Update()
+    private void Start()
     {
-        coinText.text = $"{CoinManager.Instance.CurrentCoins:N0}₩";
+        if(CoinManager.Instance != null)
+        {
+            CoinManager.Instance.OnCoinChanged += UpdateCoinText;
+            UpdateCoinText(CoinManager.Instance.CurrentCoins);
+        }
+    }
+
+    void OnEnable()
+    {
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.OnCoinChanged += UpdateCoinText;
+            UpdateCoinText(CoinManager.Instance.CurrentCoins);
+        }
+             
+    }
+    void OnDisable()
+    {
+     if(CoinManager.Instance!= null)
+        {
+            CoinManager.Instance.OnCoinChanged -=UpdateCoinText;
+        }
+    }
+
+    void UpdateCoinText(int coins)
+    {
+        coinText.text = $"{coins:N0}₩";
     }
 }

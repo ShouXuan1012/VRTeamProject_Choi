@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class ItemDetector : MonoBehaviour
 {
-    public GameObject magnifierUI; // 돋보기 UI 참조
+    public MagnifierUI magnifierUI; // 돋보기 UI 참조
     public float maxDistance = 5f;  // 감지 거리 조절
     public float holdDuration = 0.3f;  // 벗어나도 유지되는 시간
     public float sphereRadius = 0.1f;  // 감지 반지름
     public LayerMask itemLayerMask;
-    public Transform uiParent;
+   
 
     private InspectableItem currentItem;
-    private GameObject currentMagnifier;
     private float lostTime = 0f;
 
     void Update()
@@ -25,12 +24,8 @@ public class ItemDetector : MonoBehaviour
                 if (item != currentItem)
                 {
                     currentItem = item;
-                    if (currentMagnifier != null)
-                    { Destroy(currentMagnifier); }
-
-                    currentMagnifier = Instantiate(magnifierUI, uiParent);
-                    var magnifier = currentMagnifier.GetComponent<MagnifierUI>();
-                    magnifier.SetTarget(item,uiParent);
+                    magnifierUI.gameObject.SetActive(true);
+                    magnifierUI.SetTarget(item);
                     
                 }
                 lostTime = 0f;
@@ -44,13 +39,8 @@ public class ItemDetector : MonoBehaviour
             if (lostTime > holdDuration)
             {
                 currentItem = null;
-
-
-                if (currentMagnifier != null)
-                {
-                    Destroy(currentMagnifier);
-                    currentMagnifier = null;
-                }
+                magnifierUI.ClearTarget();
+                magnifierUI.gameObject.SetActive(false);
             }
         }
     }
