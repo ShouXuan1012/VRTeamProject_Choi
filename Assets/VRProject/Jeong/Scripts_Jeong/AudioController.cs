@@ -15,11 +15,12 @@ public class AudioController : MonoBehaviourPunCallbacks
             musicSource = GetComponent<AudioSource>();
         }
     }
-
-    public override void OnJoinedRoom()
+    private void Start()
     {
+        Debug.Log("방 들어옴");
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("마스터임");
             musicStartTime = (float)PhotonNetwork.Time;
             photonView.RPC("PlayAudio", RpcTarget.All, musicStartTime);
 
@@ -27,12 +28,19 @@ public class AudioController : MonoBehaviourPunCallbacks
             Hashtable props = new Hashtable { { "MusicStartTime", musicStartTime } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
-    }
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-    {
-        if (PhotonNetwork.IsMasterClient)
+        else
         {
-            photonView.RPC("PlayAudio", newPlayer, musicStartTime);
+            Debug.Log("마스터 아님");
+            // 다른 플레이어는 마스터가 설정한 음악 시작 시간을 가져옴
+            if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("MusicStartTime", out object startTime))
+            {
+                musicStartTime = (float)startTime;
+                photonView.RPC("PlayAudio", RpcTarget.All, musicStartTime);
+            }
+            else
+            {
+                Debug.LogWarning("음악 시작 시간이 설정되지 않았습니다.");
+            }
         }
     }
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
@@ -46,6 +54,7 @@ public class AudioController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void PlayAudio(float startTime)
     {
+        Debug.Log("PlayAudio RPC 호출됨, 시작 시간: " + startTime);
         if (musicSource != null && !musicSource.isPlaying)
         {
             float timeSinceStart = (float)PhotonNetwork.Time - startTime; // 경과 시간
