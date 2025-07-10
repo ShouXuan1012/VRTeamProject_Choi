@@ -1,31 +1,41 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
-public class VRMovementAnimator : MonoBehaviour
+public class VRMovementAnimator : MonoBehaviourPun
 {
+    [SerializeField] private ActionBasedContinuousMoveProvider moveProvider;
+    [SerializeField] private float inputThreshold = 0.05f;
 
-    [Header("VR 움직임 체크용 Character Controller")]
-    [SerializeField] private CharacterController characterController;
-
-    [Header("속도 임계값 (정지 vs 이동 판단)")]
-    [SerializeField] private float moveThreshold = 0.05f;
-
-    private Animator avatarAnimator;
+    private Animator animator;
     private bool wasMoving = false;
-    void Start()
+
+    private void Start()
     {
-        avatarAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
+
     void Update()
     {
-        if (avatarAnimator == null || characterController == null) return;
+        if (!photonView.IsMine || moveProvider == null || animator == null) return;
 
-        float speed = characterController.velocity.magnitude;
-        bool isMoving = speed > moveThreshold;
+        Vector2 moveInput = moveProvider.leftHandMoveAction.action.ReadValue<Vector2>();
+        bool isMoving = moveInput.magnitude > inputThreshold;
 
         if (isMoving != wasMoving)
         {
-            avatarAnimator.SetBool("isMoving", isMoving);
+            animator.SetBool("isMoving", isMoving); // 내 애니메이션
+            photonView.RPC("SetMovingAnim", RpcTarget.Others, isMoving); // 다른 사람에게 동기화
             wasMoving = isMoving;
         }
+    }
+
+    [PunRPC]
+    public void SetMovingAnim(bool isMoving)
+    {
+        if (photonView.IsMine) return; // 내 캐릭터는 직접 처리했으므로 제외
+        if (animator == null) animator = GetComponent<Animator>();
+
+        animator.SetBool("isMoving", isMoving);
     }
 }

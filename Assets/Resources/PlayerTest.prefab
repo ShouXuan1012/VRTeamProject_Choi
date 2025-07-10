@@ -2781,8 +2781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d853dfeba9eabc64685ad9fd9311e32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 1923736072442071392}
-  moveThreshold: 0.01
+  moveProvider: {fileID: 5687587737010921531}
+  inputThreshold: 0.05
 --- !u!4 &8555420500029387859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4385057555711349904, guid: b1454b4ab36f3b34d821dd45a7541a34,
