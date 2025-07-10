@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 5534171017977106088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36144, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2664,12 +2664,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5359335237501968579}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4907504384487778225 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1043386216878770034, guid: b1454b4ab36f3b34d821dd45a7541a34,
-    type: 3}
-  m_PrefabInstance: {fileID: 5359335237501968579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8269476757128880375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4081169789388439604, guid: b1454b4ab36f3b34d821dd45a7541a34,
@@ -2698,8 +2692,14 @@ MonoBehaviour:
   rightHandRotationOffset: {x: -90, y: -45, z: 0}
   headTarget: {fileID: 5534171018059764360}
   headBone: {fileID: 4695748785884350794}
-  chest: {fileID: 4907504384487778225}
-  maxHeadOffset: 0.4
+  chest: {fileID: 8555420500029387859}
+  maxHeadOffset: 0.05
+--- !u!4 &8555420500029387859 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4385057555711349904, guid: b1454b4ab36f3b34d821dd45a7541a34,
+    type: 3}
+  m_PrefabInstance: {fileID: 5359335237501968579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5431874046508345612
 PrefabInstance:
   m_ObjectHideFlags: 0
