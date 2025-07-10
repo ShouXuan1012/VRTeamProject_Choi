@@ -1591,6 +1591,7 @@ GameObject:
   - component: {fileID: 6425173829944246822}
   - component: {fileID: 8677173812986068295}
   - component: {fileID: -4694417685689107173}
+  - component: {fileID: 8813747231072418280}
   m_Layer: 2
   m_Name: PlayerTest
   m_TagString: Untagged
@@ -1826,6 +1827,26 @@ MonoBehaviour:
   gazeInteractor: {fileID: 2454109251597444278}
   leftController: {fileID: 5534171018650465006}
   rightController: {fileID: 5534171017954325006}
+--- !u!114 &8813747231072418280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564618412162190295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b0a28bde996e345a53f512417243fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftPokeInteractor: {fileID: 8109464522146079577}
+  leftRayInteractor: {fileID: 5708518193131298301}
+  leftDirectInteractor: {fileID: 7855699749847001051}
+  leftTeleportInteractor: {fileID: 5534171017599672050}
+  rightPokeInteractor: {fileID: 5869878542600963904}
+  rightRayInteractor: {fileID: 5516602223854682486}
+  rightDirectInteractor: {fileID: 2245200675263878702}
+  rightTeleportInteractor: {fileID: 7868412329682483947}
 --- !u!1 &7546147344873628052
 GameObject:
   m_ObjectHideFlags: 0
