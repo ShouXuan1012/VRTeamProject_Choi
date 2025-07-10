@@ -71,20 +71,7 @@ public class VRAvatarIKController : MonoBehaviourPun
                 offset = offset.normalized * maxHeadOffset;
 
             headBone.position = chest.position + offset;
-
-            // 회전 제한 적용 (Y축 기준)
-            Vector3 euler = headTarget.rotation.eulerAngles;
-
-            // Unity는 0~360도로 반환하니까 -180~180으로 변환
-            float y = euler.y;
-            if (y > 180f) y -= 360f;
-
-            y = Mathf.Clamp(y, -90f, 90f);  // 제한
-
-            // X, Z축은 그대로 두거나 별도로 제한 가능
-            Quaternion clampedRotation = Quaternion.Euler(euler.x, y, euler.z);
-
-            headBone.rotation = clampedRotation;
+            headBone.rotation = headTarget.rotation;
         }
     }
 
