@@ -35,7 +35,7 @@ public class AudioController : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("MusicStartTime", out object startTime))
             {
                 musicStartTime = (float)startTime;
-                photonView.RPC("PlayAudio", RpcTarget.All, musicStartTime);
+                photonView.RPC("PlayAudio", PhotonNetwork.LocalPlayer, musicStartTime);
             }
             else
             {
