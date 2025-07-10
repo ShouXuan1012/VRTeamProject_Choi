@@ -2562,31 +2562,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 7846047125777167234, guid: b1454b4ab36f3b34d821dd45a7541a34,
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
-      propertyPath: m_Controller
+      propertyPath: headTarget
       value: 
-      objectReference: {fileID: 9100000, guid: 3db605bd7f2bc72409b20f65c21e645e, type: 2}
-    - target: {fileID: 7846047125777167234, guid: b1454b4ab36f3b34d821dd45a7541a34,
+      objectReference: {fileID: 5534171018059764360}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
-      propertyPath: m_CullingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
+      propertyPath: handMeshRoot
+      value: 
+      objectReference: {fileID: 742789034673560185}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
+      propertyPath: handModelLeft
+      value: 
+      objectReference: {fileID: 670791789102691903}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
+      propertyPath: handModelRight
+      value: 
+      objectReference: {fileID: 5004925092822373516}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.75
-      objectReference: {fileID: 0}
+      propertyPath: leftHandTarget
+      value: 
+      objectReference: {fileID: 5534171018650465002}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
+        type: 3}
+      propertyPath: rightHandTarget
+      value: 
+      objectReference: {fileID: 5534171017954325003}
     - target: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2640,63 +2645,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4081169789388439604, guid: b1454b4ab36f3b34d821dd45a7541a34,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1186376178046374794}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1454b4ab36f3b34d821dd45a7541a34, type: 3}
---- !u!1 &698678603037560245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4886998766075358582, guid: b1454b4ab36f3b34d821dd45a7541a34,
-    type: 3}
-  m_PrefabInstance: {fileID: 5359335237501968579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4125100564918501433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
-    type: 3}
-  m_PrefabInstance: {fileID: 5359335237501968579}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4695748785884350794 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 813614022956034441, guid: b1454b4ab36f3b34d821dd45a7541a34,
-    type: 3}
-  m_PrefabInstance: {fileID: 5359335237501968579}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8269476757128880375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4081169789388439604, guid: b1454b4ab36f3b34d821dd45a7541a34,
-    type: 3}
-  m_PrefabInstance: {fileID: 5359335237501968579}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1186376178046374794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8269476757128880375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd82778fc56780747b287f75dbddbfab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandTarget: {fileID: 5534171018650465002}
-  rightHandTarget: {fileID: 5534171017954325003}
-  handModelLeft: {fileID: 670791789102691903}
-  handModelRight: {fileID: 5004925092822373516}
-  bodyMeshRoot: {fileID: 698678603037560245}
-  handMeshRoot: {fileID: 742789034673560185}
-  leftHandRotationOffset: {x: 90, y: 45, z: 0}
-  rightHandRotationOffset: {x: -90, y: -45, z: 0}
-  headTarget: {fileID: 5534171018059764360}
-  headBone: {fileID: 4695748785884350794}
-  chest: {fileID: 8555420500029387859}
-  maxHeadOffset: 0.05
---- !u!4 &8555420500029387859 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4385057555711349904, guid: b1454b4ab36f3b34d821dd45a7541a34,
     type: 3}
   m_PrefabInstance: {fileID: 5359335237501968579}
   m_PrefabAsset: {fileID: 0}

@@ -63,15 +63,22 @@ public class VRAvatarIKController : MonoBehaviourPun
             handModelRight.position = rightHandTarget.position;
             handModelRight.rotation = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
         }
-        if (headTarget != null && headBone != null && chest != null)
+        if (headTarget != null && chest != null && headBone != null)
         {
             Vector3 offset = headTarget.position - chest.position;
 
+            // 거리 제한 (이미 너가 해둔 것 유지)
             if (offset.magnitude > maxHeadOffset)
                 offset = offset.normalized * maxHeadOffset;
 
             headBone.position = chest.position + offset;
-            headBone.rotation = headTarget.rotation;
+
+            // Y축 회전 제한 (몸 기준 -90~90도)
+            float angle = Vector3.SignedAngle(chest.forward, headTarget.forward, Vector3.up);
+            angle = Mathf.Clamp(angle, -90f, 90f);
+
+            Quaternion limitedRotation = Quaternion.AngleAxis(angle, Vector3.up) * Quaternion.LookRotation(chest.forward);
+            headBone.rotation = limitedRotation;
         }
     }
 
