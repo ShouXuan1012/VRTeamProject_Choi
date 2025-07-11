@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class XRCanvasButtonTrigger : MonoBehaviour
@@ -29,8 +30,6 @@ public class XRCanvasButtonTrigger : MonoBehaviour
         // 하차 버튼은 정류장 대기 중일 때만 활성화
         if (actionType == ActionType.Exit)
         {
-            Debug.Log($"[DEBUG] IsWaitingAtStop: {busController.IsWaitingAtStop}");
-
             if (busController != null)
             {
                 UICanvas.SetActive(true);
@@ -51,15 +50,30 @@ public class XRCanvasButtonTrigger : MonoBehaviour
             UICanvas.SetActive(false);
     }
 
-    public void OnButtonCliked()
+    public void OnButtonClicked()
     {
         if (actionType == ActionType.Board)
         {
             boardingManager.BoardBus();
+            StartCoroutine(HideUIAfterDelay(1.5f));
         }
         else
         {
             boardingManager.ExitBus();
+        }
+
+    }
+
+    private IEnumerator HideUIAfterDelay(float delay)
+    {
+        Debug.Log($"[{actionType}] 버튼 {delay}초 뒤 비활성화");
+
+        yield return new WaitForSeconds(delay);
+
+        if (UICanvas != null)
+        {
+            Debug.Log($"[{actionType}] UICanvas 비활성화됨");
+            UICanvas.SetActive(false);
         }
     }
 }

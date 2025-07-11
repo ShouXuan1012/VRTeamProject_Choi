@@ -407,8 +407,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -5913262927076077117, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -433,8 +432,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 875253871413052681, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleToggleAction:
     m_UseReference: 1
     m_Action:
@@ -446,8 +444,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -2524354804938687746, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleDeltaAction:
     m_UseReference: 1
     m_Action:
@@ -459,8 +456,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -6447266317303757838, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
 --- !u!114 &2834028789288668280
 MonoBehaviour:
@@ -1876,8 +1872,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -7363382999065477798, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -1902,8 +1897,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleToggleAction:
     m_UseReference: 1
     m_Action:
@@ -1915,8 +1909,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -335775248641796371, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleDeltaAction:
     m_UseReference: 1
     m_Action:
@@ -1928,8 +1921,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -1636515391019944688, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
 --- !u!114 &1756520527655266136
 MonoBehaviour:
@@ -2888,8 +2880,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -7363382999065477798, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -3552,8 +3543,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -5913262927076077117, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
