@@ -1435,6 +1435,26 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5534171018650465006, guid: 5eca5fa59f3056441bd5addaa4577b60,
+        type: 3}
+      propertyPath: m_ScaleDeltaAction.m_UseReference
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534171018650465006, guid: 5eca5fa59f3056441bd5addaa4577b60,
+        type: 3}
+      propertyPath: m_ScaleToggleAction.m_UseReference
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534171018650465006, guid: 5eca5fa59f3056441bd5addaa4577b60,
+        type: 3}
+      propertyPath: m_RotateAnchorAction.m_UseReference
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534171018650465006, guid: 5eca5fa59f3056441bd5addaa4577b60,
+        type: 3}
+      propertyPath: m_TranslateAnchorAction.m_UseReference
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6564618412162190292, guid: 5eca5fa59f3056441bd5addaa4577b60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1491,7 +1511,10 @@ PrefabInstance:
       value: PlayerTest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7546147344873628052, guid: 5eca5fa59f3056441bd5addaa4577b60, type: 3}
+    - {fileID: 5956628013240915380, guid: 5eca5fa59f3056441bd5addaa4577b60, type: 3}
+    - {fileID: 9062471822362252252, guid: 5eca5fa59f3056441bd5addaa4577b60, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5eca5fa59f3056441bd5addaa4577b60, type: 3}
