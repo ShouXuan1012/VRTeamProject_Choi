@@ -16,7 +16,7 @@ public class BusController : MonoBehaviour
 
     private int currentStopIndex = 0; // 현재 정류장 인덱스
 
-    public bool IsWaitingAtStop { get; private set; } = false; // 현재 정류장에서 대기 중인지 여부
+    public bool IsWaitingAtStop { get; private set; } // 현재 정류장에서 대기 중인지 여부
 
     private void Start()
     {
@@ -53,9 +53,5 @@ public class BusController : MonoBehaviour
             IsWaitingAtStop = false;
             currentStopIndex = (currentStopIndex + 1) % busStops.Length; // 다음 정류장으로 인덱스 이동
         }
-    }
-    void Update()
-    {
-        
     }
 }

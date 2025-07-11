@@ -96,6 +96,9 @@ public class BoardingManager : MonoBehaviour
         var controller = player.GetComponent<CharacterController>();
         if (controller != null) controller.enabled = false;
 
+        player.transform.position = exitPosition.position;
+        player.transform.rotation = exitPosition.rotation;
+
         if (currentSeatIndex != -1)
         {
             seatOccupied[currentSeatIndex] = false; // 현재 좌석 비우기

@@ -29,7 +29,9 @@ public class XRCanvasButtonTrigger : MonoBehaviour
         // 하차 버튼은 정류장 대기 중일 때만 활성화
         if (actionType == ActionType.Exit)
         {
-            if (busController != null && busController.IsWaitingAtStop)
+            Debug.Log($"[DEBUG] IsWaitingAtStop: {busController.IsWaitingAtStop}");
+
+            if (busController != null)
             {
                 UICanvas.SetActive(true);
             }
