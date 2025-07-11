@@ -3284,6 +3284,10 @@ MonoBehaviour:
   handMeshRoot: {fileID: 742789034673560185}
   leftHandRotationOffset: {x: 90, y: 45, z: 0}
   rightHandRotationOffset: {x: -90, y: -45, z: 0}
+  headTarget: {fileID: 0}
+  headBone: {fileID: 0}
+  chest: {fileID: 0}
+  maxHeadOffset: 0.3
 --- !u!1001 &5431874046508345612
 PrefabInstance:
   m_ObjectHideFlags: 0

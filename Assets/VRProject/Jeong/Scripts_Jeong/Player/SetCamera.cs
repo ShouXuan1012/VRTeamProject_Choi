@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class SetCamera : MonoBehaviourPun
 {
@@ -7,13 +8,20 @@ public class SetCamera : MonoBehaviourPun
 
     void Awake()
     {
+        var listener = playerCamera.GetComponent<AudioListener>();
+        var poseDriver = playerCamera.GetComponent<UnityEngine.InputSystem.XR.TrackedPoseDriver>(); // ← 추가
+
         if (photonView.IsMine)
         {
-            playerCamera.gameObject.SetActive(true);
+            if (playerCamera != null) playerCamera.enabled = true;
+            if (listener != null) listener.enabled = true;
+            if (poseDriver != null) poseDriver.enabled = true; // ← 내 것만 작동
         }
         else
         {
-            playerCamera.gameObject.SetActive(false);
+            if (playerCamera != null) playerCamera.enabled = false;
+            if (listener != null) listener.enabled = false;
+            if (poseDriver != null) poseDriver.enabled = false; // ← 상대방은 꺼줘야 함
         }
     }
 }
