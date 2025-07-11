@@ -2120,7 +2120,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3777798996696272414}
-  - component: {fileID: 5624361986156335618}
   - component: {fileID: 2161877486092207341}
   m_Layer: 2
   m_Name: RemoteSpeakerUIController
@@ -2148,23 +2147,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5624361986156335618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7983707676404396327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd72b1b1e154e442aac1f84ae300edf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muteButton: {fileID: 1832716945078198605}
-  micIcon: {fileID: 7831206157534099835}
-  micOnSprite: {fileID: 21300000, guid: f2f9800a1d8f6624db87fcc401513e95, type: 3}
-  micOffSprite: {fileID: 21300000, guid: e4a9e167cc90cae43bb03120ccbe26ef, type: 3}
-  micStatusText: {fileID: 0}
 --- !u!114 &2161877486092207341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,6 +2163,8 @@ MonoBehaviour:
   soundIcon: {fileID: 7831206157534099835}
   soundOnSprite: {fileID: 21300000, guid: 53f061c9f376b0148b2a7774610ea02d, type: 3}
   soundOffSprite: {fileID: 21300000, guid: 8b231d0c1af14b34f83163d47842f0f4, type: 3}
+  remoteSpeakerManager: {fileID: 5852525511832648974, guid: fcc4be9b28bc6d74eb0664afb6511d6a,
+    type: 3}
 --- !u!1 &8115431112448468450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,8 +2213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd72b1b1e154e442aac1f84ae300edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muteButton: {fileID: 0}
-  micIcon: {fileID: 0}
+  muteButton: {fileID: 3873369302997392395}
+  micIcon: {fileID: 9175782760055129935}
   micOnSprite: {fileID: 21300000, guid: f2f9800a1d8f6624db87fcc401513e95, type: 3}
   micOffSprite: {fileID: 21300000, guid: e4a9e167cc90cae43bb03120ccbe26ef, type: 3}
   micStatusText: {fileID: 3982636345628243696}

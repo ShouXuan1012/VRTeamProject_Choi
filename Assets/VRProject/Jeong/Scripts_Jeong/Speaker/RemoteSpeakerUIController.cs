@@ -10,12 +10,10 @@ public class RemoteSpeakerUIController : MonoBehaviour
 
     private RemoteSpeakerManager remoteSpeakerManager;
 
-    private void Awake()
-    {
-        remoteSpeakerManager = transform.parent.GetComponentInChildren<RemoteSpeakerManager>();
-    }
     private void Start()
     {
+        remoteSpeakerManager = transform.root.GetComponentInChildren<RemoteSpeakerManager>();
+
         muteButton.onClick.AddListener(ToggleMute);
         soundIcon.sprite = soundOnSprite;
         soundIcon.color = Color.green;
