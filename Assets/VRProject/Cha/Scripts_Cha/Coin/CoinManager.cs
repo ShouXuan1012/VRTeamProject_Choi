@@ -1,5 +1,6 @@
 
 
+using System;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class CoinManager : MonoBehaviour
     private int currentCoins;
 
     public int CurrentCoins => currentCoins;
-
+    public event Action<int> OnCoinChanged;
   
     private void Awake()
     {
@@ -37,10 +38,12 @@ public class CoinManager : MonoBehaviour
         if (currentCoins + amount > MAX_COINS)
         {
             currentCoins = MAX_COINS;
+            OnCoinChanged?.Invoke(currentCoins);
             return false; // 일부만 반영되었을 수 있음
         }
 
         currentCoins += amount;
+        OnCoinChanged?.Invoke(currentCoins);
         return true;
     }
 
@@ -51,10 +54,16 @@ public class CoinManager : MonoBehaviour
     public bool UseCoins(int amount)
     {
         if (amount <= 0 || amount > currentCoins)
-        { return false; }
+        { 
+            return false; 
+        }
 
-        if (currentCoins > amount)
-        { currentCoins -= amount; }
+        if (currentCoins >= amount)
+        { 
+            currentCoins -= amount;
+            OnCoinChanged?.Invoke(CurrentCoins);
+            
+        }
         return true;
     }
 }

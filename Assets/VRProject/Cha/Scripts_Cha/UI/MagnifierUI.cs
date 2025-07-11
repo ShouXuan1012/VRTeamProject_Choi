@@ -7,10 +7,10 @@ public class MagnifierUI : MonoBehaviour
 
     public Transform uiParent;  
 
-    public void SetTarget(InspectableItem item ,Transform Parent)
+    public void SetTarget(InspectableItem item)
     {
         currentTarget = item;
-        uiParent = Parent;
+        
     }
 
    public void ClearTarget()
@@ -27,7 +27,9 @@ public class MagnifierUI : MonoBehaviour
         {
             return;
         }
-        Instantiate(currentTarget.purchaseUIPrefab,uiParent);
+        GameObject ui=Instantiate(currentTarget.purchaseUIPrefab,uiParent);
+        Destroy(ui, 99f);
+        ui.GetComponent<ItemPurchaseUI>().Init(uiParent);
     }
 
 
