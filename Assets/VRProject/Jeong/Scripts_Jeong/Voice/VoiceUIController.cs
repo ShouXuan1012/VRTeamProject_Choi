@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class VoiceUIController : MonoBehaviour
 {
     [SerializeField] private Button muteButton;
-    [SerializeField] private Image muteIcon;
+    [SerializeField] private Image micIcon;
     [SerializeField] private Sprite micOnSprite;
     [SerializeField] private Sprite micOffSprite;
 
@@ -13,26 +13,41 @@ public class VoiceUIController : MonoBehaviour
     private void Start()
     {
         muteButton.onClick.AddListener(ToggleMute);
-        UpdateMicStatusText();
+        micIcon.sprite = micOffSprite;
+        micIcon.color = Color.red;
+
+        UpdateMicStatusUI();
+    }
+    private void Update()
+    {
+        UpdateMicStatusUI();
     }
 
     private void ToggleMute()
     {
-        VoiceManager.instance.ToggleMute();
-        bool isMuted = VoiceManager.instance.IsMuted();
-        muteIcon.sprite = isMuted ? micOffSprite : micOnSprite;
-    }
-    private void UpdateMicStatusText()
-    {
-        if (!VoiceManager.instance.IsMicrophoneAvailable())
+        if (VoiceManager.instance.IsMicrophoneAvailable())
         {
-            micStatusText.text = "마이크 없음";
-            micStatusText.color = Color.red;
+            VoiceManager.instance.ToggleMute();
+            micIcon.sprite = VoiceManager.instance.IsMuted() ? micOffSprite : micOnSprite;
+        }
+    }
+    private void UpdateMicStatusUI()
+    {
+        if (VoiceManager.instance.IsMicrophoneAvailable())
+        {
+            micStatusText.text = "마이크: " + VoiceManager.instance.GetMicrophoneName();
+            micStatusText.color = Color.green;
+
+            //micIcon.sprite = VoiceManager.instance.IsMuted() ? micOffSprite : micOnSprite;
+            micIcon.color = VoiceManager.instance.IsSpeaking() ?  Color.green : Color.white;
         }
         else
         {
-            micStatusText.text = "마이크 사용 가능";
-            micStatusText.color = Color.green;
+            micStatusText.text = "마이크 없음";
+            micStatusText.color = Color.red;
+
+            micIcon.sprite = micOffSprite;
+            micIcon.color = Color.red;
         }
     }
 }

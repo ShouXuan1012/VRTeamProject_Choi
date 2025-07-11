@@ -1,6 +1,7 @@
 using Photon.Voice.Unity;
 using UnityEngine;
 
+// 내 보이스 관리
 public class VoiceManager : MonoBehaviour
 {
     public static VoiceManager instance;
@@ -28,6 +29,7 @@ public class VoiceManager : MonoBehaviour
             recorder = FindObjectOfType<Recorder>();
         }
     }
+
     public void ToggleMute()
     {
         if (recorder == null) return;
@@ -42,5 +44,22 @@ public class VoiceManager : MonoBehaviour
     public bool IsMicrophoneAvailable()
     {
         return Microphone.devices != null && Microphone.devices.Length > 0;
+    }
+    public string GetMicrophoneName()
+    {
+        if (IsMicrophoneAvailable())
+        {
+            return Microphone.devices[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public bool IsSpeaking()
+    {
+        if (recorder == null) return false;
+
+        return recorder.IsCurrentlyTransmitting;
     }
 }

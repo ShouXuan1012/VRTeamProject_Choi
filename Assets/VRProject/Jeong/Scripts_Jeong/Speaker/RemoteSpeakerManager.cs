@@ -1,6 +1,7 @@
 using Photon.Voice.Unity;
 using UnityEngine;
 
+// 상대방 보이스 관리
 public class RemoteSpeakerManager : MonoBehaviour
 {
     private Speaker speaker;
@@ -18,6 +19,10 @@ public class RemoteSpeakerManager : MonoBehaviour
 
         isMuted = !isMuted;
         audioSource.mute = isMuted;
+    }
+    public bool IsMuted()
+    {
+        return isMuted;
     }
     public bool IsSpeaking()
     {
