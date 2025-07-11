@@ -6,6 +6,8 @@ public class ItemPurchaseUI : MonoBehaviour
     public int price;
     public Button yesButton;
     public Button noButton;
+    public GameObject purchasefailUI;
+    private Transform uiParent;
 
     private void Start()
     {
@@ -13,9 +15,13 @@ public class ItemPurchaseUI : MonoBehaviour
         noButton.onClick.AddListener(()=>Destroy(gameObject));
     }
 
+    public void Init(Transform parent)
+    {
+        this.uiParent = parent;
+    }
     private void OnClickYes()
     {
-        CoinManager.Instance.UseCoins(price);
+
 
         if (CoinManager.Instance.UseCoins(price))
         {
@@ -24,7 +30,7 @@ public class ItemPurchaseUI : MonoBehaviour
 
         else
         {
-            //재화 부족 UI 생성
+            GameObject failUI=Instantiate(purchasefailUI,uiParent);
         }
         Destroy(gameObject);
     }

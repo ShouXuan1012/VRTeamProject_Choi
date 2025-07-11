@@ -334,6 +334,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandTarget: {fileID: 9014170785475729501}
   rightHandTarget: {fileID: 9014170783705847996}
+  handModelLeft: {fileID: 0}
+  handModelRight: {fileID: 0}
+  bodyMeshRoot: {fileID: 0}
+  handMeshRoot: {fileID: 0}
+  leftHandRotationOffset: {x: 0, y: 0, z: 0}
+  rightHandRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &8674772541934418968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8313471306548044026, guid: b1454b4ab36f3b34d821dd45a7541a34,
