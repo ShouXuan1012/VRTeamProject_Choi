@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class RemoteSpeakerUIController : MonoBehaviour
 {
     [SerializeField] private Button muteButton;
-    [SerializeField] private Image micIcon;
-    [SerializeField] private Sprite micOnSprite;
-    [SerializeField] private Sprite micOffSprite;
+    [SerializeField] private Image soundIcon;
+    [SerializeField] private Sprite soundOnSprite;
+    [SerializeField] private Sprite soundOffSprite;
 
     private RemoteSpeakerManager remoteSpeakerManager;
 
@@ -17,8 +17,8 @@ public class RemoteSpeakerUIController : MonoBehaviour
     private void Start()
     {
         muteButton.onClick.AddListener(ToggleMute);
-        micIcon.sprite = micOnSprite;
-        micIcon.color = Color.green;
+        soundIcon.sprite = soundOnSprite;
+        soundIcon.color = Color.green;
 
         UpdateMicStatusUI();
     }
@@ -30,11 +30,11 @@ public class RemoteSpeakerUIController : MonoBehaviour
     private void ToggleMute()
     {
         remoteSpeakerManager.ToggleMute();
-        micIcon.sprite = remoteSpeakerManager.IsMuted() ? micOffSprite : micOnSprite;
+        soundIcon.sprite = remoteSpeakerManager.IsMuted() ? soundOffSprite : soundOnSprite;
     }
     private void UpdateMicStatusUI()
     {
         //micIcon.sprite = remoteSpeakerManager.IsMuted() ? micOffSprite : micOnSprite;
-        micIcon.color = remoteSpeakerManager.IsSpeaking() ? Color.green : Color.white;
+        soundIcon.color = remoteSpeakerManager.IsSpeaking() ? Color.green : Color.white;
     }
 }

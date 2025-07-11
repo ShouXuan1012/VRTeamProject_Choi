@@ -200,7 +200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4504425414017948070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e4a9e167cc90cae43bb03120ccbe26ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b231d0c1af14b34f83163d47842f0f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2178,9 +2178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muteButton: {fileID: 1832716945078198605}
-  micIcon: {fileID: 7831206157534099835}
-  micOnSprite: {fileID: 21300000, guid: f2f9800a1d8f6624db87fcc401513e95, type: 3}
-  micOffSprite: {fileID: 21300000, guid: e4a9e167cc90cae43bb03120ccbe26ef, type: 3}
+  soundIcon: {fileID: 7831206157534099835}
+  soundOnSprite: {fileID: 21300000, guid: 53f061c9f376b0148b2a7774610ea02d, type: 3}
+  soundOffSprite: {fileID: 21300000, guid: 8b231d0c1af14b34f83163d47842f0f4, type: 3}
 --- !u!1 &8115431112448468450
 GameObject:
   m_ObjectHideFlags: 0
