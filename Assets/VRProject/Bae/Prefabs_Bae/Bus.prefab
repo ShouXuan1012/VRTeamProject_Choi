@@ -478,37 +478,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &4069522039860232512
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5498827002896276554}
-  m_Layer: 0
-  m_Name: SeatPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5498827002896276554
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069522039860232512}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.015666675, y: 0.033, z: 0.028200027}
-  m_LocalScale: {x: 0.016666662, y: 0.016666668, z: 0.016666662}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6587171607862668365}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4599851477562900852
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db46cda450ac2b41bc8408ab0906613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: 1
+  actionType: 0
   UICanvas: {fileID: 8629410949465800000}
   busController: {fileID: 2836115853248174526}
   boardingManager: {fileID: 7438958200777759251}
@@ -1593,7 +1562,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f6912979220e1f7429edb043e51c073e,
         type: 3}
       propertyPath: m_Name
-      value: bus
+      value: Bus
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f6912979220e1f7429edb043e51c073e,
         type: 3}
@@ -2245,10 +2214,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6912979220e1f7429edb043e51c073e,
         type: 3}
       insertIndex: 2
-      addedObject: {fileID: 5498827002896276554}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6912979220e1f7429edb043e51c073e,
-        type: 3}
-      insertIndex: 3
       addedObject: {fileID: 4553481407508261782}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6912979220e1f7429edb043e51c073e,
@@ -2399,7 +2364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc4bdaaaa4cac248ab07313cc4f9b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seatPosition: {fileID: 5498827002896276554}
+  seatPosition: {fileID: 0}
   exitPosition: {fileID: 4553481407508261782}
   locomotionProvider: {fileID: 0}
 --- !u!4 &6587171607862668365 stripped
