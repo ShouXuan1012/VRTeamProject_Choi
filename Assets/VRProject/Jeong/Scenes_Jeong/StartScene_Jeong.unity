@@ -12818,6 +12818,12 @@ Transform:
   - {fileID: 300721984}
   m_Father: {fileID: 1222167005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &721073575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3723048820068663801, guid: d8179412ee6423547a8a6b9b26f35bbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8181002303551045230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &731405881
 GameObject:
   m_ObjectHideFlags: 0
@@ -34475,6 +34481,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1770871875}
+    - target: {fileID: 2436138644957872522, guid: 40469b04903751c4f9940a917243c48a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 721073575}
     - target: {fileID: 6630065807635948462, guid: 40469b04903751c4f9940a917243c48a,
         type: 3}
       propertyPath: m_LocalPosition.x
