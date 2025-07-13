@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 버스 정류장 경로 순회 및 도착 상태 관리 클래스.
@@ -7,22 +8,25 @@ using UnityEngine;
 /// </summary>
 public class BusController : MonoBehaviour
 {
-    [Header("정류장 경로 순서대로 지정")]
-    [SerializeField] private Transform[] busStops; // 버스 정류장 위치 배열
+    [Header("정류장 위치 (순서대로 지정)")]
+    [SerializeField] private Transform[] pathPoints;
 
-    [Header("버스 속도 및 정류장 대기 시간")]
-    [SerializeField] private float busSpeed = 5f; // 버스 이동 속도
-    [SerializeField] private float waitTime = 10f; // 정류장 대기 시간
-
-    private int currentStopIndex = 0; // 현재 정류장 인덱스
+    [Header("버스 이동 속도 / 회전 속도 / 정류장 대기 시간")]
+    [SerializeField] private float busSpeed = 5f; 
+    [SerializeField] private float rotateSpeed = 5f; 
+    [SerializeField] private float waitTime = 10f; 
 
     public bool IsWaitingAtStop { get; private set; } // 현재 정류장에서 대기 중인지 여부
 
+    private int currentPointIndex = 0;
+    
     private void Start()
     {
-        if (busStops.Length > 0)
+        if (pathPoints.Length > 0)
         {
-            transform.position = busStops[0].position; // 초기 위치를 첫 번째 정류장으로 설정
+            // 처음 위치를 첫 번째 정류장으로 설정
+            transform.position = pathPoints[0].position;
+            // 이동 루틴 시작
             StartCoroutine(BusRoutineCo());
         }
     }
@@ -34,24 +38,33 @@ public class BusController : MonoBehaviour
     {
         while (true)
         {
-            Transform targetStop = busStops[currentStopIndex];
+            Transform target = pathPoints[currentPointIndex];
 
-            // 다음 정류장으로 이동
-            while (Vector3.Distance(transform.position, targetStop.position) > 0.1f)
+            // 목표 포인트까지 이동
+            while (Vector3.Distance(transform.position, target.position) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetStop.position, busSpeed * Time.deltaTime);
-                yield return null; // 다음 프레임까지 대기
+                // 이동
+                transform.position = Vector3.MoveTowards(transform.position, target.position, busSpeed * Time.deltaTime);
+
+                // 회전 (버스가 이동 방향을 향하도록)
+                Vector3 direction = (target.position - transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                }
+
+                yield return null;
             }
 
-            // 정류장에 도착
-            transform.position = targetStop.position;
-            IsWaitingAtStop = true; // 정류장 대기 상태로 전환
+            // 포인트에 도착
+            transform.position = target.position;
+            IsWaitingAtStop = true;
 
-            yield return new WaitForSeconds(waitTime); // 대기 시간 동안 대기
+            yield return new WaitForSeconds(waitTime);
 
-            // 정류장 대기 상태 해제
             IsWaitingAtStop = false;
-            currentStopIndex = (currentStopIndex + 1) % busStops.Length; // 다음 정류장으로 인덱스 이동
+            currentPointIndex = (currentPointIndex + 1) % pathPoints.Length;
         }
     }
 }

@@ -17,9 +17,12 @@ public class BoardingManager : MonoBehaviour
     [Header("이동 제한 대상 컴포넌트")]
     [SerializeField] private GameObject locomotionProvider;
 
+    [Header("버스 본체(부모로 붙일 대상)")]
+    [SerializeField] private Transform busRoot;
+
     private GameObject player;
 
-    // 좌석 점유 상태 배열 (false : 비어 있음   , true : 점유 중)
+    // 좌석 점유 상태 배열 (false : 비어 있음, true : 점유 중)
     private bool[] seatOccupied;
 
     // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
@@ -42,7 +45,6 @@ public class BoardingManager : MonoBehaviour
     /// <summary>
     /// 플레이어를 버스에서 하차시키는 메서드
     /// </summary>
-    
     public void ExitBus()
     {
         StartCoroutine(ExitRoutineCo());
@@ -74,7 +76,12 @@ public class BoardingManager : MonoBehaviour
         Transform seat = seatPositions[seatIndex];
         player.transform.position = seat.position;
         player.transform.rotation = seat.rotation;
-        Debug.Log($"Player 이동 완료: {player.transform.position}");
+
+        // 버스에 플레이어를 붙임 (버스가 움직이면 따라가게)
+        if (busRoot != null)
+        {
+            player.transform.SetParent(busRoot);
+        }
 
         seatOccupied[seatIndex] = true;
         currentSeatIndex = seatIndex;
@@ -96,13 +103,16 @@ public class BoardingManager : MonoBehaviour
         var controller = player.GetComponent<CharacterController>();
         if (controller != null) controller.enabled = false;
 
+        // 버스에서 플레이어 떼어내기
+        player.transform.SetParent(null);
+
         player.transform.position = exitPosition.position;
         player.transform.rotation = exitPosition.rotation;
 
         if (currentSeatIndex != -1)
         {
-            seatOccupied[currentSeatIndex] = false; // 현재 좌석 비우기
-            currentSeatIndex = -1; // 좌석 인덱스 초기화
+            seatOccupied[currentSeatIndex] = false; // 좌석 비우기
+            currentSeatIndex = -1;
         }
 
         if (controller != null) controller.enabled = true;
@@ -116,7 +126,7 @@ public class BoardingManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 비어 있는 좌석 인데스를 반환 (없으면 -1 반환)
+    /// 비어 있는 좌석 인덱스를 반환 (없으면 -1)
     /// </summary>
     private int FindAvailableSeatIndex()
     {
@@ -124,9 +134,9 @@ public class BoardingManager : MonoBehaviour
         {
             if (!seatOccupied[i])
             {
-                return i; // 비어 있는 좌석 인덱스 반환
+                return i;
             }
         }
-        return -1; // 모든 좌석이 점유 중인 경우
+        return -1;
     }
 }
