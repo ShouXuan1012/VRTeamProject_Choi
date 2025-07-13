@@ -17,11 +17,13 @@ public class RemoteSpeakerUIController : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            remoteVoiceCanvas.gameObject.SetActive(false);
+            remoteVoiceCanvas.SetActive(false);
             return;
         }
 
         remoteSpeakerManager = transform.root.GetComponentInChildren<RemoteSpeakerManager>();
+
+        remoteVoiceCanvas.SetActive(true);
 
         muteButton.onClick.AddListener(ToggleMute);
         soundIcon.sprite = soundOnSprite;
