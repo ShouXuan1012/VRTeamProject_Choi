@@ -1,8 +1,11 @@
+﻿using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RemoteSpeakerUIController : MonoBehaviour
+public class RemoteSpeakerUIController : MonoBehaviourPun
 {
+    [SerializeField] private GameObject remoteVoiceCanvas;
+
     [SerializeField] private Button muteButton;
     [SerializeField] private Image soundIcon;
     [SerializeField] private Sprite soundOnSprite;
@@ -12,6 +15,12 @@ public class RemoteSpeakerUIController : MonoBehaviour
 
     private void Start()
     {
+        if (photonView.IsMine)
+        {
+            remoteVoiceCanvas.gameObject.SetActive(false);
+            return;
+        }
+
         remoteSpeakerManager = transform.root.GetComponentInChildren<RemoteSpeakerManager>();
 
         muteButton.onClick.AddListener(ToggleMute);
@@ -22,6 +31,8 @@ public class RemoteSpeakerUIController : MonoBehaviour
     }
     private void Update()
     {
+        if (photonView.IsMine) return;
+
         UpdateMicStatusUI();
     }
 
@@ -32,7 +43,6 @@ public class RemoteSpeakerUIController : MonoBehaviour
     }
     private void UpdateMicStatusUI()
     {
-        //micIcon.sprite = remoteSpeakerManager.IsMuted() ? micOffSprite : micOnSprite;
         soundIcon.color = remoteSpeakerManager.IsSpeaking() ? Color.green : Color.white;
     }
 }
