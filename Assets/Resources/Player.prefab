@@ -854,8 +854,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -5913262927076077117, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -880,8 +879,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 875253871413052681, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleToggleAction:
     m_UseReference: 1
     m_Action:
@@ -893,8 +891,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -2524354804938687746, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleDeltaAction:
     m_UseReference: 1
     m_Action:
@@ -906,8 +903,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -6447266317303757838, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
 --- !u!114 &1180936530449712197
 MonoBehaviour:
@@ -1484,8 +1480,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -7363382999065477798, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -1510,8 +1505,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleToggleAction:
     m_UseReference: 1
     m_Action:
@@ -1523,8 +1517,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -335775248641796371, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ScaleDeltaAction:
     m_UseReference: 1
     m_Action:
@@ -1536,8 +1529,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -1636515391019944688, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
 --- !u!114 &4744782365983236423
 MonoBehaviour:
@@ -2163,8 +2155,6 @@ MonoBehaviour:
   soundIcon: {fileID: 7831206157534099835}
   soundOnSprite: {fileID: 21300000, guid: 53f061c9f376b0148b2a7774610ea02d, type: 3}
   soundOffSprite: {fileID: 21300000, guid: 8b231d0c1af14b34f83163d47842f0f4, type: 3}
-  remoteSpeakerManager: {fileID: 5852525511832648974, guid: fcc4be9b28bc6d74eb0664afb6511d6a,
-    type: 3}
 --- !u!1 &8115431112448468450
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,12 +3272,18 @@ MonoBehaviour:
   handModelRight: {fileID: 5004925092822373516}
   bodyMeshRoot: {fileID: 698678603037560245}
   handMeshRoot: {fileID: 742789034673560185}
+  leftHandPositionOffset: {x: 0, y: 0, z: 0}
   leftHandRotationOffset: {x: 90, y: 45, z: 0}
+  rightHandPositionOffset: {x: 0, y: 0, z: 0}
   rightHandRotationOffset: {x: -90, y: -45, z: 0}
   headTarget: {fileID: 0}
   headBone: {fileID: 0}
-  chest: {fileID: 0}
+  neck: {fileID: 0}
   maxHeadOffset: 0.3
+  leftHandBone: {fileID: 0}
+  rightHandBone: {fileID: 0}
+  leftBoneRotationOffset: {x: 0, y: 0, z: 0}
+  rightBoneRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &5431874046508345612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3598,8 +3594,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -5913262927076077117, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
@@ -4637,8 +4632,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -7363382999065477798, guid: c348712bda248c246b8c49b3db54643f,
-      type: 3}
+    m_Reference: {fileID: 0}
   m_DirectionalAnchorRotationAction:
     m_UseReference: 1
     m_Action:
