@@ -107,6 +107,9 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         uiController.SetUIByLobbyState(LobbyState.Loading);
 
+        string selectedName = PlayerPrefs.GetString("SelectedCharacter");
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "MeshName", selectedName } });
+
         PhotonNetwork.LoadLevel(sceneName);
     }
 }

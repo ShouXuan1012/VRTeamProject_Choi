@@ -32,5 +32,12 @@ public class CharacterPreviewManager : MonoBehaviour
         currentCharacter = Instantiate(characterPrefabs[index], previewRoot.position, Quaternion.identity, previewRoot);
         currentCharacter.transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
+
+    public string GetCurrentCharacterName()
+    {
+        if (currentCharacter != null)
+            return currentCharacter.name;
+        return null;
+    }
 }
 
