@@ -17,6 +17,8 @@ public class XRCanvasButtonTrigger : MonoBehaviour
     [Header("탑승/하차 기능 처리 클래스")]
     [SerializeField] private BoardingManager boardingManager;
 
+    private bool isBoarded = false; // 탑승 여부
+
     private void Start()
     {
         if (UICanvas != null)
@@ -25,12 +27,12 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || isBoarded) return;
 
         // 하차 버튼은 정류장 대기 중일 때만 활성화
         if (actionType == ActionType.Exit)
         {
-            if (busController != null)
+            if (busController != null && busController.IsWaitingAtStop)
             {
                 UICanvas.SetActive(true);
             }
@@ -44,7 +46,7 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || isBoarded) return;
 
         if (UICanvas != null)
             UICanvas.SetActive(false);
@@ -55,25 +57,12 @@ public class XRCanvasButtonTrigger : MonoBehaviour
         if (actionType == ActionType.Board)
         {
             boardingManager.BoardBus();
-            StartCoroutine(HideUIAfterDelay(1.5f));
+            UICanvas.SetActive(false); // 버튼 클릭 후 UI 비활성화
         }
         else
         {
             boardingManager.ExitBus();
-        }
-
-    }
-
-    private IEnumerator HideUIAfterDelay(float delay)
-    {
-        Debug.Log($"[{actionType}] 버튼 {delay}초 뒤 비활성화");
-
-        yield return new WaitForSeconds(delay);
-
-        if (UICanvas != null)
-        {
-            Debug.Log($"[{actionType}] UICanvas 비활성화됨");
-            UICanvas.SetActive(false);
+            UICanvas.SetActive(false); // 버튼 클릭 후 UI 비활성화
         }
     }
 }

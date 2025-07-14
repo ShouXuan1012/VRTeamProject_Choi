@@ -8,11 +8,12 @@ using UnityEngine.XR;
 /// </summary>
 public class BoardingManager : MonoBehaviour
 {
-    [Header("좌석 위치(탑승 시 이동)")]
-    [SerializeField] private Transform[] seatPositions;
+    [Header("UI 버튼(탑승/하차)")]
+    [SerializeField] private GameObject boardUICanvas; // 탑승 버튼 UI
+    [SerializeField] private GameObject exitUICanvas; // 하차 버튼 UI
 
-    [Header("하차 위치")]
-    [SerializeField] private Transform exitPosition;
+    [Header("버스 상태 체크")]
+    [SerializeField] private BusController busController; // 버스 컨트롤러 (정류장 대기 여부 판단용)
 
     [Header("이동 제한 대상 컴포넌트")]
     [SerializeField] private GameObject locomotionProvider;
@@ -20,10 +21,20 @@ public class BoardingManager : MonoBehaviour
     [Header("버스 본체(부모로 붙일 대상)")]
     [SerializeField] private Transform busRoot;
 
+    [Header("좌석 위치(탑승 시 이동)")]
+    [SerializeField] private Transform[] seatPositions;
+
+    [Header("하차 위치")]
+    [SerializeField] private Transform exitPosition;
+
     private GameObject player;
 
-    // 좌석 점유 상태 배열 (false : 비어 있음, true : 점유 중)
+    // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
     private bool[] seatOccupied;
+
+    private bool isBoarded = false; // 탑승 여부
+
+    public bool IsBoarded => isBoarded; // 외부에서 탑승 여부 확인용
 
     // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
     private int currentSeatIndex = -1;
@@ -34,12 +45,45 @@ public class BoardingManager : MonoBehaviour
         seatOccupied = new bool[seatPositions.Length];
     }
 
+    private void Update()
+    {
+        // 탑승 상태에 따라 UI 업데이트
+        if (isBoarded)
+        {
+            // 탑승 중일 때 UI 상태 업데이트
+            if (busController.IsWaitingAtStop)
+            {
+                // 정류장에 대기 중이면 하차 UI 활성화
+                if (exitUICanvas != null && !exitUICanvas.activeSelf)
+                {
+                    exitUICanvas.SetActive(true);
+                }
+            }
+            else
+            {
+                // 정류장에 대기 중이 아닐 때 하차 UI 비활성화
+                if (exitUICanvas != null && exitUICanvas.activeSelf)
+                {
+                    exitUICanvas.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (exitUICanvas != null && exitUICanvas.activeSelf)
+            {
+                exitUICanvas.SetActive(false); // 탑승 중이 아닐 때 하차 UI 비활성화
+            }
+        }
+    }
     /// <summary>
     /// 플레이어를 버스에 탑승시키는 메서드
     /// </summary>
     public void BoardBus()
     {
         StartCoroutine(BoardRoutineCo());
+        isBoarded = true; // 탑승 상태로 변경
+        HideAllUI();
     }
 
     /// <summary>
@@ -48,6 +92,8 @@ public class BoardingManager : MonoBehaviour
     public void ExitBus()
     {
         StartCoroutine(ExitRoutineCo());
+        isBoarded = false; // 탑승 상태 해제
+        HideAllUI();
     }
 
     private IEnumerator BoardRoutineCo()
@@ -138,5 +184,21 @@ public class BoardingManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public void ShowBoardUI()
+    {
+        // 탑승 버튼 UI 활성화
+        if (!isBoarded && boardUICanvas != null)
+        {
+            boardUICanvas.SetActive(true);
+        }
+    }
+
+    public void HideAllUI()
+    {
+        // 모든 UI 비활성화
+        if (boardUICanvas != null) boardUICanvas.SetActive(false);
+        if (exitUICanvas != null) exitUICanvas.SetActive(false);
     }
 }
