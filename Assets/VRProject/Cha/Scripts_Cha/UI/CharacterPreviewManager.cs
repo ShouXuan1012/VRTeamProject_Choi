@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CharacterPreviewManager : MonoBehaviour
 {
-    public Transform previewRoot;                // Ä³¸¯ÅÍ°¡ »ı¼ºµÉ À§Ä¡
-    public GameObject[] characterPrefabs;        // ÇÁ¸®ÆÕ ¹è¿­
+    public Transform previewRoot;                // ìºë¦­í„°ê°€ ìƒì„±ë  ìœ„ì¹˜
+    public GameObject[] characterPrefabs;        // í”„ë¦¬íŒ¹ ë°°ì—´
     private GameObject currentCharacter;
     private int currentIndex = 0;
 
@@ -35,9 +35,7 @@ public class CharacterPreviewManager : MonoBehaviour
 
     public string GetCurrentCharacterName()
     {
-        if (currentCharacter != null)
-            return currentCharacter.name;
-        return null;
+        return characterPrefabs[currentIndex].name;
     }
 }
 

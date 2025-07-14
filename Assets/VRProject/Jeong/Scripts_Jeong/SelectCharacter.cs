@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +10,8 @@ public class SelectCharacter : MonoBehaviour
     public void OnSelectButtonClicked()
     {
         string selectedName = characterPreviewManager.GetCurrentCharacterName();
-        Debug.Log("Selected Character Index: " + selectedName);
 
         PlayerPrefs.SetString("SelectedCharacter", selectedName);
+        PlayerPrefs.Save();
     }
 }
