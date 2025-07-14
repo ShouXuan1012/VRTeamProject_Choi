@@ -6,11 +6,10 @@ public class TimeManager : MonoBehaviour
     [Header("Time UI")]
     [SerializeField] private float timeLimit = 60f; // 1분
     [SerializeField] private Text timerText;
+    [SerializeField] private ScoreManager scoreManager;
 
-    [Header("GameOver UI")]
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private Text scoreText; // ScoreManager에서 점수 받아와서 표시할 Text
-    [SerializeField] private ScoreManager scoreManager; // 점수 참조
+    private GameObject gameOverUI;
+    private Text scoreText;
 
     private float currentTime;
     private bool isRunning = false;
@@ -19,8 +18,32 @@ public class TimeManager : MonoBehaviour
     {
         currentTime = timeLimit;
         isRunning = true;
-    }
 
+        // 1. PlayerTest 오브젝트 찾기
+        GameObject player = GameObject.Find("PlayerTest(Clone)");
+
+        if (player != null)
+        {
+
+            // 2. GameoverUI 경로 따라 찾기
+            Transform gameOverUITransform = player.transform.Find("Camera Offset/Main Camera/GameoverUI");
+
+            if (gameOverUITransform != null)
+            {
+                gameOverUI = gameOverUITransform.gameObject;
+
+                Transform scoreTextTransform = gameOverUITransform.Find("FinalScore");
+                if (scoreTextTransform != null)
+                {
+                    scoreText = scoreTextTransform.GetComponent<Text>();
+                }
+
+                if (timerText == null)
+                    timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
+            }
+
+        }
+    }
     void Update()
     {
         if (!isRunning) return;
@@ -48,4 +71,6 @@ public class TimeManager : MonoBehaviour
         // UI 활성화
         gameOverUI.SetActive(true);
     }
+
+
 }
