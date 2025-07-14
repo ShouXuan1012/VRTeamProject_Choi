@@ -9,7 +9,8 @@ public class NetTrigger : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            scoreManager.AddScore(1);
+            int point = PlayerZoneTracker.IsInTwoPointZone ? 1 : 2;
+            scoreManager.AddScore(point);
 
             Rigidbody rb = other.attachedRigidbody;
             if (rb != null)
@@ -24,4 +25,5 @@ public class NetTrigger : MonoBehaviour
             }
         }
     }
+
 }

@@ -113,6 +113,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         ui.SetStatusText("룸에 성공적으로 입장했습니다.");
         ui.SetUIState(LobbyUIState.Default);
 
-        PhotonNetwork.LoadLevel("MainGameScene");
+        PhotonNetwork.LoadLevel("DevScene_Choi_Test");
     }
 }
