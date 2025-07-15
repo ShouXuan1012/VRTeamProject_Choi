@@ -1,36 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 버스 정류장 경로 순회 및 도착 상태 관리 클래스.
 /// 이동과 상태관리만 담당, UI 나 탑승 처리는 다른 클래스에서 담당.
 /// </summary>
-
-
-[System.Serializable] // 이 클래스를 인스펙터에서 볼 수 있도록 하기 위해 사용
-public class BusPathPoint
-{
-    public Transform point; // 패스 포인트 위치
-    public bool isStopStation = false; // 해당 포인트가 정류장인지 여부 (True면 정류장, False면 그냥 경유지)
-}
-
 public class BusController : MonoBehaviour
 {
+    [System.Serializable] // 이 클래스를 인스펙터에서 볼 수 있도록 하기 위해 사용
+    public class BusPathPoint
+    {
+        public Transform point; // 패스 포인트(이동 경로) 위치
+        public bool isStopStation = false; // 해당 포인트가 정류장인지 여부 (True면 정류장, False면 그냥 경유지)
+    }
+
     [Header("버스 이동 경로 위치 (순서대로 지정)")]
     [SerializeField] private List<BusPathPoint> pathPoints = new List<BusPathPoint>();
 
     [Header("버스 이동 관련 수치")]
-    [SerializeField] private float busSpeed = 10f; 
-    [SerializeField] private float rotateSpeed = 2.5f; 
+    [SerializeField] private float busSpeed = 10f;
+    [SerializeField] private float rotateSpeed = 2.5f;
     [SerializeField] private float defaultWaitTime = 0.05f; // 패스 포인트 전환 대기 시간 (이동 중 대기 시간)
     [SerializeField] private float stopStationWaitTime = 7f; // 정류장에서 대기하는 시간
 
-    public bool IsWaitingAtStop { get; private set; } // 현재 정류장에서 대기 중인지 여부
+    private float arrivalThreshold = 0.1f; // 버스가 목표 지점에 도착했다고 판단하는 거리
 
+    public bool IsWaitingAtStop { get; private set; } // 현재 정류장에서 대기 중인지 여부
+    public bool IsStopStation { get; private set; } // 현재 정류장이면 true, 아니면 false
+
+    // 현재 순회 중인 정류장 인덱스
     private int currentPointIndex = 0;
-    
+
     private void Start()
     {
         if (pathPoints.Count > 0)
@@ -53,7 +55,7 @@ public class BusController : MonoBehaviour
             Transform target = current.point;
 
             // 목표 포인트까지 이동
-            while (Vector3.Distance(transform.position, target.position) > 0.1f)
+            while (Vector3.Distance(transform.position, target.position) > arrivalThreshold)
             {
                 // 이동
                 transform.position = Vector3.MoveTowards(transform.position, target.position, busSpeed * Time.deltaTime);
@@ -71,6 +73,7 @@ public class BusController : MonoBehaviour
 
             // 포인트에 도착
             transform.position = target.position;
+            IsStopStation = current.isStopStation;
             IsWaitingAtStop = true; // 현재 정류장에서 대기 중
 
             // "정류장" 이면 7초 대기, 그 외엔 0.05초 대기

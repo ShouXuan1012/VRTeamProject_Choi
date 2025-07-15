@@ -34,8 +34,6 @@ public class BoardingManager : MonoBehaviour
 
     private bool isBoarded = false; // 탑승 여부
 
-    public bool IsBoarded => isBoarded; // 외부에서 탑승 여부 확인용
-
     // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
     private int currentSeatIndex = -1;
 
@@ -45,15 +43,15 @@ public class BoardingManager : MonoBehaviour
         seatOccupied = new bool[seatPositions.Length];
     }
 
+    // 탑승 상태에서만 하차 버튼 (UI) 활성화 상태 관리
     private void Update()
     {
-        // 탑승 상태에 따라 UI 업데이트
         if (isBoarded)
         {
             // 탑승 중일 때 UI 상태 업데이트
             if (busController.IsWaitingAtStop)
             {
-                // 정류장에 대기 중이면 하차 UI 활성화
+                // 정류장에 정차 중이면 하차 UI 활성화
                 if (exitUICanvas != null && !exitUICanvas.activeSelf)
                 {
                     exitUICanvas.SetActive(true);
@@ -61,7 +59,7 @@ public class BoardingManager : MonoBehaviour
             }
             else
             {
-                // 정류장에 대기 중이 아닐 때 하차 UI 비활성화
+                // 정류장에 정차 중이 아닐 때 하차 UI 비활성화
                 if (exitUICanvas != null && exitUICanvas.activeSelf)
                 {
                     exitUICanvas.SetActive(false);
@@ -70,9 +68,10 @@ public class BoardingManager : MonoBehaviour
         }
         else
         {
+            // 플레이어가 탑승하지 않은 경우 하차 버튼 UI 비활성화
             if (exitUICanvas != null && exitUICanvas.activeSelf)
             {
-                exitUICanvas.SetActive(false); // 탑승 중이 아닐 때 하차 UI 비활성화
+                exitUICanvas.SetActive(false);
             }
         }
     }
@@ -96,7 +95,7 @@ public class BoardingManager : MonoBehaviour
         HideAllUI();
     }
 
-    private IEnumerator BoardRoutineCo()
+    private IEnumerator BoardRoutineCo()    // 탑승 루틴
     {
         Debug.Log("탑승 루틴 시작");
 
@@ -142,7 +141,7 @@ public class BoardingManager : MonoBehaviour
         yield return FadeUIController.Instance.FadeIn();
     }
 
-    private IEnumerator ExitRoutineCo()
+    private IEnumerator ExitRoutineCo()     // 하차 루틴
     {
         yield return FadeUIController.Instance.FadeOut();
 
