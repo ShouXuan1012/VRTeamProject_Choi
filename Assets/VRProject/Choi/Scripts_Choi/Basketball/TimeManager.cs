@@ -63,7 +63,6 @@ public class TimeManager : MonoBehaviour
 
     void EndTimer()
     {
-        Debug.Log("타이머 끝! 게임 종료 처리");
 
         // 점수 UI 갱신
         scoreText.text = "최종 스코어 : " + scoreManager.score;
