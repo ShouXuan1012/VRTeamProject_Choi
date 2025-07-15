@@ -37,6 +37,11 @@ public class RemoteSpeakerUIController : MonoBehaviourPun
 
         UpdateMicStatusUI();
     }
+    void LateUpdate()
+    {
+        if (Camera.main != null)
+            transform.forward = Camera.main.transform.forward;
+    }
 
     private void ToggleMute()
     {

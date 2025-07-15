@@ -110,13 +110,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         string selectedName = PlayerPrefs.GetString("SelectedCharacter");
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "SelectedCharacter", selectedName } });
 
-        //PhotonNetwork.LoadLevel(sceneName);
-    }
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
-    {
-        if (targetPlayer.IsLocal && changedProps.ContainsKey("SelectedCharacter"))
-        {
-            PhotonNetwork.LoadLevel(sceneName);
-        }
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

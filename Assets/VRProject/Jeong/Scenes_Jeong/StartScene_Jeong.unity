@@ -18031,6 +18031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8333eb26447599478ab6b968e0ced68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectionManager: {fileID: 187223886}
   characterPreviewManager: {fileID: 7704668062094723240}
 --- !u!1001 &1039375821
 PrefabInstance:
