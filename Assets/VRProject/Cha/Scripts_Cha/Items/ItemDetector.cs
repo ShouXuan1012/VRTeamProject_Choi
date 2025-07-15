@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemDetector : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class ItemDetector : MonoBehaviour
 
     void Update()
     {
+        
         Ray ray = new Ray(transform.position, transform.forward);
+       
         Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red);
         if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, maxDistance, itemLayerMask))
         {
@@ -23,6 +26,7 @@ public class ItemDetector : MonoBehaviour
             {
                 if (item != currentItem)
                 {
+                    Debug.Log("새로운 아이템 감지됨: " + item.name);
                     currentItem = item;
                     magnifierUI.gameObject.SetActive(true);
                     magnifierUI.SetTarget(item);
