@@ -23,7 +23,7 @@ public class BusController : MonoBehaviour
     [SerializeField] private float busSpeed = 10f;
     [SerializeField] private float rotateSpeed = 2.5f;
     [SerializeField] private float defaultWaitTime = 0.05f; // 패스 포인트 전환 대기 시간 (이동 중 대기 시간)
-    [SerializeField] private float stopStationWaitTime = 7f; // 정류장에서 대기하는 시간
+    public float stopStationWaitTime = 7f; // 정류장에서 대기하는 시간
 
     private float arrivalThreshold = 0.1f; // 버스가 목표 지점에 도착했다고 판단하는 거리
 
