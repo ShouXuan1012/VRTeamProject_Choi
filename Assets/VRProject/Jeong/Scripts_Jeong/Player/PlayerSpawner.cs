@@ -20,17 +20,26 @@ public class PlayerSpawner : MonoBehaviour
             GameObject meshSource = Resources.Load<GameObject>($"CharacterMesh/{selectedName}");
             Transform newMesh = meshSource.transform.Find("Mesh");
 
-            if (meshContainer != null && newMesh != null)
+            foreach (Transform newPart in newMesh)
             {
-                for (int i = meshContainer.childCount - 1; i >= 0; i--)
+                Transform originalPart = meshContainer.Find(newPart.name);
+                if (originalPart == null) continue;
+
+                SkinnedMeshRenderer sourceRenderer = newPart.GetComponent<SkinnedMeshRenderer>();
+                SkinnedMeshRenderer targetRenderer = originalPart.GetComponent<SkinnedMeshRenderer>();
+
+                if (sourceRenderer != null && targetRenderer != null)
                 {
-                    Transform child = meshContainer.GetChild(i);
-                    Destroy(child.gameObject);
-                }
-                foreach (Transform child in newMesh)
-                {
-                    GameObject newChild = Instantiate(child.gameObject, meshContainer);
-                    newChild.name = child.name;
+                    Material[] sourceMaterials = sourceRenderer.sharedMaterials;
+                    Material[] clonedMaterials = new Material[sourceMaterials.Length];
+
+                    for (int i = 0; i < sourceMaterials.Length; i++)
+                    {
+                        clonedMaterials[i] = Instantiate(sourceMaterials[i]);
+                    }
+
+                    targetRenderer.sharedMesh = sourceRenderer.sharedMesh;
+                    targetRenderer.materials = clonedMaterials;
                 }
             }
         }
