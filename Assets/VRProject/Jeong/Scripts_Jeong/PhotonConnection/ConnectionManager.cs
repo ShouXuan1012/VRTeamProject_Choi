@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private ConnectionUIController ui;
+    [SerializeField] private MainWindowUIController uiController;
+    [SerializeField] private string sceneName = "MainGameScene";
 
     // 포톤 서버 설정
     private string gameVersion = "1";
@@ -12,7 +13,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        ui.SetUIState(LobbyUIState.Default);
+        uiController.SetUIByLobbyState(LobbyState.Default);
 
         EnsureConnected();
     }
@@ -24,15 +25,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsConnectedAndReady)
         {
-            ui.SetStatusText("서버 연결 중...");
-            ui.SetUIState(LobbyUIState.Loading);
+            uiController.SetUIByLobbyState(LobbyState.Loading);
 
             ConnectToMasterServer();
         }
         else
         {
-            ui.SetStatusText("서버에 연결되어 있습니다.");
-            ui.SetUIState(LobbyUIState.Ready);
+            uiController.SetUIByLobbyState(LobbyState.Ready);
         }
     }
     /// <summary>
@@ -51,15 +50,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     // 서버 연결 관련 콜백
     public override void OnDisconnected(DisconnectCause cause)
     {
-        ui.SetStatusText("서버 연결이 끊어졌습니다. 재연결 중...");
-        ui.SetUIState(LobbyUIState.Loading);
+        uiController.SetUIByLobbyState(LobbyState.Loading);
 
         ConnectToMasterServer();
     }
     public override void OnConnectedToMaster()
     {
-        ui.SetStatusText("서버에 연결되었습니다.");
-        ui.SetUIState(LobbyUIState.Ready);
+        uiController.SetUIByLobbyState(LobbyState.Ready);
     }
 
     /// <summary>
@@ -69,15 +66,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            ui.SetStatusText("룸 입장 중...");
-            ui.SetUIState(LobbyUIState.Loading);
+            uiController.SetUIByLobbyState(LobbyState.Loading);
 
             JoinOrCreateRoom();
         }
         else
         {
-            ui.SetStatusText("서버에 연결되어 있지 않습니다. 재연결 중... 잠시 후 다시 시도해주세요.");
-            ui.SetUIState(LobbyUIState.Loading);
+            uiController.SetUIByLobbyState(LobbyState.Loading);
 
             ConnectToMasterServer();
         }
@@ -100,19 +95,21 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     // 룸 관련 콜백
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        ui.SetStatusText("룸 입장에 실패했습니다. 다시 시도해주세요.");
-        ui.SetUIState(LobbyUIState.Ready);
+        uiController.SetErrorMessage("입장에 실패했습니다.");
+        uiController.SetUIByLobbyState(LobbyState.Error);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        ui.SetStatusText("룸 생성에 실패했습니다. 다시 시도해주세요.");
-        ui.SetUIState(LobbyUIState.Ready);
+        uiController.SetErrorMessage("입장에 실패했습니다.");
+        uiController.SetUIByLobbyState(LobbyState.Error);
     }
     public override void OnJoinedRoom()
     {
-        ui.SetStatusText("룸에 성공적으로 입장했습니다.");
-        ui.SetUIState(LobbyUIState.Default);
+        uiController.SetUIByLobbyState(LobbyState.Loading);
 
-        PhotonNetwork.LoadLevel("MainGameScene");
+        string selectedName = PlayerPrefs.GetString("SelectedCharacter");
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "SelectedCharacter", selectedName } });
+
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

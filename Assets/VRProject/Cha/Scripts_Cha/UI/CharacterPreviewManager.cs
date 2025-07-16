@@ -1,15 +1,16 @@
-using UnityEngine;
+ç™¤using UnityEngine;
 
 public class CharacterPreviewManager : MonoBehaviour
 {
-    public Transform previewRoot;               // Ä³¸¯ÅÍ°¡ »ı¼ºµÉ À§Ä¡
-    public GameObject[] characterPrefabs;        // ÇÁ¸®ÆÕ ¹è¿­
+    public Transform previewRoot;               // ìºë¦­í„°ê°€ ìƒì„±ë  ìœ„ì¹˜
+    public GameObject[] characterPrefabs;        // í”„ë¦¬íŒ¹ ë°°ì—´
     private GameObject[] characterInstances;
+
     private int currentIndex = 0;
 
     void Start()
     {
-        // ¸ğµç Ä³¸¯ÅÍ ¹Ì¸® »ı¼ºÇÏ°í ºñÈ°¼ºÈ­
+        // ëª¨ë“  ìºë¦­í„° ë¯¸ë¦¬ ìƒì„±í•˜ê³  ë¹„í™œì„±í™”
         characterInstances = new GameObject[characterPrefabs.Length];
 
         for (int i = 0; i < characterPrefabs.Length; i++)
@@ -21,7 +22,7 @@ public class CharacterPreviewManager : MonoBehaviour
             characterInstances[i] = go;
         }
 
-        // Ã¹ Ä³¸¯ÅÍ¸¸ È°¼ºÈ­
+        // ì²« ìºë¦­í„°ë§Œ í™œì„±í™”
         ShowCharacter(0);
     }
 
@@ -44,5 +45,9 @@ public class CharacterPreviewManager : MonoBehaviour
 
         characterInstances[index].SetActive(true);
         currentIndex = index;
+    }
+    public string GetCurrentCharacterName()
+    {
+        return characterPrefabs[currentIndex].name;
     }
 }

@@ -1,13 +1,13 @@
-using Photon.Voice.Unity;
+Ôªøusing Photon.Voice.Unity;
 using UnityEngine;
 
-// ≥ª ∫∏¿ÃΩ∫ ∞¸∏Æ
+// ÎÇ¥ Î≥¥Ïù¥Ïä§ Í¥ÄÎ¶¨
 public class VoiceManager : MonoBehaviour
 {
     public static VoiceManager instance;
 
     private Recorder recorder;
-    private bool isMuted = false;
+    private bool isMuted;
 
     void Awake()
     {
@@ -28,6 +28,8 @@ public class VoiceManager : MonoBehaviour
         {
             recorder = FindObjectOfType<Recorder>();
         }
+
+        isMuted = !recorder.TransmitEnabled;
     }
 
     public void ToggleMute()

@@ -1,8 +1,11 @@
+Ôªøusing Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VoiceUIController : MonoBehaviour
+public class VoiceUIController : MonoBehaviourPun
 {
+    [SerializeField] private GameObject localVoiceCanvas;
+
     [SerializeField] private Button muteButton;
     [SerializeField] private Image micIcon;
     [SerializeField] private Sprite micOnSprite;
@@ -12,6 +15,14 @@ public class VoiceUIController : MonoBehaviour
 
     private void Start()
     {
+        if (!photonView.IsMine)
+        {
+            localVoiceCanvas.SetActive(false);
+            return;
+        }
+
+        localVoiceCanvas.SetActive(true);
+
         muteButton.onClick.AddListener(ToggleMute);
         micIcon.sprite = micOffSprite;
         micIcon.color = Color.red;
@@ -20,6 +31,8 @@ public class VoiceUIController : MonoBehaviour
     }
     private void Update()
     {
+        if (!photonView.IsMine) return;
+
         UpdateMicStatusUI();
     }
 
@@ -35,15 +48,14 @@ public class VoiceUIController : MonoBehaviour
     {
         if (VoiceManager.instance.IsMicrophoneAvailable())
         {
-            micStatusText.text = "∏∂¿Ã≈©: " + VoiceManager.instance.GetMicrophoneName();
+            micStatusText.text = "ÎßàÏù¥ÌÅ¨: " + VoiceManager.instance.GetMicrophoneName();
             micStatusText.color = Color.green;
 
-            //micIcon.sprite = VoiceManager.instance.IsMuted() ? micOffSprite : micOnSprite;
-            micIcon.color = VoiceManager.instance.IsSpeaking() ?  Color.green : Color.white;
+            micIcon.color = VoiceManager.instance.IsSpeaking() ? Color.green : Color.white;
         }
         else
         {
-            micStatusText.text = "∏∂¿Ã≈© æ¯¿Ω";
+            micStatusText.text = "ÎßàÏù¥ÌÅ¨ ÏóÜÏùå";
             micStatusText.color = Color.red;
 
             micIcon.sprite = micOffSprite;
