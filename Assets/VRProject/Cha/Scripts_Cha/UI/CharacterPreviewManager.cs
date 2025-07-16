@@ -1,4 +1,4 @@
-癤using UnityEngine;
+using UnityEngine;
 
 public class CharacterPreviewManager : MonoBehaviour
 {

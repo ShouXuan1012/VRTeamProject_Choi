@@ -40,8 +40,7 @@ public class RemoteSpeakerUIController : MonoBehaviourPun
     void LateUpdate()
     {
         if (Camera.main != null)
-        {
-            Debug.Log("카메라 세팅");
+        {            
             remoteVoiceCanvas.transform.forward = Camera.main.transform.forward;
         }
     }
