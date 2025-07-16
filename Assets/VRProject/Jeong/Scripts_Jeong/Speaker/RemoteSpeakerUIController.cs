@@ -40,7 +40,11 @@ public class RemoteSpeakerUIController : MonoBehaviourPun
     void LateUpdate()
     {
         if (Camera.main != null)
-            transform.forward = Camera.main.transform.forward;
+        {
+            Debug.Log("카메라 세팅");
+            //transform.forward = Camera.main.transform.forward;
+            transform.LookAt(Camera.main.transform.position);
+        }
     }
 
     private void ToggleMute()
