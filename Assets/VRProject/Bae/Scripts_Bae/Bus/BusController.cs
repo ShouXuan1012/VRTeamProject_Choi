@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -7,22 +9,37 @@ using UnityEngine;
 /// </summary>
 public class BusController : MonoBehaviour
 {
-    [Header("정류장 경로 순서대로 지정")]
-    [SerializeField] private Transform[] busStops; // 버스 정류장 위치 배열
+    [System.Serializable] // 이 클래스를 인스펙터에서 볼 수 있도록 하기 위해 사용
+    public class BusPathPoint
+    {
+        public Transform point; // 패스 포인트(이동 경로) 위치
+        public bool isStopStation = false; // 해당 포인트가 정류장인지 여부 (True면 정류장, False면 그냥 경유지)
+    }
 
-    [Header("버스 속도 및 정류장 대기 시간")]
-    [SerializeField] private float busSpeed = 5f; // 버스 이동 속도
-    [SerializeField] private float waitTime = 10f; // 정류장 대기 시간
+    [Header("버스 이동 경로 위치 (순서대로 지정)")]
+    [SerializeField] private List<BusPathPoint> pathPoints = new List<BusPathPoint>();
 
-    private int currentStopIndex = 0; // 현재 정류장 인덱스
+    [Header("버스 이동 관련 수치")]
+    [SerializeField] private float busSpeed = 10f;
+    [SerializeField] private float rotateSpeed = 2.5f;
+    [SerializeField] private float defaultWaitTime = 0.05f; // 패스 포인트 전환 대기 시간 (이동 중 대기 시간)
+    public float stopStationWaitTime = 7f; // 정류장에서 대기하는 시간
 
-    public bool IsWaitingAtStop { get; private set; } = false; // 현재 정류장에서 대기 중인지 여부
+    private float arrivalThreshold = 0.1f; // 버스가 목표 지점에 도착했다고 판단하는 거리
+
+    public bool IsWaitingAtStop { get; private set; } // 현재 정류장에서 대기 중인지 여부
+    public bool IsStopStation { get; private set; } // 현재 정류장이면 true, 아니면 false
+
+    // 현재 순회 중인 정류장 인덱스
+    private int currentPointIndex = 0;
 
     private void Start()
     {
-        if (busStops.Length > 0)
+        if (pathPoints.Count > 0)
         {
-            transform.position = busStops[0].position; // 초기 위치를 첫 번째 정류장으로 설정
+            // 처음 위치를 첫 번째 정류장으로 설정
+            transform.position = pathPoints[0].point.position;
+            // 이동 루틴 시작
             StartCoroutine(BusRoutineCo());
         }
     }
@@ -34,28 +51,37 @@ public class BusController : MonoBehaviour
     {
         while (true)
         {
-            Transform targetStop = busStops[currentStopIndex];
+            BusPathPoint current = pathPoints[currentPointIndex];
+            Transform target = current.point;
 
-            // 다음 정류장으로 이동
-            while (Vector3.Distance(transform.position, targetStop.position) > 0.1f)
+            // 목표 포인트까지 이동
+            while (Vector3.Distance(transform.position, target.position) > arrivalThreshold)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetStop.position, busSpeed * Time.deltaTime);
-                yield return null; // 다음 프레임까지 대기
+                // 이동
+                transform.position = Vector3.MoveTowards(transform.position, target.position, busSpeed * Time.deltaTime);
+
+                // 회전
+                Vector3 direction = (target.position - transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                }
+
+                yield return null;
             }
 
-            // 정류장에 도착
-            transform.position = targetStop.position;
-            IsWaitingAtStop = true; // 정류장 대기 상태로 전환
+            // 포인트에 도착
+            transform.position = target.position;
+            IsStopStation = current.isStopStation;
+            IsWaitingAtStop = true; // 현재 정류장에서 대기 중
 
-            yield return new WaitForSeconds(waitTime); // 대기 시간 동안 대기
+            // "정류장" 이면 7초 대기, 그 외엔 0.05초 대기
+            float waitTime = current.isStopStation ? stopStationWaitTime : defaultWaitTime;
+            yield return new WaitForSeconds(waitTime);
 
-            // 정류장 대기 상태 해제
-            IsWaitingAtStop = false;
-            currentStopIndex = (currentStopIndex + 1) % busStops.Length; // 다음 정류장으로 인덱스 이동
+            IsWaitingAtStop = false; // 현재 정류장에서 대기 중이 아님
+            currentPointIndex = (currentPointIndex + 1) % pathPoints.Count;
         }
-    }
-    void Update()
-    {
-        
     }
 }
