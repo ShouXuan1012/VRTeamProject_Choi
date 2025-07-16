@@ -61,56 +61,29 @@ public class VRAvatarIKController : MonoBehaviourPun
 
     void LateUpdate()
     {
-        float lerpSpeed = 15f;
 
-        if (!photonView.IsMine)
-        {
-            // IK 타겟을 부드럽게 보간해서 움직이기 (다른 플레이어 기준)
-            if (leftHandTarget != null)
-            {
-                leftHandTarget.position = Vector3.Lerp(leftHandTarget.position, leftHandTarget.position, Time.deltaTime * lerpSpeed); // 이건 의미 없음 (다시 설명 ↓)
-                leftHandTarget.rotation = Quaternion.Slerp(leftHandTarget.rotation, leftHandTarget.rotation, Time.deltaTime * lerpSpeed);
-            }
-
-            if (rightHandTarget != null)
-            {
-                rightHandTarget.position = Vector3.Lerp(rightHandTarget.position, rightHandTarget.position, Time.deltaTime * lerpSpeed);
-                rightHandTarget.rotation = Quaternion.Slerp(rightHandTarget.rotation, rightHandTarget.rotation, Time.deltaTime * lerpSpeed);
-            }
-
-            if (headTarget != null)
-            {
-                headTarget.position = Vector3.Lerp(headTarget.position, headTarget.position, Time.deltaTime * lerpSpeed);
-                headTarget.rotation = Quaternion.Slerp(headTarget.rotation, headTarget.rotation, Time.deltaTime * lerpSpeed);
-            }
-        }
-
-        // 손 본 회전
+        // 파란색 손 (본): 위치는 건드리지 않고 회전만 맞추기
         if (leftHandBone != null && leftHandTarget != null)
         {
-            leftHandBone.rotation = Quaternion.Slerp(leftHandBone.rotation, leftHandTarget.rotation * Quaternion.Euler(leftBoneRotationOffset), Time.deltaTime * lerpSpeed);
+            leftHandBone.rotation = leftHandTarget.rotation * Quaternion.Euler(leftBoneRotationOffset);
         }
 
         if (rightHandBone != null && rightHandTarget != null)
         {
-            rightHandBone.rotation = Quaternion.Slerp(rightHandBone.rotation, rightHandTarget.rotation * Quaternion.Euler(rightBoneRotationOffset), Time.deltaTime * lerpSpeed);
+            rightHandBone.rotation = rightHandTarget.rotation * Quaternion.Euler(rightBoneRotationOffset);
         }
 
-        // 손 모델
+        // 하얀색 손 (내 손 모델)
         if (handModelLeft != null && leftHandTarget != null)
         {
-            Vector3 targetPos = leftHandTarget.position + leftHandTarget.TransformDirection(leftHandPositionOffset);
-            Quaternion targetRot = leftHandTarget.rotation * Quaternion.Euler(leftHandRotationOffset);
-            handModelLeft.position = Vector3.Lerp(handModelLeft.position, targetPos, Time.deltaTime * lerpSpeed);
-            handModelLeft.rotation = Quaternion.Slerp(handModelLeft.rotation, targetRot, Time.deltaTime * lerpSpeed);
+            handModelLeft.position = leftHandTarget.position + leftHandTarget.TransformDirection(leftHandPositionOffset);
+            handModelLeft.rotation = leftHandTarget.rotation * Quaternion.Euler(leftHandRotationOffset);
         }
 
         if (handModelRight != null && rightHandTarget != null)
         {
-            Vector3 targetPos = rightHandTarget.position + rightHandTarget.TransformDirection(rightHandPositionOffset);
-            Quaternion targetRot = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
-            handModelRight.position = Vector3.Lerp(handModelRight.position, targetPos, Time.deltaTime * lerpSpeed);
-            handModelRight.rotation = Quaternion.Slerp(handModelRight.rotation, targetRot, Time.deltaTime * lerpSpeed);
+            handModelRight.position = rightHandTarget.position + rightHandTarget.TransformDirection(rightHandPositionOffset);
+            handModelRight.rotation = rightHandTarget.rotation * Quaternion.Euler(rightHandRotationOffset);
         }
 
         // 머리
@@ -118,16 +91,18 @@ public class VRAvatarIKController : MonoBehaviourPun
         {
             Vector3 offset = headTarget.position - neck.position;
 
+            // 거리 제한 (이미 너가 해둔 것 유지)
             if (offset.magnitude > maxHeadOffset)
                 offset = offset.normalized * maxHeadOffset;
 
             headBone.position = neck.position + offset;
 
+            // Y축 회전 제한 (몸 기준 -90~90도)
             float angle = Vector3.SignedAngle(neck.forward, headTarget.forward, Vector3.up);
             angle = Mathf.Clamp(angle, -90f, 90f);
 
             Quaternion limitedRotation = Quaternion.AngleAxis(angle, Vector3.up) * Quaternion.LookRotation(neck.forward);
-            headBone.rotation = Quaternion.Slerp(headBone.rotation, limitedRotation, Time.deltaTime * lerpSpeed);
+            headBone.rotation = limitedRotation;
         }
     }
 
