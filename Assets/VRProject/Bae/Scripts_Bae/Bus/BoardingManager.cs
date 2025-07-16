@@ -27,6 +27,8 @@ public class BoardingManager : MonoBehaviour
     [Header("하차 위치")]
     [SerializeField] private Transform exitPosition;
 
+    [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI
+        
     private GameObject player;
 
     // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
@@ -80,6 +82,20 @@ public class BoardingManager : MonoBehaviour
     /// </summary>
     public void BoardBus()
     {
+        //int boardingCost = 10000; // 탑승 비용
+
+        //// 소지금 체크
+        //if (!CoinManager.Instance.UseCoins(boardingCost))
+        //{
+        //    // 소지금 부족 시 안내 UI 표시
+        //    if (notEnoughMoneyUI != null)
+        //    {
+        //        notEnoughMoneyUI.SetActive(true);
+        //        StartCoroutine(HideNotEnoughMoneyUI());
+        //    }
+        //    return;
+        //}
+
         StartCoroutine(BoardRoutineCo());
         isBoarded = true; // 탑승 상태로 변경
         HideAllUI();
@@ -168,6 +184,13 @@ public class BoardingManager : MonoBehaviour
         }
 
         yield return FadeUIController.Instance.FadeIn();
+    }
+
+    private IEnumerator HideNotEnoughMoneyUI()
+    {
+        yield return new WaitForSeconds(2f); // 2초 후에 UI 숨김
+        if (notEnoughMoneyUI != null)
+            notEnoughMoneyUI.SetActive(false);
     }
 
     /// <summary>
