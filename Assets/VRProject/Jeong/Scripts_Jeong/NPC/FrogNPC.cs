@@ -1,28 +1,109 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
-Ã³À½¿£ NPC Ä³¸¯ÅÍ À§¿¡ ¹°À½Ç¥ ¸»Ç³¼± ¶ç¿ì±â
-°¡±îÀÌ ´Ù°¡°¡¸é NPC ¿Ü°û¼± ¶ç¿ì°í Å¬¸¯ÇÒ ¼ö ÀÖ°Ô? ¾Æ´Ô ±×³É ¸»Ç³¼± Å¬¸¯ÇÒ ¼ö ÀÖ°Ô È°¼ºÈ­
-Å¬¸¯ÇÏ¸é ¼Ò°³ ¸»Ç³¼± ¶ç¿ì±â, NPC Ä³¸¯ÅÍ°¡ ÇÃ·¹ÀÌ¾î¸¦ ¹Ù¶óº¸°Ô ¸¸µé±â
-¸»Ç³¼± Å¬¸¯ÇÏ¸é ´ÙÀ½ ´ëÈ­·Î ³Ñ¾î°¡±â
-ÅØ½ºÆ®´Â ÇÑ¹ø¿¡ º¸¿©ÁÖ´Â °Ô ¾Æ´Ï¶ó ÇÑ ±ÛÀÚ¾¿ º¸¿©ÁÖ±â
-¸Ö¾îÁö¸é ´Ù½Ã ¹°À½Ç¥ ¸»Ç³¼± ¶ç¿ì±â
-´Ù½Ã °¡±îÀÌ ´Ù°¡°¡¸é Ã³À½ ´ëÈ­ »óÅÂ·Î ¸»Ç³¼± ¶ç¿ì±â
-³¡±îÁö ÀĞÀ¸¸é ¸»Ç³¼± ´İ°í '...' ¸»Ç³¼± ¶ç¿ì±â
+ì²˜ìŒì—” NPC ìºë¦­í„° ìœ„ì— ë¬¼ìŒí‘œ ë§í’ì„  ë„ìš°ê¸°
+ê°€ê¹Œì´ ë‹¤ê°€ê°€ë©´ ë§í’ì„  í´ë¦­í•  ìˆ˜ ìˆê²Œ í™œì„±í™”
+í´ë¦­í•˜ë©´ ì†Œê°œ ë§í’ì„  ë„ìš°ê¸°, NPC ìºë¦­í„°ê°€ í”Œë ˆì´ì–´ë¥¼ ë°”ë¼ë³´ê²Œ ë§Œë“¤ê¸°
+ë§í’ì„  í´ë¦­í•˜ë©´ ë‹¤ìŒ ëŒ€í™”ë¡œ ë„˜ì–´ê°€ê¸°
+í…ìŠ¤íŠ¸ëŠ” í•œë²ˆì— ë³´ì—¬ì£¼ëŠ” ê²Œ ì•„ë‹ˆë¼ í•œ ê¸€ìì”© ë³´ì—¬ì£¼ê¸°
+ë©€ì–´ì§€ë©´ ë‹¤ì‹œ ë¬¼ìŒí‘œ ë§í’ì„  ë„ìš°ê¸°
+ë‹¤ì‹œ ê°€ê¹Œì´ ë‹¤ê°€ê°€ë©´ ì²˜ìŒ ëŒ€í™” ìƒíƒœë¡œ ë§í’ì„  ë„ìš°ê¸°
+ëê¹Œì§€ ì½ìœ¼ë©´ ë§í’ì„  ë‹«ê³  '...' ë§í’ì„  ë„ìš°ê¸°
  */
 public class FrogNPC : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string npcID = "NPC_Frog";
+    public float textDelay = 0.05f;
+
+    [SerializeField] private GameObject speechCanvas;
+    [SerializeField] private GameObject speechBalloon;
+    [SerializeField] private Button speechButton;
+    [SerializeField] private Text speechText;
+
+    private int currentDialogueIndex = 0;
+
+    private bool isTalking = false;
+
+
+    private void Start()
     {
-        
+        speechBalloon.SetActive(true);
+        speechButton.interactable = false;
+        speechText.text = "?";
+
+        speechButton.onClick.AddListener(OnSpeechButtonClicked);
+    }
+    private void LateUpdate()
+    {
+        if (Camera.main != null)
+        {
+            speechCanvas.transform.forward = Camera.main.transform.forward;
+
+            if (isTalking)
+            {
+                transform.forward = -Camera.main.transform.forward;
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            speechButton.interactable = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            speechBalloon.SetActive(true);
+            speechButton.interactable = false;
+            speechText.text = "?";
+
+            currentDialogueIndex = 0;
+        }
+    }
+
+    private void OnSpeechButtonClicked()
+    {
+        TextAsset dialogueFile = Resources.Load<TextAsset>($"NPCDialogue/{npcID}");
+        DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(dialogueFile.text);
+
+        if (currentDialogueIndex < dialogueData.dialogue.Count)
+        {
+            if (!isTalking)
+            {
+                isTalking = true;
+            }
+
+            ShowDialogue(dialogueData.dialogue[currentDialogueIndex].text);
+            currentDialogueIndex++;
+        }
+        else
+        {
+            isTalking = false;
+
+            speechBalloon.SetActive(false);
+            speechButton.interactable = false;
+            speechText.text = "...";
+
+            currentDialogueIndex = 0;
+        }
+    }
+    private void ShowDialogue(string text)
+    {
+        speechText.text = "";
+        StartCoroutine(TypeText(text));
+    }
+    private IEnumerator TypeText(string text)
+    {
+        foreach (char letter in text.ToCharArray())
+        {
+            speechText.text += letter;
+            yield return new WaitForSeconds(textDelay);
+        }
     }
 }
