@@ -5,8 +5,8 @@ using UnityEngine;
 public class InspectableItem : MonoBehaviour
 {
     public GameObject purchaseUIPrefab;
-   
 
+    public MagnifierUI magnifierUI;
     public void ShowPurchaseUI()
     {
         Instantiate(purchaseUIPrefab);
