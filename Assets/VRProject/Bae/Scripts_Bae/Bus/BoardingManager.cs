@@ -82,6 +82,8 @@ public class BoardingManager : MonoBehaviour
     /// </summary>
     public void BoardBus()
     {
+        // 아래 코드는 재화 UI 적용시킨 씬에서 정상작동 할거라 예상.
+        // 현재는 탑승 버튼 상호작용 시 Null 오류가 나서 주석 처리함.
         //int boardingCost = 10000; // 탑승 비용
 
         //// 소지금 체크

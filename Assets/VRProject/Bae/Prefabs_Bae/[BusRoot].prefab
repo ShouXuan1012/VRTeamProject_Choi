@@ -4457,7 +4457,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8067823398979643423}
   - component: {fileID: 6430007930818085259}
-  - component: {fileID: 7035291089327687427}
   - component: {fileID: 1780377812247732651}
   m_Layer: 0
   m_Name: BusExitTrigger
@@ -4503,22 +4502,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.790924, y: 3.0170603, z: 3.3880496}
   m_Center: {x: 1.0757751, y: 1.0085301, z: 0.23945713}
---- !u!114 &7035291089327687427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599386258311965243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db46cda450ac2b41bc8408ab0906613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionType: 1
-  UICanvas: {fileID: 733450039830664117}
-  busController: {fileID: 8757780220926927427}
-  boardingManager: {fileID: 4500144767447810371}
 --- !u!114 &1780377812247732651
 MonoBehaviour:
   m_ObjectHideFlags: 0
