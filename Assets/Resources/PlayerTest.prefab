@@ -1524,6 +1524,7 @@ GameObject:
   - component: {fileID: -4694417685689107173}
   - component: {fileID: 8813747231072418280}
   - component: {fileID: 2277434002872937784}
+  - component: {fileID: 4540093986042504376}
   - component: {fileID: 245646841113910892}
   m_Layer: 2
   m_Name: PlayerTest
@@ -1689,7 +1690,7 @@ MonoBehaviour:
   - {fileID: 1703137732301750760}
   - {fileID: 2254418842669805644}
   - {fileID: 3106578061820473557}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &7247017027243624657
@@ -1777,6 +1778,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79fcc99098a2e14c8526d8561aef0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4540093986042504376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564618412162190295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbcfae478a36baf47b903b4f46cfae9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterBody: {fileID: 4125100564918501433}
+  headTransform: {fileID: 5534171018059764360}
+  moveProvider: {fileID: 5687587737010921531}
+  rotationSpeed: 5
 --- !u!114 &245646841113910892
 MonoBehaviour:
   m_ObjectHideFlags: 0
