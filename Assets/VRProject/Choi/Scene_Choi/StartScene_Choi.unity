@@ -3424,7 +3424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrCamera: {fileID: 1770871875}
-  logoResourcePath: Logo
+  logoResourcePath: ScreenshotLogo
 --- !u!4 &203386788
 Transform:
   m_ObjectHideFlags: 0

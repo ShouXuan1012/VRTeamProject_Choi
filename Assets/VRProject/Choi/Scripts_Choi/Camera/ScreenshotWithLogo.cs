@@ -53,9 +53,30 @@ public class ScreenshotWithLogo : MonoBehaviour
 
         // 저장
         byte[] bytes = screenshot.EncodeToPNG();
-        string filePath = Path.Combine(Application.persistentDataPath, "VRScreenshot_" + System.DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png");
+        string fileName = "VRScreenshot_" + System.DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png";
+        string filePath = "/sdcard/Pictures/" + fileName;
         File.WriteAllBytes(filePath, bytes);
+
+        // 갤러리에 반영
+        RefreshAndroidGallery(filePath);
 
         Debug.Log("스크린샷 저장 완료: " + filePath);
     }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private void RefreshAndroidGallery(string path)
+    {
+        using (AndroidJavaClass mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection"))
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+        {
+            mediaScanner.CallStatic("scanFile", activity, new string[] { path }, null, null);
+        }
+    }
+#else
+    private void RefreshAndroidGallery(string path)
+    {
+        Debug.Log("Android 환경이 아니므로 미디어 갤러리 스캔은 생략됩니다.");
+    }
+#endif
 }
