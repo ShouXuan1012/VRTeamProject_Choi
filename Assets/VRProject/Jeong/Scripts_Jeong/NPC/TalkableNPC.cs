@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalkableNPC : MonoBehaviourPun
+public class TalkableNPC : MonoBehaviour
 {
     public string npcID = "NPC_Frog";
     public float textDelay = 0.05f;
