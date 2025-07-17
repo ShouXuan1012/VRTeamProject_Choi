@@ -14,11 +14,13 @@ public class XRCanvasButtonTrigger : MonoBehaviour
     [Header("탑승 UI")]
     [SerializeField] private GameObject UICanvas;
 
-    [Header("버스 상태 체크")]
+    [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController;
 
     [Header("탑승/하차 기능 처리 클래스")]
     [SerializeField] private BoardingManager boardingManager;
+
+    private string playerTag = "Player";
 
     private void Start()
     {
@@ -28,7 +30,7 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag(playerTag)) return;
 
         // 트리거에 플레이어가 들어오면 UI 활성화
         if (actionType == ActionType.Board && UICanvas != null && busController.IsStopStation)
@@ -50,7 +52,7 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag(playerTag)) return;
 
         if (actionType == ActionType.Board && UICanvas != null)
             UICanvas.SetActive(false);
