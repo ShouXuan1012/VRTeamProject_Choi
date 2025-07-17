@@ -2,17 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/*
-처음엔 NPC 캐릭터 위에 물음표 말풍선 띄우기
-가까이 다가가면 말풍선 클릭할 수 있게 활성화
-클릭하면 소개 말풍선 띄우기, NPC 캐릭터가 플레이어를 바라보게 만들기
-말풍선 클릭하면 다음 대화로 넘어가기
-텍스트는 한번에 보여주는 게 아니라 한 글자씩 보여주기
-멀어지면 다시 물음표 말풍선 띄우기
-다시 가까이 다가가면 처음 대화 상태로 말풍선 띄우기
-끝까지 읽으면 말풍선 닫고 '...' 말풍선 띄우기
- */
-public class FrogNPC : MonoBehaviour
+public class TalkableNPC : MonoBehaviour
 {
     public string npcID = "NPC_Frog";
     public float textDelay = 0.05f;
@@ -22,10 +12,15 @@ public class FrogNPC : MonoBehaviour
     [SerializeField] private Button speechButton;
     [SerializeField] private Text speechText;
 
+    private TextAsset dialogueFile;
+    private DialogueData dialogueData;
     private int currentDialogueIndex = 0;
 
+    private bool isRead = false;
     private bool isTalking = false;
+    private bool isTyping = false;
 
+    private Coroutine typingCoroutine;
 
     private void Start()
     {
@@ -43,7 +38,11 @@ public class FrogNPC : MonoBehaviour
 
             if (isTalking)
             {
-                transform.forward = -Camera.main.transform.forward;
+                Vector3 directionToPlayer = Camera.main.transform.position - transform.position;
+                directionToPlayer.y = 0; // Y축 회전 무시
+                Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+
             }
         }
     }
@@ -59,18 +58,42 @@ public class FrogNPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+
             speechBalloon.SetActive(true);
             speechButton.interactable = false;
-            speechText.text = "?";
+
+            if (!isRead)
+            {
+                speechText.text = "?";
+            }
+            else
+            {
+                speechText.text = "...";
+            }
 
             currentDialogueIndex = 0;
+
+            isTalking = false;
+            isTyping = false;
         }
     }
 
     private void OnSpeechButtonClicked()
     {
-        TextAsset dialogueFile = Resources.Load<TextAsset>($"NPCDialogue/{npcID}");
-        DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(dialogueFile.text);
+        if (dialogueData == null || dialogueData.dialogue.Count == 0)
+        {
+            LoadDialogueData();
+        }
+
+        if (isTyping)
+        {
+            return; // 타이핑 중엔 클릭 무시
+        }
 
         if (currentDialogueIndex < dialogueData.dialogue.Count)
         {
@@ -91,19 +114,45 @@ public class FrogNPC : MonoBehaviour
             speechText.text = "...";
 
             currentDialogueIndex = 0;
+
+            isRead = true;
+            SaveDialogueState(isRead);
+        }
+    }
+    private void LoadDialogueData()
+    {
+        dialogueFile = Resources.Load<TextAsset>($"NPCDialogue/{npcID}");
+        if (dialogueFile != null)
+        {
+            dialogueData = JsonUtility.FromJson<DialogueData>(dialogueFile.text);
+        }
+        else
+        {
+            Debug.LogError($"Dialogue file for {npcID} not found!");
         }
     }
     private void ShowDialogue(string text)
     {
         speechText.text = "";
-        StartCoroutine(TypeText(text));
+        typingCoroutine = StartCoroutine(TypeText(text));
     }
     private IEnumerator TypeText(string text)
     {
         foreach (char letter in text.ToCharArray())
         {
+            isTyping = true;
             speechText.text += letter;
             yield return new WaitForSeconds(textDelay);
+        }
+        isTyping = false;
+    }
+    public void SaveDialogueState(bool isRead)
+    {
+        if (dialogueData != null)
+        {
+            dialogueData.isRead = isRead;
+            string json = JsonUtility.ToJson(dialogueData, true);
+            System.IO.File.WriteAllText(Application.dataPath + $"/Resources/NPCDialogue/{npcID}.json", json);
         }
     }
 }
