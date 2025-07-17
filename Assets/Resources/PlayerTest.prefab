@@ -701,6 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncPosition: 1
+  syncRotation: 1
   lerpSpeed: 10
 --- !u!1 &5534171017977106088
 GameObject:
@@ -996,6 +998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncPosition: 1
+  syncRotation: 1
   lerpSpeed: 10
 --- !u!1 &5534171018650465013
 GameObject:
@@ -1354,6 +1358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncPosition: 1
+  syncRotation: 1
   lerpSpeed: 10
 --- !u!1 &6053923507145286424
 GameObject:
@@ -1687,10 +1693,11 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 245646841113910892}
   - {fileID: 2187904692426063079}
+  - {fileID: 2034168972767708893}
   - {fileID: 1703137732301750760}
   - {fileID: 2254418842669805644}
   - {fileID: 3106578061820473557}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &7247017027243624657
@@ -1806,6 +1813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncPosition: 1
+  syncRotation: 0
   lerpSpeed: 10
 --- !u!1 &7685822759907993376
 GameObject:
@@ -2534,6 +2543,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2187904692426063079}
+    - targetCorrespondingSourceObject: {fileID: 4081169789388439604, guid: b1454b4ab36f3b34d821dd45a7541a34,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034168972767708893}
   m_SourcePrefab: {fileID: 100100000, guid: b1454b4ab36f3b34d821dd45a7541a34, type: 3}
 --- !u!4 &814680087496396862 stripped
 Transform:
@@ -2596,6 +2609,21 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 0
     LayerIndex: 1
+--- !u!114 &2034168972767708893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8269476757128880375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 0
+  syncRotation: 1
+  lerpSpeed: 10
 --- !u!4 &8555420500029387859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4385057555711349904, guid: b1454b4ab36f3b34d821dd45a7541a34,
