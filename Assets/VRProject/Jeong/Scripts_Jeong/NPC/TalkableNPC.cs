@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalkableNPC : MonoBehaviour
+public class TalkableNPC : MonoBehaviourPun
 {
     public string npcID = "NPC_Frog";
     public float textDelay = 0.05f;
@@ -51,6 +52,8 @@ public class TalkableNPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PhotonView view = other.GetComponent<PhotonView>();
+            if (view == null || !view.IsMine) return;
             speechButton.interactable = true;
         }
     }
@@ -58,6 +61,9 @@ public class TalkableNPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PhotonView view = other.GetComponent<PhotonView>();
+            if (view == null || !view.IsMine) return;
+
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
