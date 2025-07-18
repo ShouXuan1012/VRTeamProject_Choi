@@ -197,7 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca9ddc2e2265764483e107f77b92b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnifierUI: {fileID: 1388419628}
   maxDistance: 20
   holdDuration: 0.3
   sphereRadius: 0.1
@@ -716,18 +715,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1388419626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1388419628 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8086539638366599406, guid: 001cfcef695a614459eca33bb4391999,
-    type: 3}
-  m_PrefabInstance: {fileID: 1388419626}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c887740ee4a22340961d8e597a9f22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1874209216
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,15 +7,18 @@ public class SettingsMenuAnimator : MonoBehaviour
     [SerializeField] private RectTransform[] subButtons;
     [SerializeField] private Vector2[] offsets; // 각 버튼이 퍼질 위치
     [SerializeField] private float duration = 0.3f;
+    
 
     private bool isOpen = false;
 
     void Start()
     {
+       
         // 초기에는 숨김
         for (int i = 0; i < subButtons.Length; i++)
         {
-            subButtons[i].localScale = Vector3.zero;
+            
+            subButtons[i].localScale = Vector3.zero*0.02f;
             subButtons[i].anchoredPosition = mainButton.anchoredPosition;
         }
     }
@@ -26,8 +29,17 @@ public class SettingsMenuAnimator : MonoBehaviour
         {
             for (int i = 0; i < subButtons.Length; i++)
             {
-                subButtons[i].DOScale(0, duration).SetEase(Ease.InBack);
-                subButtons[i].DOAnchorPos(mainButton.anchoredPosition, duration).SetEase(Ease.InBack);
+                int index = i;
+                var cg= subButtons[index].GetComponent<CanvasGroup>(); 
+                if(cg !=null)
+                {
+                    cg.interactable = false;
+                    cg.blocksRaycasts = false;
+                }
+                subButtons[i].DOAnchorPos(mainButton.anchoredPosition, duration).SetEase(Ease.InBack).OnComplete(() =>
+                {
+                    subButtons[index].gameObject.SetActive(false);
+                });
             }
         }
         else
@@ -35,7 +47,14 @@ public class SettingsMenuAnimator : MonoBehaviour
             for (int i = 0; i < subButtons.Length; i++)
             {
                 subButtons[i].gameObject.SetActive(true);
-                subButtons[i].DOScale(1, duration).SetEase(Ease.OutBack);
+                subButtons[i].anchoredPosition = mainButton.anchoredPosition;
+                subButtons[i].localScale = Vector3.one * 0.02f;  
+                var cg = subButtons[i].GetComponent<CanvasGroup>();
+                if(cg != null)
+                {
+                    cg.interactable = true;
+                    cg.blocksRaycasts = true;
+                }
                 subButtons[i].DOAnchorPos(mainButton.anchoredPosition + offsets[i], duration).SetEase(Ease.OutBack);
             }
         }
