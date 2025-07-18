@@ -5,30 +5,47 @@ using UnityEngine.UI;
 
 public class TalkableNPC : MonoBehaviour
 {
-    public string npcID = "NPC_Frog";
-    public float textDelay = 0.05f;
+    [SerializeField] private string npcID = "NPC_Frog";
+    [SerializeField] private float textDelay = 0.05f;
 
+    [Header("UI Elements")]
     [SerializeField] private GameObject speechCanvas;
     [SerializeField] private GameObject speechBalloon;
     [SerializeField] private Button speechButton;
     [SerializeField] private Text speechText;
+    [SerializeField] private Text initialText;
 
     private TextAsset dialogueFile;
     private DialogueData dialogueData;
+
     private int currentDialogueIndex = 0;
+    private Coroutine typingCoroutine;
 
     private bool isRead = false;
     private bool isTalking = false;
     private bool isTyping = false;
 
-    private Coroutine typingCoroutine;
-
     private void Start()
     {
-        speechBalloon.SetActive(true);
-        speechButton.interactable = false;
-        speechText.text = "?";
+        LoadDialogueData();
 
+        if (dialogueData == null || dialogueData.dialogue.Count == 0)
+        {
+            Debug.LogError($"No dialogue found for {npcID}.");
+            return;
+        }
+
+        isRead = dialogueData.isRead;
+
+        speechBalloon.SetActive(true);
+        speechText.gameObject.SetActive(false);
+        initialText.gameObject.SetActive(true);
+
+        speechText.text = "";
+        if (isRead) initialText.text = "...";
+        else initialText.text = "?";
+
+        speechButton.interactable = false;
         speechButton.onClick.AddListener(OnSpeechButtonClicked);
     }
     private void LateUpdate()
@@ -39,30 +56,28 @@ public class TalkableNPC : MonoBehaviour
 
             if (isTalking)
             {
-                Vector3 directionToPlayer = Camera.main.transform.position - transform.position;
-                directionToPlayer.y = 0; // Y축 회전 무시
-                Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+                Vector3 dir = Camera.main.transform.position - transform.position;
+                dir.y = 0; // Y축 회전 무시
+                Quaternion lookRotation = Quaternion.LookRotation(dir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && IsLocalPlayer(other))
         {
-            PhotonView view = other.GetComponent<PhotonView>();
-            if (view == null || !view.IsMine) return;
             speechButton.interactable = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && IsLocalPlayer(other))
         {
-            PhotonView view = other.GetComponent<PhotonView>();
-            if (view == null || !view.IsMine) return;
+            isTalking = false;
+            isTyping = false;
+
+            currentDialogueIndex = 0;
 
             if (typingCoroutine != null)
             {
@@ -71,58 +86,53 @@ public class TalkableNPC : MonoBehaviour
             }
 
             speechBalloon.SetActive(true);
+            speechText.gameObject.SetActive(false);
+            initialText.gameObject.SetActive(true);
+
+            speechText.text = "";
+            if (isRead) initialText.text = "...";
+            else initialText.text = "?";
+
             speechButton.interactable = false;
-
-            if (!isRead)
-            {
-                speechText.text = "?";
-            }
-            else
-            {
-                speechText.text = "...";
-            }
-
-            currentDialogueIndex = 0;
-
-            isTalking = false;
-            isTyping = false;
         }
     }
 
     private void OnSpeechButtonClicked()
     {
-        if (dialogueData == null || dialogueData.dialogue.Count == 0)
-        {
-            LoadDialogueData();
-        }
-
-        if (isTyping)
-        {
-            return; // 타이핑 중엔 클릭 무시
-        }
+        if (isTyping) return;
 
         if (currentDialogueIndex < dialogueData.dialogue.Count)
         {
             if (!isTalking)
             {
                 isTalking = true;
+
+                speechText.gameObject.SetActive(true);
+                initialText.gameObject.SetActive(false);
             }
 
             ShowDialogue(dialogueData.dialogue[currentDialogueIndex].text);
+
             currentDialogueIndex++;
         }
+        // 대화 끝났을 때
         else
         {
             isTalking = false;
+            isRead = true;
+
+            SaveDialogueState(isRead);
 
             speechBalloon.SetActive(false);
+            speechText.gameObject.SetActive(false);
+            initialText.gameObject.SetActive(false);
+
+            speechText.text = "";
+            initialText.text = "...";
+
             speechButton.interactable = false;
-            speechText.text = "...";
 
             currentDialogueIndex = 0;
-
-            isRead = true;
-            SaveDialogueState(isRead);
         }
     }
     private void LoadDialogueData()
@@ -132,10 +142,6 @@ public class TalkableNPC : MonoBehaviour
         {
             dialogueData = JsonUtility.FromJson<DialogueData>(dialogueFile.text);
         }
-        else
-        {
-            Debug.LogError($"Dialogue file for {npcID} not found!");
-        }
     }
     private void ShowDialogue(string text)
     {
@@ -144,21 +150,28 @@ public class TalkableNPC : MonoBehaviour
     }
     private IEnumerator TypeText(string text)
     {
+        isTyping = true;
         foreach (char letter in text.ToCharArray())
         {
-            isTyping = true;
             speechText.text += letter;
-            yield return new WaitForSeconds(textDelay);
+            if (letter != ' ') yield return new WaitForSeconds(textDelay);
         }
         isTyping = false;
     }
-    public void SaveDialogueState(bool isRead)
+    private void SaveDialogueState(bool isRead)
     {
         if (dialogueData != null)
         {
             dialogueData.isRead = isRead;
+
             string json = JsonUtility.ToJson(dialogueData, true);
-            System.IO.File.WriteAllText(Application.dataPath + $"/Resources/NPCDialogue/{npcID}.json", json);
+            System.IO.File.WriteAllText($"{Application.dataPath}/Resources/NPCDialogue/{npcID}.json", json);
         }
+    }
+
+    private bool IsLocalPlayer(Collider other)
+    {
+        PhotonView view = other.GetComponent<PhotonView>();
+        return view != null && view.IsMine;
     }
 }
