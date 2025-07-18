@@ -33,7 +33,7 @@ public class TimeManager : MonoBehaviour
 
         int minutes = Mathf.FloorToInt(currentTime / 60);
         int seconds = Mathf.FloorToInt(currentTime % 60);
-        timerText.text = $" ½Ã°£ : {minutes:00}:{seconds:00}";
+        timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
     void EndTimer()
