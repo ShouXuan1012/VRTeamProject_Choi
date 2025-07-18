@@ -8,27 +8,32 @@ using UnityEngine.XR;
 /// </summary>
 public class BoardingManager : MonoBehaviour
 {
-    [Header("UI 버튼(탑승/하차)")]
-    [SerializeField] private GameObject boardUICanvas; // 탑승 버튼 UI
-    [SerializeField] private GameObject exitUICanvas; // 하차 버튼 UI
+    [SerializeField] private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
 
-    [Header("버스 상태 체크")]
+    [Header("UI 버튼 (탑승]")]
+    [SerializeField] private GameObject boardUICanvas; // 탑승 버튼 UI
+
+    [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController; // 버스 컨트롤러 (정류장 대기 여부 판단용)
 
     [Header("이동 제한 대상 컴포넌트")]
     [SerializeField] private GameObject locomotionProvider;
 
-    [Header("버스 본체(부모로 붙일 대상)")]
-    [SerializeField] private Transform busRoot;
-
     [Header("좌석 위치(탑승 시 이동)")]
     [SerializeField] private Transform[] seatPositions;
 
-    [Header("하차 위치")]
+    [Header("탑승 시 바라볼 방향 (운전사)")]
+    [SerializeField] private Transform lookTarget;
+
+    [Header("하차 위치 및 바라볼 방향")]
     [SerializeField] private Transform exitPosition;
+    [SerializeField] private Transform exitLookTarget;
 
     [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI
-        
+
+    // 플레이어 태그 (기본값 : "Player")
+    private string playerTag = "Player";
+
     private GameObject player;
 
     // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
@@ -41,47 +46,17 @@ public class BoardingManager : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag(playerTag);
         seatOccupied = new bool[seatPositions.Length];
     }
 
-    // 탑승 상태에서만 하차 버튼 (UI) 활성화 상태 관리
-    private void Update()
-    {
-        if (isBoarded)
-        {
-            // 탑승 중일 때 UI 상태 업데이트
-            if (busController.IsWaitingAtStop)
-            {
-                // 정류장에 정차 중이면 하차 UI 활성화
-                if (exitUICanvas != null && !exitUICanvas.activeSelf)
-                {
-                    exitUICanvas.SetActive(true);
-                }
-            }
-            else
-            {
-                // 정류장에 정차 중이 아닐 때 하차 UI 비활성화
-                if (exitUICanvas != null && exitUICanvas.activeSelf)
-                {
-                    exitUICanvas.SetActive(false);
-                }
-            }
-        }
-        else
-        {
-            // 플레이어가 탑승하지 않은 경우 하차 버튼 UI 비활성화
-            if (exitUICanvas != null && exitUICanvas.activeSelf)
-            {
-                exitUICanvas.SetActive(false);
-            }
-        }
-    }
     /// <summary>
     /// 플레이어를 버스에 탑승시키는 메서드
     /// </summary>
     public void BoardBus()
     {
+        // 아래 코드는 재화 UI 적용시킨 씬에서 정상작동 할거라 예상.
+        // 현재는 탑승 버튼 상호작용 시 Null 오류가 나서 주석 처리함.
         //int boardingCost = 10000; // 탑승 비용
 
         //// 소지금 체크
@@ -98,7 +73,7 @@ public class BoardingManager : MonoBehaviour
 
         StartCoroutine(BoardRoutineCo());
         isBoarded = true; // 탑승 상태로 변경
-        HideAllUI();
+        HideBoardUI();
     }
 
     /// <summary>
@@ -108,7 +83,6 @@ public class BoardingManager : MonoBehaviour
     {
         StartCoroutine(ExitRoutineCo());
         isBoarded = false; // 탑승 상태 해제
-        HideAllUI();
     }
 
     private IEnumerator BoardRoutineCo()    // 탑승 루틴
@@ -135,13 +109,31 @@ public class BoardingManager : MonoBehaviour
         }
 
         Transform seat = seatPositions[seatIndex];
+
+        // 플레이어를 좌석 위치로 이동
         player.transform.position = seat.position;
-        player.transform.rotation = seat.rotation;
+
+        // 플레이어가 바라볼 방향 설정
+        if (lookTarget != null)
+        {
+
+            Vector3 dir = (lookTarget.position - player.transform.position).normalized;
+            dir.y = 0f; // 수평 방향으로만 바라보기
+            if (dir != Vector3.zero)
+                player.transform.forward = dir; // 플레이어가 운전사 방향으로 바라보게 설정
+            if (mainCamera != null) mainCamera.transform.forward = dir;
+        }
+        else
+        {
+            // 좌석 방향으로 바라보기
+            player.transform.rotation = seat.rotation;
+        }
+        //player.transform.rotation = seat.rotation;
 
         // 버스에 플레이어를 붙임 (버스가 움직이면 따라가게)
-        if (busRoot != null)
+        if (this.transform != null)
         {
-            player.transform.SetParent(busRoot);
+            player.transform.SetParent(this.transform);
         }
 
         seatOccupied[seatIndex] = true;
@@ -168,7 +160,15 @@ public class BoardingManager : MonoBehaviour
         player.transform.SetParent(null);
 
         player.transform.position = exitPosition.position;
-        player.transform.rotation = exitPosition.rotation;
+        //player.transform.rotation = exitPosition.rotation;
+        // 플레이어가 바라볼 방향 설정
+        if (exitLookTarget != null)
+        {
+            Vector3 dir = (exitLookTarget.position - player.transform.position).normalized;
+            dir.y = 0f; // 수평 방향으로만 바라보기
+            if (dir != Vector3.zero)
+                player.transform.forward = dir; // 플레이어가 하차 후 바라볼 방향 설정
+        }
 
         if (currentSeatIndex != -1)
         {
@@ -208,19 +208,14 @@ public class BoardingManager : MonoBehaviour
         return -1;
     }
 
-    public void ShowBoardUI()
+    public void HideBoardUI()
     {
-        // 탑승 버튼 UI 활성화
-        if (!isBoarded && boardUICanvas != null)
-        {
-            boardUICanvas.SetActive(true);
-        }
+        // 탑승 UI 비활성화
+        if (boardUICanvas != null) boardUICanvas.SetActive(false);
     }
 
-    public void HideAllUI()
+    public bool IsBoarded()
     {
-        // 모든 UI 비활성화
-        if (boardUICanvas != null) boardUICanvas.SetActive(false);
-        if (exitUICanvas != null) exitUICanvas.SetActive(false);
+        return isBoarded;
     }
 }
