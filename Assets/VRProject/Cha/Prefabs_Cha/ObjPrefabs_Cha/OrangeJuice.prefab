@@ -50,6 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseUIPrefab: {fileID: 354102045017918446, guid: 9554fcbc93cab54448dbefc0318c0f0c,
     type: 3}
+  magnifierUI: {fileID: 8086539638366599406, guid: 001cfcef695a614459eca33bb4391999,
+    type: 3}
+  price: 20000
 --- !u!64 &5728274498453642825
 MeshCollider:
   m_ObjectHideFlags: 0

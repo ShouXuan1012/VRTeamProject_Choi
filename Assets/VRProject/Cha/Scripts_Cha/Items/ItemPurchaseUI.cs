@@ -6,8 +6,8 @@ public class ItemPurchaseUI : MonoBehaviour
     public int price;
     public Button yesButton;
     public Button noButton;
-    public GameObject purchasefailUI;
-    private Transform uiParent;
+   
+    
 
     private void Start()
     {
@@ -15,10 +15,7 @@ public class ItemPurchaseUI : MonoBehaviour
         noButton.onClick.AddListener(()=>Destroy(gameObject));
     }
 
-    public void Init(Transform parent)
-    {
-        this.uiParent = parent;
-    }
+    
     private void OnClickYes()
     {
 
@@ -30,7 +27,7 @@ public class ItemPurchaseUI : MonoBehaviour
 
         else
         {
-            GameObject failUI=Instantiate(purchasefailUI,uiParent);
+            UIManager.Instance.OpenUI("Purchase_Fail");
         }
         Destroy(gameObject);
     }

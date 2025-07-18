@@ -505,8 +505,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7326182608807021692}
-        m_TargetAssemblyTypeName: FailUI, Assembly-CSharp
+      - m_Target: {fileID: 6570840324697642286}
+        m_TargetAssemblyTypeName: UI, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 500147938069111537}
   - component: {fileID: 4174207072117547055}
   - component: {fileID: 6414046261699470252}
-  - component: {fileID: -7326182608807021692}
+  - component: {fileID: 6570840324697642286}
   m_Layer: 5
   m_Name: Purchase_failed
   m_TagString: Untagged
@@ -545,7 +545,7 @@ RectTransform:
   m_GameObject: {fileID: 6954077166591726960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3314888417987778203}
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-7326182608807021692
+--- !u!114 &6570840324697642286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6954077166591726960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 244f167b52b844f49ba6bd9b560bc88a, type: 3}
+  m_Script: {fileID: 11500000, guid: d55947ed16bd6094aaa702a019b24cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7048517480221342771
