@@ -99,7 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a92c79c4ff72594ba0a62748fc54a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  purchaseUIPrefab: {fileID: 0}
+  purchaseUIPrefab: {fileID: 4701628549377017102, guid: 500fb168ccb47b348b07accd01e04794,
+    type: 3}
+  magnifierUI: {fileID: 8086539638366599406, guid: 001cfcef695a614459eca33bb4391999,
+    type: 3}
+  price: 100000
 --- !u!64 &350449624201988109
 MeshCollider:
   m_ObjectHideFlags: 0

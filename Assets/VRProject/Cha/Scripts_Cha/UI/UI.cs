@@ -1,17 +1,14 @@
 
+using System;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    private Transform uiParent;
-
-    public void Open(Transform uiparent)
+    public event Action OnClosed;
+    public virtual void Close()
     {
-        this.uiParent = uiparent;
-        Instantiate(gameObject,uiparent);
-    }
-    public void Close()
-    {
+        OnClosed?.Invoke();
         Destroy(gameObject);
     }
 }
+

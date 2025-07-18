@@ -19,17 +19,20 @@ public class MagnifierUI : MonoBehaviour
     }
     public void OnClick()
     {
-        if (currentTarget == null)
+        if (currentTarget == null||currentTarget.purchaseUIPrefab==null)
         {
             return;
         }
-        if(currentTarget.purchaseUIPrefab==null)
-        {
-            return;
-        }
-        GameObject ui=Instantiate(currentTarget.purchaseUIPrefab,uiParent);
-        Destroy(ui, 99f);
-        ui.GetComponent<ItemPurchaseUI>().Init(uiParent);
+
+        UIManager.Instance.SpawnDynamicUI(currentTarget.purchaseUIPrefab, uiParent, (go) =>
+        { var purchaseUI=go.GetComponent<ItemPurchaseUI>();
+            if (purchaseUI != null)
+            {
+                purchaseUI.price = currentTarget.price;
+
+
+            }
+        });
     }
 
 
