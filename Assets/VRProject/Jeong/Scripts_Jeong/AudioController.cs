@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviourPunCallbacks
 {
-    public AudioSource musicSource;
+    [SerializeField] private AudioSource musicSource;
 
     private float musicStartTime;
 
