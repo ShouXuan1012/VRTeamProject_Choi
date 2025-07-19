@@ -1,13 +1,14 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
 /// 버스 정류장 경로 순회 및 도착 상태 관리 클래스.
 /// 이동과 상태관리만 담당, UI 나 탑승 처리는 다른 클래스에서 담당.
 /// </summary>
-public class BusController : MonoBehaviour
+public class BusController : MonoBehaviourPunCallbacks
 {
     [System.Serializable] // 이 클래스를 인스펙터에서 볼 수 있도록 하기 위해 사용
     public class BusPathPoint
@@ -33,9 +34,11 @@ public class BusController : MonoBehaviour
     // 현재 순회 중인 정류장 인덱스
     private int currentPointIndex = 0;
 
+    private Coroutine busRoutine;
+
     private void Start()
     {
-        if (pathPoints.Count > 0)
+        if (PhotonNetwork.IsMasterClient && pathPoints.Count > 0)
         {
             // 처음 위치를 첫 번째 정류장으로 설정
             transform.position = pathPoints[0].point.position;
@@ -82,6 +85,16 @@ public class BusController : MonoBehaviour
 
             IsWaitingAtStop = false; // 현재 정류장에서 대기 중이 아님
             currentPointIndex = (currentPointIndex + 1) % pathPoints.Count;
+        }
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (newMasterClient.IsLocal && busRoutine == null && pathPoints.Count > 0)
+        {
+            Debug.Log("[버스] 마스터 변경 → 새 마스터가 이동 이어받음");
+            transform.position = pathPoints[currentPointIndex].point.position;
+            busRoutine = StartCoroutine(BusRoutineCo());
         }
     }
 }

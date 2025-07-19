@@ -1,23 +1,23 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.UI;
+using Photon.Pun;
 
 /// <summary>
 /// 플레이어의 버스 탑승 및 하차를 전담하는 클래스
 /// 이동 제한 및 페이드 효과 등을 관리
 /// </summary>
-public class BoardingManager : MonoBehaviour
+public class BoardingManager : MonoBehaviourPun
 {
-    [SerializeField] private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
+    private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
 
     [Header("UI 버튼 (탑승]")]
     [SerializeField] private GameObject boardUICanvas; // 탑승 버튼 UI
 
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController; // 버스 컨트롤러 (정류장 대기 여부 판단용)
-
-    [Header("이동 제한 대상 컴포넌트")]
-    [SerializeField] private GameObject locomotionProvider;
+       
+    private GameObject locomotionProvider;  //이동 제한 대상 컴포넌트
 
     [Header("좌석 위치(탑승 시 이동)")]
     [SerializeField] private Transform[] seatPositions;
@@ -29,10 +29,7 @@ public class BoardingManager : MonoBehaviour
     [SerializeField] private Transform exitPosition;
     [SerializeField] private Transform exitLookTarget;
 
-    [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI
-
-    // 플레이어 태그 (기본값 : "Player")
-    private string playerTag = "Player";
+    [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI   
 
     private GameObject player;
 
@@ -44,10 +41,60 @@ public class BoardingManager : MonoBehaviour
     // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
     private int currentSeatIndex = -1;
 
+    // Photon 동기화용
+    private static bool[] syncedSeatOccupied;
+
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag(playerTag);
+        //player = GameObject.FindGameObjectWithTag(playerTag);
+        StartCoroutine(SetupReferences());
         seatOccupied = new bool[seatPositions.Length];
+    }
+
+    private IEnumerator SetupReferences()
+    {
+        // 내 플레이어가 생성될 때까지 대기
+        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
+            yield return null;
+
+        player = PhotonNetwork.LocalPlayer.TagObject as GameObject;
+
+        // mainCamera 찾기 (플레이어 내부에 있다고 가정)
+        if (mainCamera == null)
+        {
+            Transform cam = player.transform.Find("Camera Offset/Main Camera");
+            if (cam != null) mainCamera = cam;
+            else Debug.LogWarning("MainCamera 찾기 실패");
+        }
+
+        // LocomotionProvider 찾기 (플레이어 내부에서 이름 기반 탐색)
+        if (locomotionProvider == null)
+        {
+            Transform loco = player.transform.Find("Locomotion System");
+            if (loco != null) locomotionProvider = loco.gameObject;
+            else Debug.LogWarning("LocomotionProvider 찾기 실패");
+        }
+
+        //플레이어에 있는 하차UI의 버튼을 찾기
+        SetupExitButton();
+    }
+
+    private void SetupExitButton()
+    {
+        Transform buttonTr = player.transform.Find("UI/ExitCanvas/E_Button");
+        if (buttonTr != null)
+        {
+            var button = buttonTr.GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(ExitBus);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("ExitButton 찾기 실패");
+        }
     }
 
     /// <summary>
@@ -88,7 +135,6 @@ public class BoardingManager : MonoBehaviour
     private IEnumerator BoardRoutineCo()    // 탑승 루틴
     {
         Debug.Log("탑승 루틴 시작");
-
         yield return FadeUIController.Instance.FadeOut();
 
         if (player == null)
@@ -136,6 +182,7 @@ public class BoardingManager : MonoBehaviour
             player.transform.SetParent(this.transform);
         }
 
+        photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, seatIndex, true);
         seatOccupied[seatIndex] = true;
         currentSeatIndex = seatIndex;
 
@@ -172,6 +219,8 @@ public class BoardingManager : MonoBehaviour
 
         if (currentSeatIndex != -1)
         {
+            if (PhotonNetwork.InRoom)
+                photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, currentSeatIndex, false);
             seatOccupied[currentSeatIndex] = false; // 좌석 비우기
             currentSeatIndex = -1;
         }
@@ -217,5 +266,14 @@ public class BoardingManager : MonoBehaviour
     public bool IsBoarded()
     {
         return isBoarded;
+    }
+
+    [PunRPC]
+    void SetSeatOccupiedRPC(int seatIndex, bool isOccupied)
+    {
+        if (seatIndex >= 0 && seatIndex < seatOccupied.Length)
+        {
+            seatOccupied[seatIndex] = isOccupied;
+        }
     }
 }

@@ -1,10 +1,13 @@
+using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BusStopTimerUI : MonoBehaviour
+public class BusStopTimerUI : MonoBehaviourPun
 {
-    [Header("UI 텍스트")]
-    [SerializeField] private Text timerText;
+    //마찬가지로 수동 할당 - Choi
+    private Text timerText;
+    private Transform player;
 
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController;
@@ -17,12 +20,39 @@ public class BusStopTimerUI : MonoBehaviour
 
     void Start()
     {
-        if (timerText != null) 
-            timerText.gameObject.SetActive(false); // 초기에는 UI 비활성화
+        StartCoroutine(SetupReferences());
+    }
+    
+    private IEnumerator SetupReferences()
+    {
+        // 플레이어 기다리기
+        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
+            yield return null;
+
+        player = (PhotonNetwork.LocalPlayer.TagObject as GameObject)?.transform;
+
+        if (player == null)
+        {
+            Debug.LogError("[BusStopTimerUI] 플레이어를 찾을 수 없습니다.");
+            yield break;
+        }
+
+        // 플레이어 자식에서 timerText 찾기
+        timerText = player.Find("UI/ExitCanvas/B_E_Count_BackGround/E_CountDown_BackGround/E_Countdown_Text")?.GetComponent<Text>();
+
+        if (timerText == null)
+        {
+            Debug.LogWarning("[BusStopTimerUI] TimerText를 찾을 수 없습니다.");
+            yield break;
+        }
+
+        timerText.gameObject.SetActive(false); // 초기 비활성화
     }
 
     void Update()
     {
+        if (timerText == null) return;
+
         // 정류장에 대기 중인 경우에만 타이머 활성화
         if (busController.IsStopStation && busController.IsWaitingAtStop)
         {

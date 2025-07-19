@@ -1,9 +1,11 @@
+using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
 /// 버스 정류장 도착 시 하차 버튼 UI 활성화
 /// </summary>
-public class BusExitTrigger : MonoBehaviour
+public class BusExitTrigger : MonoBehaviourPun
 {
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController; // 버스 컨트롤러 (정류장 대기 여부 판단용)
@@ -11,23 +13,49 @@ public class BusExitTrigger : MonoBehaviour
     [Header("버스 위치")]
     [SerializeField] private Transform busRoot; // 버스 본체 (부모로 붙일 대상)
 
-    [Header("하차 버튼 UI")]
-    [SerializeField] private GameObject exitUICanvas; // 하차 버튼 UI
+    //플레이어 자동으로 할당해야함 -Choi
+    private GameObject exitUICanvas; // 하차 버튼 UI
 
     [Header("탑승 상태")]
     [SerializeField] private BoardingManager boardingManager; // 탑승 상태 관리 클래스
 
     private Transform player;
 
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어 오브젝트 찾기
-        if (exitUICanvas != null)
-            exitUICanvas.SetActive(false); // 시작 시 하차 UI 비활성화
+        //player = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어 오브젝트 찾기
+        //if (exitUICanvas != null)
+        //    exitUICanvas.SetActive(false); // 시작 시 하차 UI 비활성화
+        StartCoroutine(SetupReferences());
+    }
+    
+    private IEnumerator SetupReferences()
+    {
+        // 플레이어 찾기
+        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
+            yield return null;
+
+        player = (PhotonNetwork.LocalPlayer.TagObject as GameObject)?.transform;
+
+        if (player == null)
+        {
+            Debug.LogError("[BusExitTrigger] 플레이어 찾기 실패");
+            yield break;
+        }
+
+        // exitUICanvas 찾기 (플레이어 자식에 있다고 가정)
+        exitUICanvas = player.Find("UI/ExitCanvas")?.gameObject;
+
+        if (exitUICanvas == null)
+            Debug.LogWarning("[BusExitTrigger] Exit UI를 찾을 수 없습니다");
+        else
+            exitUICanvas.SetActive(false);
     }
 
     private void Update()
     {
+        if (exitUICanvas == null) return;
+
         // 플레이어가 버스 안에 있는지 확인
         bool isBoarded = boardingManager != null && boardingManager.IsBoarded(); // 탑승 여부
         // 정류장 대기 상태
