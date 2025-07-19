@@ -54,6 +54,7 @@ public class BusExitTrigger : MonoBehaviourPun
 
     private void Update()
     {
+        if (!photonView.IsMine) return;
         if (exitUICanvas == null) return;
 
         // 플레이어가 버스 안에 있는지 확인

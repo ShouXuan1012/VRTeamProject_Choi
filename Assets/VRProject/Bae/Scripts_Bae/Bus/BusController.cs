@@ -35,10 +35,10 @@ public class BusController : MonoBehaviourPunCallbacks
     private int currentPointIndex = 0;
 
     private Coroutine busRoutine;
-
+    private float syncedDepartureTime;
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient && pathPoints.Count > 0)
+        if (pathPoints.Count > 0)
         {
             // 처음 위치를 첫 번째 정류장으로 설정
             transform.position = pathPoints[0].point.position;
@@ -81,20 +81,31 @@ public class BusController : MonoBehaviourPunCallbacks
 
             // "정류장" 이면 7초 대기, 그 외엔 0.05초 대기
             float waitTime = current.isStopStation ? stopStationWaitTime : defaultWaitTime;
-            yield return new WaitForSeconds(waitTime);
+            if (PhotonNetwork.IsMasterClient && current.isStopStation)
+            {
+                float departureTime = (float)PhotonNetwork.Time + waitTime;
+                photonView.RPC(nameof(RPC_SetDepartureTime), RpcTarget.All, departureTime);
+            }
+
+            // 마스터가 아니면 waitTime을 따르지 않고, RPC로 받은 시간까지 기다리도록 함
+            if (!PhotonNetwork.IsMasterClient && current.isStopStation)
+            {
+                while (PhotonNetwork.Time < syncedDepartureTime)
+                    yield return null;
+            }
+            else
+            {
+                yield return new WaitForSeconds(waitTime);
+            }
 
             IsWaitingAtStop = false; // 현재 정류장에서 대기 중이 아님
             currentPointIndex = (currentPointIndex + 1) % pathPoints.Count;
         }
     }
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    [PunRPC]
+    void RPC_SetDepartureTime(float serverTime)
     {
-        if (newMasterClient.IsLocal && busRoutine == null && pathPoints.Count > 0)
-        {
-            Debug.Log("[버스] 마스터 변경 → 새 마스터가 이동 이어받음");
-            transform.position = pathPoints[currentPointIndex].point.position;
-            busRoutine = StartCoroutine(BusRoutineCo());
-        }
+        syncedDepartureTime = serverTime;
     }
 }

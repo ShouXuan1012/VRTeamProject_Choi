@@ -49,6 +49,6 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("DevScene_Choi_Test");
+        PhotonNetwork.LoadLevel("InGameScene_Dev");
     }
 }

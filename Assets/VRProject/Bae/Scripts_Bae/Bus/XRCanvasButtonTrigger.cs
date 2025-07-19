@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
@@ -30,17 +31,21 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(playerTag)) return;
-
-        // 트리거에 플레이어가 들어오면 UI 활성화
-        if (actionType == ActionType.Board && UICanvas != null && busController.IsStopStation)
-            UICanvas.SetActive(true);
+        // if (!other.CompareTag(playerTag)) return;
+        if (other.CompareTag("Player") && IsLocalPlayer(other))
+        {
+            Debug.Log("탑승 트리거 입장");
+            // 트리거에 플레이어가 들어오면 UI 활성화
+            Debug.Log($"actionType: {actionType}, UICanvas is null: {UICanvas == null}, busController.IsStopStation: {busController.IsStopStation}");
+            if (actionType == ActionType.Board && UICanvas != null && busController.IsStopStation)
+                UICanvas.SetActive(true);
+        }
     }
 
     //private void OnTriggerStay(Collider other)
     //{
     //    if (!other.CompareTag("Player")) return;
-        
+
     //    if (actionType == ActionType.Exit)
     //    {
     //        // 하차 버튼은 정류장 대기 중일 때만 활성화
@@ -71,5 +76,11 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
         if (UICanvas != null)
             UICanvas.SetActive(false); // 버튼 클릭 후 UI 비활성화
+    }
+
+    private bool IsLocalPlayer(Collider other)
+    {
+        PhotonView view = other.GetComponent<PhotonView>();
+        return view != null && view.IsMine;
     }
 }

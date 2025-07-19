@@ -40,6 +40,6 @@ public class BasketballSceneTrigger : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         // ∑Î ª˝º∫µ«∏È ≥Û±∏¿Â æ¿¿∏∑Œ ¿Ãµø
-        SceneManager.LoadScene("Basketball Court_Choi");
+        SceneManager.LoadScene("BasketballScene");
     }
 }
