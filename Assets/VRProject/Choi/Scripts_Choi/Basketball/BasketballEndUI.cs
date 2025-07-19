@@ -25,6 +25,7 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
 
     private IEnumerator LeaveRoomAndReturnToMain()
     {
+        VoiceManager.instance.Disconnect();
         PhotonNetwork.LeaveRoom();
 
         // ´ë±â

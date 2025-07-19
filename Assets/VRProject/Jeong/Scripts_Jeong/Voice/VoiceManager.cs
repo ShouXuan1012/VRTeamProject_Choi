@@ -1,4 +1,5 @@
-﻿using Photon.Voice.Unity;
+﻿using Photon.Voice.PUN;
+using Photon.Voice.Unity;
 using UnityEngine;
 
 // 내 보이스 관리
@@ -8,6 +9,8 @@ public class VoiceManager : MonoBehaviour
 
     private Recorder recorder;
     private bool isMuted;
+
+    private PunVoiceClient punVoiceClient;
 
     void Awake()
     {
@@ -30,6 +33,8 @@ public class VoiceManager : MonoBehaviour
         }
 
         isMuted = !recorder.TransmitEnabled;
+
+        punVoiceClient = FindObjectOfType<PunVoiceClient>();
     }
 
     public void ToggleMute()
@@ -63,5 +68,10 @@ public class VoiceManager : MonoBehaviour
         if (recorder == null) return false;
 
         return recorder.IsCurrentlyTransmitting;
+    }
+
+    public void Disconnect()
+    {
+        punVoiceClient.Disconnect();
     }
 }

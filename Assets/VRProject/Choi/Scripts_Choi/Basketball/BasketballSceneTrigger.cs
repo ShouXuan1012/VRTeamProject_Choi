@@ -16,6 +16,7 @@ public class BasketballSceneTrigger : MonoBehaviourPunCallbacks
         if (view != null && view.IsMine)
         {
             hasRequested = true;
+            VoiceManager.instance.Disconnect();
             PhotonNetwork.LeaveRoom(); // ·ë ³ª°¡±â
         }
     }
