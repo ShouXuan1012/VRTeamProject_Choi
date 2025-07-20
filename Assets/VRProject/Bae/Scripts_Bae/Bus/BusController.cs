@@ -38,10 +38,12 @@ public class BusController : MonoBehaviourPunCallbacks
     private float syncedDepartureTime;
     private void Start()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         if (pathPoints.Count > 0)
         {
             // 처음 위치를 첫 번째 정류장으로 설정
-            transform.position = pathPoints[0].point.position;
+            //transform.position = pathPoints[0].point.position;
             // 이동 루틴 시작
             StartCoroutine(BusRoutineCo());
         }
@@ -107,5 +109,14 @@ public class BusController : MonoBehaviourPunCallbacks
     void RPC_SetDepartureTime(float serverTime)
     {
         syncedDepartureTime = serverTime;
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StopAllCoroutines(); // 혹시 이전 루틴이 있다면 정지
+            StartCoroutine(BusRoutineCo()); // 현재 위치 기준으로 이어서 이동
+        }
     }
 }

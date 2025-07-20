@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] private List<UIEntry> uiPrefabs;
-    [SerializeField] private Transform uiParent;
+    private Transform uiParent;
 
     private Dictionary<string, UI> spawnedUI = new();
     private void Awake()
@@ -25,8 +25,34 @@ public class UIManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
+
+    void OnEnable()
+    {
+        PlayerSpawner.OnPlayerSpawned += OnPlayerSpawned;
+    }
+
+    void OnDisable()
+    {
+        PlayerSpawner.OnPlayerSpawned -= OnPlayerSpawned;
+    }
+
+    private void OnPlayerSpawned(GameObject player)
+    {
+        // 플레이어 하위에서 MainUI 찾기
+        Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
+        if (found != null)
+        {
+            uiParent = found;
+            Debug.LogWarning("[MagnifierUI] MainUI 연결성공");
+        }
+        else
+        {
+            Debug.LogWarning("[MagnifierUI] 플레이어 하위에서 MainUI를 찾을 수 없습니다.");
+        }
+    }
+
     public void OpenUI(string key)
     {
         if (spawnedUI.ContainsKey(key)) return;

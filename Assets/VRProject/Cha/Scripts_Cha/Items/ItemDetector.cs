@@ -30,7 +30,7 @@ public class ItemDetector : MonoBehaviour
                     }
 
                     currentItem = item;
-
+                    Debug.Log($"[ItemDetector] magnifierUI activeSelf: {currentItem.magnifierUI.gameObject.activeSelf}, activeInHierarchy: {currentItem.magnifierUI.gameObject.activeInHierarchy}");
                     currentItem.magnifierUI.gameObject.SetActive(true);
                     currentItem.magnifierUI.SetTarget(currentItem);
                 }
