@@ -18,32 +18,25 @@ public class BusStopTimerUI : MonoBehaviourPun
 
     private string baseText = "초 후 \n버스가 출발합니다!"; // UI에 표시할 기본 텍스트
 
-    void Start()
+    private void OnEnable()
     {
-        StartCoroutine(SetupReferences());
+        PlayerSpawner.OnPlayerSpawned += OnPlayerSpawned;
     }
-    
-    private IEnumerator SetupReferences()
+
+    private void OnDisable()
     {
-        // 플레이어 기다리기
-        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
-            yield return null;
+        PlayerSpawner.OnPlayerSpawned -= OnPlayerSpawned;
+    }
 
-        player = (PhotonNetwork.LocalPlayer.TagObject as GameObject)?.transform;
-
-        if (player == null)
-        {
-            Debug.LogError("[BusStopTimerUI] 플레이어를 찾을 수 없습니다.");
-            yield break;
-        }
-
-        // 플레이어 자식에서 timerText 찾기
+    private void OnPlayerSpawned(GameObject spawnedPlayer)
+    {
+        player = spawnedPlayer.transform;
         timerText = player.Find("UI/ExitCanvas/B_E_Count_BackGround/E_CountDown_BackGround/E_Countdown_Text")?.GetComponent<Text>();
 
         if (timerText == null)
         {
             Debug.LogWarning("[BusStopTimerUI] TimerText를 찾을 수 없습니다.");
-            yield break;
+            return;
         }
 
         timerText.gameObject.SetActive(false); // 초기 비활성화

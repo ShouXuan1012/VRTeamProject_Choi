@@ -44,58 +44,45 @@ public class BoardingManager : MonoBehaviourPun
     // Photon 동기화용
     private static bool[] syncedSeatOccupied;
 
+    private void OnEnable()
+    {
+        PlayerSpawner.OnPlayerSpawned += SetupReferences;
+    }
+
+    private void OnDisable()
+    {
+        PlayerSpawner.OnPlayerSpawned -= SetupReferences;
+    }
+
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag(playerTag);
-        StartCoroutine(SetupReferences());
         seatOccupied = new bool[seatPositions.Length];
     }
 
-    private IEnumerator SetupReferences()
+    private void SetupReferences(GameObject spawnedPlayer)
     {
-        // 내 플레이어가 생성될 때까지 대기
-        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
-            yield return null;
+        player = spawnedPlayer;
 
-        player = PhotonNetwork.LocalPlayer.TagObject as GameObject;
+        Transform cam = player.transform.Find("Camera Offset/Main Camera");
+        if (cam != null) mainCamera = cam;
+        else Debug.LogWarning("MainCamera 찾기 실패");
 
-        // mainCamera 찾기 (플레이어 내부에 있다고 가정)
-        if (mainCamera == null)
-        {
-            Transform cam = player.transform.Find("Camera Offset/Main Camera");
-            if (cam != null) mainCamera = cam;
-            else Debug.LogWarning("MainCamera 찾기 실패");
-        }
+        Transform loco = player.transform.Find("Locomotion System");
+        if (loco != null) locomotionProvider = loco.gameObject;
+        else Debug.LogWarning("LocomotionProvider 찾기 실패");
 
-        // LocomotionProvider 찾기 (플레이어 내부에서 이름 기반 탐색)
-        if (locomotionProvider == null)
-        {
-            Transform loco = player.transform.Find("Locomotion System");
-            if (loco != null) locomotionProvider = loco.gameObject;
-            else Debug.LogWarning("LocomotionProvider 찾기 실패");
-        }
-
-        //플레이어에 있는 하차UI의 버튼을 찾기
-        SetupExitButton();
-    }
-
-    private void SetupExitButton()
-    {
         Transform buttonTr = player.transform.Find("UI/ExitCanvas/E_Button");
         if (buttonTr != null)
         {
             var button = buttonTr.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(ExitBus);
-            }
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(ExitBus);
         }
         else
         {
             Debug.LogWarning("ExitButton 찾기 실패");
         }
-    }
+    }  
 
     /// <summary>
     /// 플레이어를 버스에 탑승시키는 메서드

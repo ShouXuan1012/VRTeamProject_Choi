@@ -19,6 +19,10 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
         }
         else
         {
+            if (PhotonNetwork.LocalPlayer.TagObject != null)
+            {
+                PhotonNetwork.LocalPlayer.TagObject = null;
+            }
             JoinOrCreateMainRoom();
         }
     }
@@ -26,6 +30,10 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
     private IEnumerator LeaveRoomAndReturnToMain()
     {
         VoiceManager.instance.Disconnect();
+        if (PhotonNetwork.LocalPlayer.TagObject != null)
+        {
+            PhotonNetwork.LocalPlayer.TagObject = null;
+        }
         PhotonNetwork.LeaveRoom();
 
         // ´ë±â

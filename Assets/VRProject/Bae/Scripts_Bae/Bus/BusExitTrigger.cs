@@ -21,35 +21,27 @@ public class BusExitTrigger : MonoBehaviourPun
 
     private Transform player;
 
-    private void Start()
+    private void OnEnable()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어 오브젝트 찾기
-        //if (exitUICanvas != null)
-        //    exitUICanvas.SetActive(false); // 시작 시 하차 UI 비활성화
-        StartCoroutine(SetupReferences());
+        PlayerSpawner.OnPlayerSpawned += SetupReferences;
     }
-    
-    private IEnumerator SetupReferences()
+
+    private void OnDisable()
     {
-        // 플레이어 찾기
-        while (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.TagObject == null)
-            yield return null;
+        PlayerSpawner.OnPlayerSpawned -= SetupReferences;
+    }
 
-        player = (PhotonNetwork.LocalPlayer.TagObject as GameObject)?.transform;
+    private void SetupReferences(GameObject spawnedPlayer)
+    {
+        player = spawnedPlayer.transform;
 
-        if (player == null)
-        {
-            Debug.LogError("[BusExitTrigger] 플레이어 찾기 실패");
-            yield break;
-        }
-
-        // exitUICanvas 찾기 (플레이어 자식에 있다고 가정)
         exitUICanvas = player.Find("UI/ExitCanvas")?.gameObject;
 
         if (exitUICanvas == null)
             Debug.LogWarning("[BusExitTrigger] Exit UI를 찾을 수 없습니다");
         else
             exitUICanvas.SetActive(false);
+
     }
 
     private void Update()
