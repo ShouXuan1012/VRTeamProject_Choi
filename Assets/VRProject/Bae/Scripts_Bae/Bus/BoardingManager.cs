@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System;
 
 /// <summary>
 /// 플레이어의 버스 탑승 및 하차를 전담하는 클래스
@@ -9,15 +10,14 @@ using Photon.Pun;
 /// </summary>
 public class BoardingManager : MonoBehaviourPun
 {
-    private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
+    public event Action OnBoardedBus;
+    public event Action OnExitedBus;
 
-    [Header("UI 버튼 (탑승]")]
+    [Header("UI 버튼 (탑승)")]
     [SerializeField] private GameObject boardUICanvas; // 탑승 버튼 UI
 
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController; // 버스 컨트롤러 (정류장 대기 여부 판단용)
-       
-    private GameObject locomotionProvider;  //이동 제한 대상 컴포넌트
 
     [Header("좌석 위치(탑승 시 이동)")]
     [SerializeField] private Transform[] seatPositions;
@@ -29,17 +29,14 @@ public class BoardingManager : MonoBehaviourPun
     [SerializeField] private Transform exitPosition;
     [SerializeField] private Transform exitLookTarget;
 
-    [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI   
+    //[SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI   
 
     private GameObject player;
+    private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
+    private GameObject locomotionProvider; //이동 제한 대상 컴포넌트
 
-    // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
-    private bool[] seatOccupied;
-
-    private bool isBoarded = false; // 탑승 여부
-
-    // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
-    private int currentSeatIndex = -1;
+    private bool[] seatOccupied; // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
+    private int currentSeatIndex = -1; // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
 
     // Photon 동기화용
     private static bool[] syncedSeatOccupied;
@@ -82,7 +79,7 @@ public class BoardingManager : MonoBehaviourPun
         {
             Debug.LogWarning("ExitButton 찾기 실패");
         }
-    }  
+    }
 
     /// <summary>
     /// 플레이어를 버스에 탑승시키는 메서드
@@ -106,8 +103,6 @@ public class BoardingManager : MonoBehaviourPun
         //}
 
         StartCoroutine(BoardRoutineCo());
-        isBoarded = true; // 탑승 상태로 변경
-        HideBoardUI();
     }
 
     /// <summary>
@@ -116,12 +111,11 @@ public class BoardingManager : MonoBehaviourPun
     public void ExitBus()
     {
         StartCoroutine(ExitRoutineCo());
-        isBoarded = false; // 탑승 상태 해제
+        OnExitedBus?.Invoke();
     }
 
     private IEnumerator BoardRoutineCo()    // 탑승 루틴
     {
-        Debug.Log("탑승 루틴 시작");
         yield return FadeUIController.Instance.FadeOut();
 
         if (player == null)
@@ -149,7 +143,6 @@ public class BoardingManager : MonoBehaviourPun
         // 플레이어가 바라볼 방향 설정
         if (lookTarget != null)
         {
-
             Vector3 dir = (lookTarget.position - player.transform.position).normalized;
             dir.y = 0f; // 수평 방향으로만 바라보기
             if (dir != Vector3.zero)
@@ -161,7 +154,9 @@ public class BoardingManager : MonoBehaviourPun
             // 좌석 방향으로 바라보기
             player.transform.rotation = seat.rotation;
         }
-        //player.transform.rotation = seat.rotation;
+
+        //RemoteTransformSync sync = player.GetComponent<RemoteTransformSync>();
+        //if (sync != null) sync.enabled = false;
 
         // 버스에 플레이어를 붙임 (버스가 움직이면 따라가게)
         if (this.transform != null)
@@ -170,7 +165,7 @@ public class BoardingManager : MonoBehaviourPun
         }
 
         photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, seatIndex, true);
-        seatOccupied[seatIndex] = true;
+        //photonView.RPC("AssignSeatPosition", RpcTarget.OthersBuffered, seatIndex);
         currentSeatIndex = seatIndex;
 
         if (controller != null) controller.enabled = true;
@@ -179,6 +174,8 @@ public class BoardingManager : MonoBehaviourPun
         {
             locomotionProvider.gameObject.SetActive(false);
         }
+
+        OnBoardedBus?.Invoke();
 
         yield return FadeUIController.Instance.FadeIn();
     }
@@ -193,6 +190,9 @@ public class BoardingManager : MonoBehaviourPun
         // 버스에서 플레이어 떼어내기
         player.transform.SetParent(null);
 
+        //RemoteTransformSync sync = player.GetComponent<RemoteTransformSync>();
+        //if (sync != null) sync.enabled = true;
+
         player.transform.position = exitPosition.position;
         //player.transform.rotation = exitPosition.rotation;
         // 플레이어가 바라볼 방향 설정
@@ -206,9 +206,7 @@ public class BoardingManager : MonoBehaviourPun
 
         if (currentSeatIndex != -1)
         {
-            if (PhotonNetwork.InRoom)
-                photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, currentSeatIndex, false);
-            seatOccupied[currentSeatIndex] = false; // 좌석 비우기
+            photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, currentSeatIndex, false);
             currentSeatIndex = -1;
         }
 
@@ -222,12 +220,12 @@ public class BoardingManager : MonoBehaviourPun
         yield return FadeUIController.Instance.FadeIn();
     }
 
-    private IEnumerator HideNotEnoughMoneyUI()
-    {
-        yield return new WaitForSeconds(2f); // 2초 후에 UI 숨김
-        if (notEnoughMoneyUI != null)
-            notEnoughMoneyUI.SetActive(false);
-    }
+    //private IEnumerator HideNotEnoughMoneyUI()
+    //{
+    //    yield return new WaitForSeconds(2f); // 2초 후에 UI 숨김
+    //    if (notEnoughMoneyUI != null)
+    //        notEnoughMoneyUI.SetActive(false);
+    //}
 
     /// <summary>
     /// 비어 있는 좌석 인덱스를 반환 (없으면 -1)
@@ -244,23 +242,18 @@ public class BoardingManager : MonoBehaviourPun
         return -1;
     }
 
-    public void HideBoardUI()
-    {
-        // 탑승 UI 비활성화
-        if (boardUICanvas != null) boardUICanvas.SetActive(false);
-    }
-
-    public bool IsBoarded()
-    {
-        return isBoarded;
-    }
-
     [PunRPC]
-    void SetSeatOccupiedRPC(int seatIndex, bool isOccupied)
+    private void SetSeatOccupiedRPC(int seatIndex, bool isOccupied)
     {
         if (seatIndex >= 0 && seatIndex < seatOccupied.Length)
         {
             seatOccupied[seatIndex] = isOccupied;
         }
+    }
+    [PunRPC]
+    private void AssignSeatPosition(int index)
+    {
+        player.transform.position = seatPositions[index].position;
+        player.transform.rotation = seatPositions[index].rotation;
     }
 }

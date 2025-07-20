@@ -5,27 +5,37 @@ using UnityEngine.UI;
 
 public class BusStopTimerUI : MonoBehaviourPun
 {
-    //마찬가지로 수동 할당 - Choi
-    private Text timerText;
-    private Transform player;
-
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController;
 
-    private float currentWaitTime;
+    // 플레이어 스폰 후에 수동 할당 -Choi
+    private Transform player;
+    private Text timerText;
 
-    private bool isCountingDown = false;
+    private Coroutine countdownRoutine;
 
     private string baseText = "초 후 \n버스가 출발합니다!"; // UI에 표시할 기본 텍스트
 
     private void OnEnable()
     {
         PlayerSpawner.OnPlayerSpawned += OnPlayerSpawned;
+
+        if (busController != null)
+        {
+            busController.OnStopStationEntered += StartCountdown;
+            busController.OnStopStationExited += HideCountdown;
+        }
     }
 
     private void OnDisable()
     {
         PlayerSpawner.OnPlayerSpawned -= OnPlayerSpawned;
+
+        if (busController != null)
+        {
+            busController.OnStopStationEntered -= StartCountdown;
+            busController.OnStopStationExited -= HideCountdown;
+        }
     }
 
     private void OnPlayerSpawned(GameObject spawnedPlayer)
@@ -42,35 +52,40 @@ public class BusStopTimerUI : MonoBehaviourPun
         timerText.gameObject.SetActive(false); // 초기 비활성화
     }
 
-    void Update()
+    private void StartCountdown(float waitTime)
     {
         if (timerText == null) return;
 
-        // 정류장에 대기 중인 경우에만 타이머 활성화
-        if (busController.IsStopStation && busController.IsWaitingAtStop)
+        timerText.gameObject.SetActive(true);
+
+        if (countdownRoutine != null)
+            StopCoroutine(countdownRoutine);
+
+        countdownRoutine = StartCoroutine(CountdownRoutine(waitTime));
+    }
+
+    private IEnumerator CountdownRoutine(float waitTime)
+    {
+        float timeLeft = waitTime;
+
+        while (timeLeft > 0f)
         {
-            if (!isCountingDown)
-            {
-                currentWaitTime = busController.stopStationWaitTime;
-                timerText.gameObject.SetActive(true); // UI 활성화
-                isCountingDown = true; // 카운트다운 시작
-            }
-
-            // 카운트다운 진행
-            currentWaitTime -= Time.deltaTime;
-            if (currentWaitTime < 0f) currentWaitTime = 0f; // 음수로 내려가지 않도록
-
-            // UI 텍스트 업데이트
-            int displayTime = Mathf.CeilToInt(currentWaitTime); // 소수점 올림
+            timeLeft -= Time.deltaTime;
+            int displayTime = Mathf.CeilToInt(timeLeft);
             timerText.text = displayTime + baseText;
+            yield return null;
         }
-        else
-        {
-            // 대기 중이 아니면 UI 비활성화
-            if (timerText != null && timerText.gameObject.activeSelf)
-                timerText.gameObject.SetActive(false);
+    }
 
-            isCountingDown = false; // 카운트다운 중지
+    private void HideCountdown()
+    {
+        if (countdownRoutine != null)
+        {
+            StopCoroutine(countdownRoutine);
+            countdownRoutine = null;
         }
+
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
     }
 }

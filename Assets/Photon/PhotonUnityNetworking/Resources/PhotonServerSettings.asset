@@ -43,6 +43,10 @@ MonoBehaviour:
   - SetMovingAnim
   - SetSeatOccupiedRPC
   - RPC_SetDepartureTime
+  - AssignSeatPosition
+  - SetNextPointIndexRPC
+  - TriggerStopStationEntered
+  - TriggerStopStationExited
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

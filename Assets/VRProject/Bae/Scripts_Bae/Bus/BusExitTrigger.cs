@@ -13,111 +13,91 @@ public class BusExitTrigger : MonoBehaviourPun
     [Header("버스 위치")]
     [SerializeField] private Transform busRoot; // 버스 본체 (부모로 붙일 대상)
 
-    //플레이어 자동으로 할당해야함 -Choi
-    private GameObject exitUICanvas; // 하차 버튼 UI
-
     [Header("탑승 상태")]
     [SerializeField] private BoardingManager boardingManager; // 탑승 상태 관리 클래스
 
+    // 플레이어 스폰 후에 수동 할당 -Choi
     private Transform player;
+    private GameObject exitUICanvas; // 하차 버튼 UI
+
+    private bool isPlayerInsideBus = false;
+    private bool isBusAtStop = false;
 
     private void OnEnable()
     {
-        PlayerSpawner.OnPlayerSpawned += SetupReferences;
+        PlayerSpawner.OnPlayerSpawned += OnPlayerSpawned;
+
+        if (busController != null)
+        {
+            busController.OnStopStationEntered += HandleBusStopped;
+            busController.OnStopStationExited += HandleBusDeparted;
+        }
+
+        if (boardingManager != null)
+        {
+            boardingManager.OnBoardedBus += HandleBoarded;
+            boardingManager.OnExitedBus += HandleExited;
+        }
     }
 
     private void OnDisable()
     {
-        PlayerSpawner.OnPlayerSpawned -= SetupReferences;
+        PlayerSpawner.OnPlayerSpawned -= OnPlayerSpawned;
+
+        if (busController != null)
+        {
+            busController.OnStopStationEntered -= HandleBusStopped;
+            busController.OnStopStationExited -= HandleBusDeparted;
+        }
+
+        if (boardingManager != null)
+        {
+            boardingManager.OnBoardedBus -= HandleBoarded;
+            boardingManager.OnExitedBus -= HandleExited;
+        }
     }
 
-    private void SetupReferences(GameObject spawnedPlayer)
+    private void OnPlayerSpawned(GameObject spawnedPlayer)
     {
         player = spawnedPlayer.transform;
-
         exitUICanvas = player.Find("UI/ExitCanvas")?.gameObject;
 
         if (exitUICanvas == null)
+        {
             Debug.LogWarning("[BusExitTrigger] Exit UI를 찾을 수 없습니다");
-        else
-            exitUICanvas.SetActive(false);
+            return;
+        }
 
+        exitUICanvas.SetActive(false);
     }
 
-    private void Update()
+    private void HandleBusStopped(float waitTime)
+    {
+        isBusAtStop = true;
+        UpdateUIVisibility();
+    }
+
+    private void HandleBusDeparted()
+    {
+        isBusAtStop = false;
+        UpdateUIVisibility();
+    }
+    private void HandleBoarded()
+    {
+        isPlayerInsideBus = true;
+        UpdateUIVisibility();
+    }
+
+    private void HandleExited()
+    {
+        isPlayerInsideBus = false;
+        UpdateUIVisibility();
+    }
+
+    private void UpdateUIVisibility()
     {
         if (exitUICanvas == null) return;
 
-        // 플레이어가 버스 안에 있는지 확인
-        bool isBoarded = boardingManager != null && boardingManager.IsBoarded(); // 탑승 여부
-        // 정류장 대기 상태
-        bool isStop = busController != null && busController.IsStopStation && busController.IsWaitingAtStop;
-        // 플레이어가 버스의 자식인지 확인
-        bool isChildOfBus = player != null && player.IsChildOf(busRoot);    
-
-        if (isBoarded && isChildOfBus && isStop)
-        {
-            if (!exitUICanvas.activeSelf)
-                exitUICanvas.SetActive(true); // 하차 UI 활성화
-        }
-        else
-        {
-            if (exitUICanvas.activeSelf)
-                exitUICanvas.SetActive(false); // 하차 UI 비활성화
-        }
-
-        //if (exitUICanvas.activeSelf 
-        //    && busController != null 
-        //    && !busController.IsStopStation)
-        //{
-        //    exitUICanvas.SetActive(false); // 정류장이 아닐 때 UI 비활성화
-        //}
+        exitUICanvas.SetActive(isBusAtStop && isPlayerInsideBus);
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (!other.CompareTag("Player")) return;
-
-    //    isPlayerInside = true; // 플레이어가 트리거 안에 들어옴
-
-    //    // 정류장일 때만 UI 활성화
-    //    if (busController != null && busController.IsStopStation)
-    //    {
-    //        exitUICanvas.SetActive(true); // 하차 UI 활성화
-    //    }
-    //}
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (!other.CompareTag("Player")) return;
-
-    //    if (busController.IsStopStation && busController.IsWaitingAtStop)
-    //    {
-    //        // 정류장에 "대기 중일 때" 하차 UI 활성화
-    //        if (!exitUICanvas.activeSelf)
-    //            exitUICanvas.SetActive(true); // 하차 UI 활성화
-    //    }
-    //    else
-    //    {
-    //        // 정류장이 아니거나 "대기 중이 아닐 때" UI 비활성화
-    //        if (exitUICanvas.activeSelf)
-    //            exitUICanvas.SetActive(false); // 하차 UI 비활성화
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (!other.CompareTag("Player")) return;
-        
-    //    isPlayerInside = false; // 플레이어가 트리거 밖으로 나감
-
-    //    //if (exitUICanvas.activeSelf)
-    //    //    exitUICanvas.SetActive(false); // 하차 UI 비활성화
-
-    //    // 플레이어가 정류장을 떠날 때 UI 비활성화
-    //    if (exitUICanvas != null)
-    //    {
-    //        exitUICanvas.SetActive(false); // 하차 UI 비활성화
-    //    }
-    //}
-
 }
