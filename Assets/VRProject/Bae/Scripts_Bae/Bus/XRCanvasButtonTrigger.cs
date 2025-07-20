@@ -19,6 +19,7 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
     private bool isPlayerInsideTrigger = false;
     private bool isBusWaitingAtStop = false;
+    private bool isBoarded = false;
 
     private void Start()
     {
@@ -33,7 +34,8 @@ public class XRCanvasButtonTrigger : MonoBehaviour
 
         if (boardingManager != null)
         {
-            boardingManager.OnBoardedBus += HideBoardUI;
+            boardingManager.OnBoardedBus += HandleBoardedBus;
+            boardingManager.OnExitedBus += HandleExitedBus;
         }
     }
 
@@ -62,26 +64,27 @@ public class XRCanvasButtonTrigger : MonoBehaviour
         isBusWaitingAtStop = false;
         UpdateUIVisibility();
     }
+    private void HandleBoardedBus()
+    {
+        isBoarded = true;
+        UpdateUIVisibility();
+    }
+    private void HandleExitedBus()
+    {
+        isBoarded = false;
+        UpdateUIVisibility();
+    }
 
     private void UpdateUIVisibility()
     {
         if (UICanvas == null) return;
 
-        UICanvas.SetActive(isPlayerInsideTrigger && isBusWaitingAtStop);
-    }
-    private void HideBoardUI()
-    {
-        if (UICanvas == null) return;
-
-        UICanvas.SetActive(false);
+        UICanvas.SetActive(isPlayerInsideTrigger && isBusWaitingAtStop && !isBoarded);
     }
 
     public void OnButtonClicked()
     {
         boardingManager.BoardBus();
-
-        if (UICanvas != null)
-            UICanvas.SetActive(false); // 버튼 클릭 후 UI 비활성화
     }
 
     private bool IsLocalPlayer(Collider other)

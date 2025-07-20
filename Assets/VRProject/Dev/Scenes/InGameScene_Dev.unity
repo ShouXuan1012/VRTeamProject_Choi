@@ -2210,6 +2210,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6befab66f5faf5040940129d616c4576, type: 3}
+--- !u!4 &192209400858088062 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6781304059815401304, guid: 6befab66f5faf5040940129d616c4576,
+    type: 3}
+  m_PrefabInstance: {fileID: 192209400858088061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &219333468758859103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4085625030491991562, guid: 43483df8eabd79e44b4df0e31ea857e9,
@@ -2512,7 +2518,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathPoints.Array.data[7].point
       value: 
-      objectReference: {fileID: 5870137704974631236}
+      objectReference: {fileID: 192209400858088062}
     - target: {fileID: 3327496497622337403, guid: 6325e30aeb761fe49bee16465a2f2691,
         type: 3}
       propertyPath: pathPoints.Array.data[8].point
