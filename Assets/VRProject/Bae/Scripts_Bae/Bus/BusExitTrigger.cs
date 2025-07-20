@@ -46,7 +46,8 @@ public class BusExitTrigger : MonoBehaviourPun
 
     private void Update()
     {
-        if (!photonView.IsMine) return;
+        // 본인의 플레이어인지 확인 (PlayerSpawner에서 받은 player)
+        //if (!player.CompareTag("Player") || player != PhotonNetwork.LocalPlayer.TagObject as Transform) return;
         if (exitUICanvas == null) return;
 
         // 플레이어가 버스 안에 있는지 확인
