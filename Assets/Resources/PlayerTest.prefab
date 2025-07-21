@@ -2129,6 +2129,7 @@ GameObject:
   - component: {fileID: 8677173812986068295}
   - component: {fileID: -4694417685689107173}
   - component: {fileID: 8813747231072418280}
+  - component: {fileID: 4527244287715674551}
   - component: {fileID: 2277434002872937784}
   - component: {fileID: 4540093986042504376}
   - component: {fileID: 245646841113910892}
@@ -2376,6 +2377,19 @@ MonoBehaviour:
   rightRayInteractor: {fileID: 5516602223854682486}
   rightDirectInteractor: {fileID: 2245200675263878702}
   rightTeleportInteractor: {fileID: 7868412329682483947}
+--- !u!114 &4527244287715674551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564618412162190295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37292c635ccf52e4fb60b57746dd161a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiRoot: {fileID: 8947302449687391677}
 --- !u!114 &2277434002872937784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,6 +2973,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8947302449687391677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7677382326983680980, guid: 0e34c9c55e6dbc543a186309cec388b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630512662047624809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9191480586664759763 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7579008716476604346, guid: 0e34c9c55e6dbc543a186309cec388b6,

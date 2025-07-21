@@ -102,7 +102,7 @@ public class BusController : MonoBehaviourPunCallbacks
         bool isStopStation = point.isStopStation;
 
         if (isStopStation)
-            photonView.RPC("TriggerStopStationEntered", RpcTarget.All, stopStationWaitTime);
+            photonView.RPC("TriggerStopStationEntered", RpcTarget.AllBuffered, stopStationWaitTime);
 
 
         float waitTime = isStopStation ? stopStationWaitTime : pathWaitTime;
@@ -121,7 +121,7 @@ public class BusController : MonoBehaviourPunCallbacks
         }
 
         if (isStopStation)
-            photonView.RPC("TriggerStopStationExited", RpcTarget.All);
+            photonView.RPC("TriggerStopStationExited", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
