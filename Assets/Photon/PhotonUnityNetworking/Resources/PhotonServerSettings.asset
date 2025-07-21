@@ -49,6 +49,7 @@ MonoBehaviour:
   - TriggerStopStationExited
   - PlayParticleRPC
   - PlayParticlesRPC
+  - ClearSeatPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
