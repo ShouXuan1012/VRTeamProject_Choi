@@ -1,7 +1,7 @@
-using Unity.VisualScripting;
+using Photon.Pun;
 using UnityEngine;
 
-public class MagnifierUI : MonoBehaviour
+public class MagnifierUI : MonoBehaviourPun
 {
     private InspectableItem currentTarget;
     Transform uiParent;
@@ -18,6 +18,10 @@ public class MagnifierUI : MonoBehaviour
 
     private void OnPlayerSpawned(GameObject player)
     {
+        PhotonView pv = player.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine)
+            return;
+
         // 플레이어 하위에서 MainUI 찾기
         Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
         if (found != null)

@@ -5,34 +5,39 @@ public class CoinUI : MonoBehaviour
 {
     public Text coinText;
 
-    private void Start()
-    {
-        if(CoinManager.Instance != null)
-        {
-            CoinManager.Instance.OnCoinChanged += UpdateCoinText;
-            UpdateCoinText(CoinManager.Instance.CurrentCoins);
-        }
-    }
+    //private void Start()
+    //{
+    //    if(CoinManager.Instance != null)
+    //    {
+    //        CoinManager.Instance.OnCoinChanged += UpdateCoinText;
+    //        UpdateCoinText(CoinManager.Instance.CurrentCoins);
+    //    }
+    //}
+    //
+    //void OnEnable()
+    //{
+    //    if (CoinManager.Instance != null)
+    //    {
+    //        CoinManager.Instance.OnCoinChanged += UpdateCoinText;
+    //        UpdateCoinText(CoinManager.Instance.CurrentCoins);
+    //    }
+    //         
+    //}
+    //void OnDisable()
+    //{
+    // if(CoinManager.Instance!= null)
+    //    {
+    //        CoinManager.Instance.OnCoinChanged -=UpdateCoinText;
+    //    }
+    //}
 
-    void OnEnable()
+    public void UpdateCoinText(int coins)
     {
-        if (CoinManager.Instance != null)
+        if (coinText == null)
         {
-            CoinManager.Instance.OnCoinChanged += UpdateCoinText;
-            UpdateCoinText(CoinManager.Instance.CurrentCoins);
+            Debug.LogWarning("[CoinUI] coinText가 null입니다.");
+            return;
         }
-             
-    }
-    void OnDisable()
-    {
-     if(CoinManager.Instance!= null)
-        {
-            CoinManager.Instance.OnCoinChanged -=UpdateCoinText;
-        }
-    }
-
-    void UpdateCoinText(int coins)
-    {
         coinText.text = $"{coins:N0}₩";
     }
 }

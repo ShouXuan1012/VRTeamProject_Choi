@@ -1,37 +1,56 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class BuskingDonationTrigger : MonoBehaviour
+public class BuskingDonationTrigger : MonoBehaviourPun
 {
-    [Header("후원 UI Canvas")]
-    [SerializeField]private GameObject donationCanvas;
+    private GameObject donationCanvas;
 
-    private string playerTag = "Player"; // 플레이어 태그
-
-    private void Start()
+    private void OnEnable()
     {
-        if (donationCanvas != null)
-            donationCanvas.SetActive(false);  //  후원 UI 비활성화
+        PlayerSpawner.OnPlayerSpawned += OnPlayerSpawned;
+    }
+
+    private void OnDisable()
+    {
+        PlayerSpawner.OnPlayerSpawned -= OnPlayerSpawned;
+    }
+
+    private void OnPlayerSpawned(GameObject player)
+    {
+        PhotonView pv = player.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine) return;
+
+        Transform found = player.transform.Find("UI/DonationCanvas");
+        if (found != null)
+        {
+            donationCanvas = found.gameObject;
+            donationCanvas.SetActive(false); // 시작 시 비활성화
+            Debug.Log("[BuskingDonationTrigger] DonationCanvas 연결 성공");
+        }
+        else
+        {
+            Debug.LogWarning("[BuskingDonationTrigger] DonationCanvas를 찾을 수 없습니다.");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(playerTag)) return;
+        if (!IsLocalPlayer(other)) return;
 
-        if (donationCanvas != null)
-        {
-            donationCanvas.SetActive(true);  // 후원 UI 활성화
-        }
+        donationCanvas?.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag(playerTag)) return;
-        
-        if (donationCanvas != null)
-        {
-            donationCanvas.SetActive(false);  // 후원 UI 비활성화
-        }
+        if (!IsLocalPlayer(other)) return;
+
+        donationCanvas?.SetActive(false);
+    }
+
+    private bool IsLocalPlayer(Collider other)
+    {
+        PhotonView view = other.GetComponent<PhotonView>();
+        return view != null && view.IsMine;
     }
 }

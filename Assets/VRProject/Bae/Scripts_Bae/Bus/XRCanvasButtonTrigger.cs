@@ -66,6 +66,7 @@ public class XRCanvasButtonTrigger : MonoBehaviour
     }
     private void HandleBoardedBus()
     {
+        isPlayerInsideTrigger = false; // Transform을 옮기면 OnTriggerExit가 호출되지 않으므로 수동으로 false 처리
         isBoarded = true;
         UpdateUIVisibility();
     }

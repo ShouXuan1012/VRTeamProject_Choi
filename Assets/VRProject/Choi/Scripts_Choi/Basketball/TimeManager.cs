@@ -10,6 +10,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text finalScoreText;
+    [SerializeField] private Text rewardText;
 
     private float currentTime;
     private bool isRunning = false;
@@ -17,7 +18,8 @@ public class TimeManager : MonoBehaviour
     void Start()
     {
         currentTime = timeLimit;
-        isRunning = true;       
+        isRunning = true;
+        gameOverUI.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -38,13 +40,14 @@ public class TimeManager : MonoBehaviour
 
     void EndTimer()
     {
-
-        // 점수 UI 갱신
-        finalScoreText.text = "최종 스코어 : " + scoreManager.score;
-
-        // UI 활성화
         gameOverUI.SetActive(true);
+        // 점수 UI 갱신
+        finalScoreText.text = " " + scoreManager.score;
+
+        // 점수 기반 보상 지급
+        int reward = scoreManager.score * 1000;
+        CoinManager.Instance.AddCoins(reward);
+        rewardText.text = $" + {reward}원";
+        Debug.Log($"[TimeManager] {reward}원 보상 지급됨");
     }
-
-
 }

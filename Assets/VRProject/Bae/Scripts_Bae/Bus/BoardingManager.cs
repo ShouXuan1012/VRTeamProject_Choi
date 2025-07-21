@@ -29,7 +29,7 @@ public class BoardingManager : MonoBehaviourPun
     [SerializeField] private Transform exitPosition;
     [SerializeField] private Transform exitLookTarget;
 
-    //[SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI   
+    [SerializeField] private GameObject notEnoughMoneyUI; // 소지금 부족 UI   
 
     private GameObject player;
     private Transform mainCamera; // 메인 카메라 (탑승 시 바라볼 방향 설정용)
@@ -88,19 +88,19 @@ public class BoardingManager : MonoBehaviourPun
     {
         // 아래 코드는 재화 UI 적용시킨 씬에서 정상작동 할거라 예상.
         // 현재는 탑승 버튼 상호작용 시 Null 오류가 나서 주석 처리함.
-        //int boardingCost = 10000; // 탑승 비용
+        int boardingCost = 10000; // 탑승 비용
 
-        //// 소지금 체크
-        //if (!CoinManager.Instance.UseCoins(boardingCost))
-        //{
-        //    // 소지금 부족 시 안내 UI 표시
-        //    if (notEnoughMoneyUI != null)
-        //    {
-        //        notEnoughMoneyUI.SetActive(true);
-        //        StartCoroutine(HideNotEnoughMoneyUI());
-        //    }
-        //    return;
-        //}
+        // 소지금 체크
+        if (!CoinManager.Instance.UseCoins(boardingCost))
+        {
+            // 소지금 부족 시 안내 UI 표시
+            if (notEnoughMoneyUI != null)
+            {
+                notEnoughMoneyUI.SetActive(true);
+                StartCoroutine(HideNotEnoughMoneyUI());
+            }
+            return;
+        }
 
         StartCoroutine(BoardRoutineCo());
     }
@@ -220,12 +220,12 @@ public class BoardingManager : MonoBehaviourPun
         yield return FadeUIController.Instance.FadeIn();
     }
 
-    //private IEnumerator HideNotEnoughMoneyUI()
-    //{
-    //    yield return new WaitForSeconds(2f); // 2초 후에 UI 숨김
-    //    if (notEnoughMoneyUI != null)
-    //        notEnoughMoneyUI.SetActive(false);
-    //}
+    private IEnumerator HideNotEnoughMoneyUI()
+    {
+        yield return new WaitForSeconds(2f); // 2초 후에 UI 숨김
+        if (notEnoughMoneyUI != null)
+            notEnoughMoneyUI.SetActive(false);
+    }
 
     /// <summary>
     /// 비어 있는 좌석 인덱스를 반환 (없으면 -1)

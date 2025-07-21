@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
+using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviourPun
 {
     public static UIManager Instance {  get; private set; }
     [System.Serializable]
@@ -40,6 +40,11 @@ public class UIManager : MonoBehaviour
 
     private void OnPlayerSpawned(GameObject player)
     {
+        PhotonView pv = player.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine)
+            return;
+
+
         // 플레이어 하위에서 MainUI 찾기
         Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
         if (found != null)

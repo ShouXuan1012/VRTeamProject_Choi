@@ -8,6 +8,10 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
 {
     public void OnRestartClicked()
     {
+        if (PhotonNetwork.LocalPlayer.TagObject != null)
+        {
+            PhotonNetwork.LocalPlayer.TagObject = null;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
