@@ -8,6 +8,8 @@ public class BusStopTimerUI : MonoBehaviourPun
     [Header("버스 컨트롤러")]
     [SerializeField] private BusController busController;
 
+    [SerializeField] private Text busTimerText;
+
     // 플레이어 스폰 후에 수동 할당 -Choi
     private Transform player;
     private Text timerText;
@@ -50,13 +52,16 @@ public class BusStopTimerUI : MonoBehaviourPun
         }
 
         timerText.gameObject.SetActive(false); // 초기 비활성화
+        busTimerText.gameObject.SetActive(false); // 초기 비활성화
     }
 
     private void StartCountdown(float waitTime)
     {
         if (timerText == null) return;
-
         timerText.gameObject.SetActive(true);
+
+        if (busTimerText == null) return;
+        busTimerText.gameObject.SetActive(true);
 
         if (countdownRoutine != null)
             StopCoroutine(countdownRoutine);
@@ -73,6 +78,7 @@ public class BusStopTimerUI : MonoBehaviourPun
             timeLeft -= Time.deltaTime;
             int displayTime = Mathf.CeilToInt(timeLeft);
             timerText.text = displayTime + baseText;
+            busTimerText.text = displayTime + baseText;
             yield return null;
         }
     }
@@ -87,5 +93,8 @@ public class BusStopTimerUI : MonoBehaviourPun
 
         if (timerText != null)
             timerText.gameObject.SetActive(false);
+
+        if (busTimerText != null)
+            busTimerText.gameObject.SetActive(false);
     }
 }

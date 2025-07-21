@@ -2393,6 +2393,11 @@ PrefabInstance:
       propertyPath: timerText
       value: 
       objectReference: {fileID: 6782223200811862605}
+    - target: {fileID: 5543736800360116898, guid: 6325e30aeb761fe49bee16465a2f2691,
+        type: 3}
+      propertyPath: busTimerText
+      value: 
+      objectReference: {fileID: 6782223200811862605}
     - target: {fileID: 6272891705756434183, guid: 6325e30aeb761fe49bee16465a2f2691,
         type: 3}
       propertyPath: mainCamera
@@ -2458,7 +2463,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5974493986639943881, guid: 6325e30aeb761fe49bee16465a2f2691, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
