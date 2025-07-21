@@ -18605,7 +18605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.1028, y: 0.4811}
+  m_AnchoredPosition: {x: -0.1028, y: 0.257}
   m_SizeDelta: {x: 173.058, y: 167.6136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7941807173497447564
@@ -20951,6 +20951,8 @@ GameObject:
   - component: {fileID: 6272891705756434183}
   - component: {fileID: 3447189095746761641}
   - component: {fileID: 5543736800360116898}
+  - component: {fileID: 1806419406327226865}
+  - component: {fileID: 7748987039126612572}
   m_Layer: 0
   m_Name: '[BusRoot}'
   m_TagString: Untagged
@@ -20966,7 +20968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8110667168749177674}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -85.87701, y: -0.3999979, z: -85.06503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21041,10 +21043,10 @@ MonoBehaviour:
     isStopStation: 0
   - point: {fileID: 0}
     isStopStation: 0
-  busSpeed: 30
-  rotateSpeed: 1.7
-  defaultWaitTime: 0
-  stopStationWaitTime: 500
+  busSpeed: 10
+  rotateSpeed: 1.5
+  pathWaitTime: 0.05
+  stopStationWaitTime: 20
 --- !u!114 &6272891705756434183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21057,10 +21059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc4bdaaaa4cac248ab07313cc4f9b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   boardUICanvas: {fileID: 7338859058201625115}
   busController: {fileID: 3327496497622337403}
-  locomotionProvider: {fileID: 0}
   seatPositions:
   - {fileID: 5312590606066754048}
   - {fileID: 9213089199117198729}
@@ -21084,7 +21084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   busController: {fileID: 3327496497622337403}
   busRoot: {fileID: 8713474658330100210}
-  exitUICanvas: {fileID: 0}
   boardingManager: {fileID: 6272891705756434183}
 --- !u!114 &5543736800360116898
 MonoBehaviour:
@@ -21098,8 +21097,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004e1e389b6e2c3459d56c61f3a2d0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
   busController: {fileID: 3327496497622337403}
+  busTimerText: {fileID: 5633789736565303268}
+--- !u!114 &1806419406327226865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8110667168749177674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 0
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7748987039126612572}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7748987039126612572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8110667168749177674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 1
+  syncRotation: 1
+  lerpSpeed: 10
 --- !u!1 &8149357490704626751
 GameObject:
   m_ObjectHideFlags: 0
@@ -23103,7 +23140,6 @@ GameObject:
   - component: {fileID: 924576812463905287}
   - component: {fileID: 876781887466600492}
   - component: {fileID: 1838267533522308800}
-  - component: {fileID: 5974493986639943881}
   m_Layer: 0
   m_Name: BusBoardTrigger
   m_TagString: Untagged
@@ -23160,24 +23196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db46cda450ac2b41bc8408ab0906613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: 0
   UICanvas: {fileID: 7338859058201625115}
   busController: {fileID: 3327496497622337403}
   boardingManager: {fileID: 6272891705756434183}
---- !u!114 &5974493986639943881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8882708235332460843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 004e1e389b6e2c3459d56c61f3a2d0f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 5633789736565303268}
-  busController: {fileID: 3327496497622337403}
 --- !u!1 &8885275563975649985
 GameObject:
   m_ObjectHideFlags: 0

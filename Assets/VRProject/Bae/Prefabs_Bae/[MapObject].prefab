@@ -382,6 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7141936351280628276}
   - component: {fileID: 5680868437077901575}
+  - component: {fileID: 5333186641567357270}
   m_Layer: 0
   m_Name: Entrance_Trigger
   m_TagString: Untagged
@@ -425,6 +426,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 28, y: 10, z: 20.716904}
   m_Center: {x: 0, y: 0, z: -0.35845184}
+--- !u!114 &5333186641567357270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894840011187783994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2835c8cc7fef7147855da4012164e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1111538963631697702
 GameObject:
   m_ObjectHideFlags: 0
@@ -87937,6 +87950,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9094730554152926533}
     m_Modifications:
+    - target: {fileID: 779361706299336803, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070530931199624880, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1291830662457396155, guid: 55fb0dcb008ba844fbce63749210690e,
         type: 3}
       propertyPath: m_Name
@@ -87951,6 +87974,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 28.640001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030730875735163650, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035947024686345222, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907045505048268481, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079850728088846497, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340639717749008227, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6363679769334989157, guid: 55fb0dcb008ba844fbce63749210690e,
         type: 3}
@@ -88002,6 +88050,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7591853390393408582, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7776301119215602164, guid: 55fb0dcb008ba844fbce63749210690e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88011,6 +88064,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 28.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358727761566714656, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467538088112822930, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8770262794024283959, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793519683978332267, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011508684434842759, guid: 55fb0dcb008ba844fbce63749210690e,
+        type: 3}
+      propertyPath: magnifierUI
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
