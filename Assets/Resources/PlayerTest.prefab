@@ -2133,7 +2133,7 @@ GameObject:
   - component: {fileID: 2277434002872937784}
   - component: {fileID: 4540093986042504376}
   - component: {fileID: 245646841113910892}
-  - component: {fileID: 841209895657847428}
+  - component: {fileID: 2249110599723137564}
   m_Layer: 2
   m_Name: PlayerTest
   m_TagString: Player
@@ -2433,7 +2433,7 @@ MonoBehaviour:
   syncPosition: 1
   syncRotation: 0
   lerpSpeed: 10
---- !u!114 &841209895657847428
+--- !u!114 &2249110599723137564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2442,7 +2442,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6564618412162190295}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c632ec7b1a03cb849882a6a97f8e7b16, type: 3}
+  m_Script: {fileID: 11500000, guid: e33acf6869307a04c9334ecde85ee4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6899052082281871868
@@ -2902,10 +2902,49 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICamera
       objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9015631488399057734}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CaptureScreenshot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScreenshotWithLogo, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468248948439856592, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4223404461221089785, guid: 0e34c9c55e6dbc543a186309cec388b6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9015631488399057734}
   m_SourcePrefab: {fileID: 100100000, guid: 0e34c9c55e6dbc543a186309cec388b6, type: 3}
 --- !u!224 &37479134890904965 stripped
 RectTransform:
@@ -2931,6 +2970,26 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1630512662047624809}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3187481303557742480 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4223404461221089785, guid: 0e34c9c55e6dbc543a186309cec388b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630512662047624809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9015631488399057734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187481303557742480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a58dce08bd7abd4d9654e8963b19793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vrCamera: {fileID: 5534171018059764365}
+  logoResourcePath: ScreenshotLogo
 --- !u!4 &3292441118297303853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4256367154995144004, guid: 0e34c9c55e6dbc543a186309cec388b6,

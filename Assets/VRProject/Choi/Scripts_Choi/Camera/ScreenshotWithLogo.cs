@@ -9,6 +9,7 @@ public class ScreenshotWithLogo : MonoBehaviour
 
     public void CaptureScreenshot()
     {
+        Debug.Log("사진 찰칵(경로를 vr기기로 만들었습니다)");
         StartCoroutine(CaptureRoutine());
     }
 

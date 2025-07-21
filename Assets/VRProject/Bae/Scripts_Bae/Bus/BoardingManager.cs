@@ -1,8 +1,8 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
-using System;
 
 /// <summary>
 /// 플레이어의 버스 탑승 및 하차를 전담하는 클래스
@@ -37,9 +37,6 @@ public class BoardingManager : MonoBehaviourPun
 
     private bool[] seatOccupied; // 탑승 상태 배열 (false : 비어 있음, true : 탑승 중)
     private int currentSeatIndex = -1; // 현재 앉아 있는 좌석 인덱스 (-1 : 아무 좌석도 앉아 있지 않음)
-
-    // Photon 동기화용
-    private static bool[] syncedSeatOccupied;
 
     private void OnEnable()
     {
@@ -155,9 +152,6 @@ public class BoardingManager : MonoBehaviourPun
             player.transform.rotation = seat.rotation;
         }
 
-        //RemoteTransformSync sync = player.GetComponent<RemoteTransformSync>();
-        //if (sync != null) sync.enabled = false;
-
         // 버스에 플레이어를 붙임 (버스가 움직이면 따라가게)
         if (this.transform != null)
         {
@@ -165,8 +159,14 @@ public class BoardingManager : MonoBehaviourPun
         }
 
         photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, seatIndex, true);
-        //photonView.RPC("AssignSeatPosition", RpcTarget.OthersBuffered, seatIndex);
         currentSeatIndex = seatIndex;
+
+        RemoteTransformSync remoteTransformSync = player.GetComponent<RemoteTransformSync>();
+        if (remoteTransformSync != null)
+        {
+            remoteTransformSync.enabled = false; // 탑승 시 동기화 비활성화
+        }
+        photonView.RPC("AssignSeatPosition", RpcTarget.OthersBuffered, seatIndex, player.GetComponent<PhotonView>().ViewID); // 좌석 위치 동기화
 
         if (controller != null) controller.enabled = true;
 
@@ -190,11 +190,7 @@ public class BoardingManager : MonoBehaviourPun
         // 버스에서 플레이어 떼어내기
         player.transform.SetParent(null);
 
-        //RemoteTransformSync sync = player.GetComponent<RemoteTransformSync>();
-        //if (sync != null) sync.enabled = true;
-
         player.transform.position = exitPosition.position;
-        //player.transform.rotation = exitPosition.rotation;
         // 플레이어가 바라볼 방향 설정
         if (exitLookTarget != null)
         {
@@ -209,6 +205,13 @@ public class BoardingManager : MonoBehaviourPun
             photonView.RPC("SetSeatOccupiedRPC", RpcTarget.AllBuffered, currentSeatIndex, false);
             currentSeatIndex = -1;
         }
+
+        RemoteTransformSync remoteTransformSync = player.GetComponent<RemoteTransformSync>();
+        if (remoteTransformSync != null)
+        {
+            remoteTransformSync.enabled = true; // 하차 시 다시 활성화
+        }
+        photonView.RPC("ClearSeatPosition", RpcTarget.OthersBuffered, player.GetComponent<PhotonView>().ViewID); // 좌석 위치 동기화 해제
 
         if (controller != null) controller.enabled = true;
 
@@ -251,9 +254,40 @@ public class BoardingManager : MonoBehaviourPun
         }
     }
     [PunRPC]
-    private void AssignSeatPosition(int index)
+    void AssignSeatPosition(int index, int viewID)
     {
-        player.transform.position = seatPositions[index].position;
-        player.transform.rotation = seatPositions[index].rotation;
+        PhotonView view = PhotonView.Find(viewID);
+        if (view == null) return;
+
+        var follower = view.GetComponent<SeatSyncFollower>();
+        if (follower != null)
+        {
+            follower.Initialize(transform, seatPositions);
+            follower.AssignSeat(index);
+        }
+
+        RemoteTransformSync remoteTransformSync = view.GetComponent<RemoteTransformSync>();
+        if (remoteTransformSync != null)
+        {
+            remoteTransformSync.enabled = false; // 탑승 시 동기화 비활성화
+        }
+    }
+    [PunRPC]
+    void ClearSeatPosition(int viewID)
+    {
+        PhotonView view = PhotonView.Find(viewID);
+        if (view == null) return;
+
+        var follower = view.GetComponent<SeatSyncFollower>();
+        if (follower != null)
+        {
+            follower.ClearSeat();
+        }
+
+        RemoteTransformSync remoteTransformSync = view.GetComponent<RemoteTransformSync>();
+        if (remoteTransformSync != null)
+        {
+            remoteTransformSync.enabled = true;
+        }
     }
 }
