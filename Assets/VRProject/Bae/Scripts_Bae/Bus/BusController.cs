@@ -64,7 +64,7 @@ public class BusController : MonoBehaviourPunCallbacks
             previousPointIndex = nextPointIndex;
             nextPointIndex = (nextPointIndex + 1) % pathPoints.Count;
 
-            photonView.RPC("SetNextPointIndexRPC", RpcTarget.AllBuffered, nextPointIndex);
+            photonView.RPC("SetPointIndexRPC", RpcTarget.AllBuffered, nextPointIndex, previousPointIndex);
         }
     }
     private IEnumerator MoveTowardsTarget(Transform target)
@@ -136,9 +136,10 @@ public class BusController : MonoBehaviourPunCallbacks
         OnStopStationExited?.Invoke();
     }
     [PunRPC]
-    private void SetNextPointIndexRPC(int index)
+    private void SetPointIndexRPC(int index, int index2)
     {
         nextPointIndex = index;
+        previousPointIndex = index2;
     }
     [PunRPC]
     private void RPC_SetDepartureTime(float serverTime)
@@ -155,5 +156,4 @@ public class BusController : MonoBehaviourPunCallbacks
             StartCoroutine(BusRoutineCo());
         }
     }
-
 }
