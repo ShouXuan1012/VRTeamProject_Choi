@@ -30,8 +30,6 @@ public class OnScreenKeyboard : MonoBehaviour
     [SerializeField]
     private Button bgCloseBtn;
     [SerializeField]
-    private Text showTextField;
-    [SerializeField]
     private GameObject KrNormal,KrNormalCpas,EnNormal,EnNormalCpas;
     [SerializeField]
     private Button exitBtn, korBtn, engBtn, capsBtn;
@@ -179,7 +177,6 @@ public class OnScreenKeyboard : MonoBehaviour
         {
             targetInputField.text = currentString;
             currentString = GetInputFieldText();
-            showTextField.text =  GetInputFieldText();
         }
     }
     
@@ -276,7 +273,6 @@ public class OnScreenKeyboard : MonoBehaviour
         
         yield return null;
         currentString = GetInputFieldText();
-        showTextField.text =  GetInputFieldText();
     }
     
     private void ForceToCloseMobileKeyboard()
@@ -291,7 +287,6 @@ public class OnScreenKeyboard : MonoBehaviour
     {
         inputtedString = "";
         currentString = "";
-        showTextField.text = "";
         
         if(targetInputField)
             targetInputField.text = "";
