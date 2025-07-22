@@ -1,0 +1,63 @@
+﻿using System.Threading.Tasks;
+
+public class UserDataManager
+{
+    private static UserDataManager _instance;
+    public static UserDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new UserDataManager();
+            }
+            return _instance;
+        }
+    }
+
+    private FirestoreDBManager dbManager = FirestoreDBManager.Instance;
+
+    // 컬렉션 경로
+    private const string collectionPath = "users";
+
+    // 필드 경로
+    private const string passwordPath = "password";
+    private const string nicknamePath = "nickname";
+    private const string avatarPath = "avatar";
+    private const string coinPath = "coin";
+
+    public async Task<bool> SaveUserData(UserData userData)
+    {
+        return await dbManager.TrySetDocumentAsync(collectionPath, userData.userId, userData);
+    }
+
+    public async Task<bool> UpdatePassword(string userId, string newPassword)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, passwordPath, newPassword);
+    }
+
+    public async Task<bool> UpdateNickname(string userId, string newNickname)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, nicknamePath, newNickname);
+    }
+
+    public async Task<bool> UpdateAvatar(string userId, string newAvatar)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, avatarPath, newAvatar);
+    }
+
+    public async Task<bool> UpdateCoin(string userId, int newCoin)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, coinPath, newCoin);
+    }
+
+    public async Task<UserData> GetUserData(string userId)
+    {
+        return await dbManager.GetDocumentAsync<UserData>(collectionPath, userId);
+    }
+
+    public async Task<UserData[]> GetAllUsers()
+    {
+        return await dbManager.GetCollectionAsync<UserData>(collectionPath);
+    }
+}
