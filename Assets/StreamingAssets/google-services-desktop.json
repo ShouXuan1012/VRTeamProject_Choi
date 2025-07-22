@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "293008507879",
+    "project_id": "vrcity-35722",
+    "storage_bucket": "vrcity-35722.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293008507879:android:afe90dfeb52da496bc7342",
+        "android_client_info": {
+          "package_name": "com.UnityTechnologies.com.unity.template.urpblank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB98Gd9qfvbLSGfI3O6AJ6C5DzKcSLKA4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
