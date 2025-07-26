@@ -14,11 +14,11 @@ public class MenuButtonHandler : MonoBehaviour
         quitButton.onClick.AddListener(OnQuitClicked);
     }
 
-    public void OnJoinRoomClicked()
+    private void OnJoinRoomClicked()
     {
         connectionManager.TryJoinRoom();
     }
-    public void OnQuitClicked()
+    private void OnQuitClicked()
     {
         Application.Quit();
     }
