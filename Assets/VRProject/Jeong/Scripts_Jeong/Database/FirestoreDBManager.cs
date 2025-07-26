@@ -21,7 +21,7 @@ public class FirestoreDBManager
 
     private FirebaseFirestore db;
 
-    public FirestoreDBManager()
+    private FirestoreDBManager()
     {
         db = FirebaseFirestore.DefaultInstance;
     }
@@ -95,5 +95,24 @@ public class FirestoreDBManager
         }
         Debug.Log($"[Firestore] 컬렉션 가져오기 완료: {collection}, 문서 수: {resultList.Count}");
         return resultList.ToArray();
+    }
+
+    // 문서 존재 여부 확인
+    public async Task<bool> DocumentExistsAsync(string collection, string document)
+    {
+        try
+        {
+            DocumentReference docRef = db.Collection(collection).Document(document);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+            bool exists = snapshot.Exists;
+            Debug.Log($"[Firestore] 문서 존재 여부: {collection}/{document} - {exists}");
+            return snapshot.Exists;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[Firestore] 문서 존재 여부 확인 실패: {collection}/{document}, 오류: {ex.Message}");
+            return false;
+        }
     }
 }
