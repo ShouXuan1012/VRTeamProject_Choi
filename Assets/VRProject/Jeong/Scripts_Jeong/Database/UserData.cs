@@ -1,9 +1,20 @@
-﻿[System.Serializable]
+﻿using Firebase.Firestore;
+
+[FirestoreData]
 public class UserData
 {
-    public string userId;
-    public string password;
-    public string nickname;
-    public string avatar;
-    public int coin;
+    [FirestoreProperty]
+    public string userId { get; set; }
+
+    [FirestoreProperty]
+    public string password { get; set; }
+
+    [FirestoreProperty]
+    public string nickname { get; set; }
+
+    [FirestoreProperty]
+    public string avatar { get; set; }
+
+    [FirestoreProperty]
+    public int coin { get; set; }
 }

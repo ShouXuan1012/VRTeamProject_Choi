@@ -1,17 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using Firebase.Firestore;
+using System.Collections.Generic;
 
-[System.Serializable]
+[FirestoreData]
 public class GameData
 {
-    public string gameId;
-    public string gameName;
-    public List<RankingEntry> ranking;
+    [FirestoreProperty]
+    public string gameId { get; set; }
+
+    [FirestoreProperty]
+    public string gameName { get; set; }
+
+    [FirestoreProperty]
+    public List<RankingEntry> ranking { get; set; }
 }
 
-[System.Serializable]
+[FirestoreData]
 public class RankingEntry
 {
-    public string userId;
-    public string nickname;
-    public int score;
+    [FirestoreProperty]
+    public string userId { get; set; }
+
+    [FirestoreProperty]
+    public string nickname { get; set; }
+
+    [FirestoreProperty]
+    public int score { get; set; }
 }

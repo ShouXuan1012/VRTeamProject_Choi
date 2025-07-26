@@ -1,6 +1,11 @@
-﻿[System.Serializable]
+﻿using Firebase.Firestore;
+
+[FirestoreData]
 public class TopScoreData
 {
-    public string gameId;
-    public int score;
+    [FirestoreProperty]
+    public string gameId { get; set; }
+
+    [FirestoreProperty]
+    public int score { get; set; }
 }
