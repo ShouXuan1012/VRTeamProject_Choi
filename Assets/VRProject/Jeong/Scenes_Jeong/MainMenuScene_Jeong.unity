@@ -27064,7 +27064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1448917710}
   m_Layer: 0
-  m_Name: AccountSystem
+  m_Name: LoginSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
