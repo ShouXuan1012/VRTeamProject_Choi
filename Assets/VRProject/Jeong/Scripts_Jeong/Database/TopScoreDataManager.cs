@@ -2,7 +2,25 @@
 
 public class TopScoreDataManager
 {
-    private FirestoreDBManager dbManager = FirestoreDBManager.Instance;
+    private static TopScoreDataManager _instance;
+    public static TopScoreDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new TopScoreDataManager();
+            }
+            return _instance;
+        }
+    }
+
+    private FirestoreDBManager dbManager;
+
+    private TopScoreDataManager()
+    {
+        dbManager = FirestoreDBManager.Instance;
+    }
 
     // 서브 컬렉션 경로
     private string GetUserScorePath(string userId)

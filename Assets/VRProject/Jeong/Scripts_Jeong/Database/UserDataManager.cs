@@ -15,7 +15,12 @@ public class UserDataManager
         }
     }
 
-    private FirestoreDBManager dbManager = FirestoreDBManager.Instance;
+    private FirestoreDBManager dbManager;
+
+    private UserDataManager()
+    {
+        dbManager = FirestoreDBManager.Instance;
+    }
 
     // 컬렉션 경로
     private const string collectionPath = "users";
@@ -59,5 +64,10 @@ public class UserDataManager
     public async Task<UserData[]> GetAllUsers()
     {
         return await dbManager.GetCollectionAsync<UserData>(collectionPath);
+    }
+
+    public async Task<bool> CheckIdExists(string userId)
+    {
+        return await dbManager.DocumentExistsAsync(collectionPath, userId);
     }
 }

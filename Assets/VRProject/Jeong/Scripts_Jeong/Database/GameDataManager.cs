@@ -3,7 +3,25 @@ using System.Threading.Tasks;
 
 public class GameDataManager
 {
-    private FirestoreDBManager dbManager = FirestoreDBManager.Instance;
+    private static GameDataManager _instance;
+    public static GameDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameDataManager();
+            }
+            return _instance;
+        }
+    }
+
+    private FirestoreDBManager dbManager;
+
+    private GameDataManager()
+    {
+        dbManager = FirestoreDBManager.Instance;
+    }
 
     // 컬렉션 경로
     private const string collectionPath = "games";
