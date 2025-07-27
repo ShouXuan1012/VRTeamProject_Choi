@@ -50,6 +50,7 @@ public class LoginManager : MonoBehaviour
             if (userData != null && userData.password == loginPassword)
             {
                 uiController.SetUIByLoginState(LoginState.Success);
+                CurrentUserManager.Instance.SetCurrentUserData(userData);
             }
             else
             {
@@ -103,6 +104,7 @@ public class LoginManager : MonoBehaviour
         else
         {
             uiController.SetUIBySignUpState(SignUpState.Success);
+            CurrentUserManager.Instance.SetCurrentUserData(newUser);
         }
     }
 
