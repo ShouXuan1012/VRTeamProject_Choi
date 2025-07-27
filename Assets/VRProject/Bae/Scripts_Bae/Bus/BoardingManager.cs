@@ -176,7 +176,7 @@ public class BoardingManager : MonoBehaviourPun
         }
 
         OnBoardedBus?.Invoke();
-
+        QuestEvents.BusBoarded();
         yield return FadeUIController.Instance.FadeIn();
     }
 
