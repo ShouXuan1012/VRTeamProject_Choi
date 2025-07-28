@@ -6,6 +6,7 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text finalScoreText;
     [SerializeField] private Text rewardText;
+    [SerializeField] private Text bestScoreText;
     [SerializeField] private ScoreManager scoreManager;
 
     public void HandleGameOver()
@@ -25,6 +26,17 @@ public class GameOverManager : MonoBehaviour
             QuestEvents.BasketballScored10();
         }
 
-        //여기다가 이제 최고 점수 매니저에 저장
+        // 최고 점수 갱신
+        if (LocalHighScore.UpdateIfHigher(score))
+        {
+            Debug.Log($"[Local] 최고 점수 갱신됨: {score}");
+            // 나중에 서버 업로드 여기에 추가하면 됨
+        }
+        else
+        {
+            Debug.Log($"[Local] 최고 점수 아님. 기존: {LocalHighScore.BestScore}");
+        }
+
+        bestScoreText.text = $" {LocalHighScore.BestScore}";
     }
 }
