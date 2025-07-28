@@ -45,6 +45,17 @@ public class CurrentUserManager : MonoBehaviour
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
+    public void SetCoin(int coin)
+    {
+        if (CurrentUserData != null)
+        {
+            CurrentUserData.coin = coin;
+        }
+        else
+        {
+            Debug.LogError("현재 사용자 데이터가 없습니다.");
+        }
+    }
 
     public async Task<bool> UpdateNickname(string newNickname)
     {
@@ -53,5 +64,9 @@ public class CurrentUserManager : MonoBehaviour
     public async Task<bool> UpdateAvatar(string newAvatar)
     {
         return await UserDataManager.Instance.UpdateAvatar(CurrentUserData.userId, newAvatar);
+    }
+    public async Task<bool> UpdateCoin(int newCoin)
+    {
+        return await UserDataManager.Instance.UpdateCoin(CurrentUserData.userId, newCoin);
     }
 }
