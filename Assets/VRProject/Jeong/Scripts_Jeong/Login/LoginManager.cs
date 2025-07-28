@@ -91,6 +91,17 @@ public class LoginManager : MonoBehaviour
             coin = 316000
         };
 
+        TopScoreData defaultTopScore1 = new TopScoreData
+        {
+            gameId = "basketball",
+            score = 0
+        };
+        TopScoreData defaultTopScore2 = new TopScoreData
+        {
+            gameId = "bowling",
+            score = 0
+        };
+
         // 로딩 표시 활성화
         uiController.SetUIBySignUpState(SignUpState.Loading);
 
@@ -103,6 +114,11 @@ public class LoginManager : MonoBehaviour
         }
         else
         {
+            // TopScoreDataManager를 통해 기본 점수 데이터 저장
+            bool isTopScoreSaved1 = await TopScoreDataManager.Instance.SaveTopScoreData(newUser.userId, defaultTopScore1.gameId, defaultTopScore1);
+            bool isTopScoreSaved2 = await TopScoreDataManager.Instance.SaveTopScoreData(newUser.userId, defaultTopScore2.gameId, defaultTopScore2);
+            // TopScore 저장은 성공 여부 체크 안함
+
             uiController.SetUIBySignUpState(SignUpState.Success);
             CurrentUserManager.Instance.SetCurrentUserData(newUser);
         }

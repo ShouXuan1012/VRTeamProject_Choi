@@ -6,6 +6,7 @@ public class CurrentUserManager : MonoBehaviour
     public static CurrentUserManager Instance { get; private set; }
 
     public UserData CurrentUserData { get; private set; }
+    public TopScoreData[] CurrentTopScoreDatas { get; private set; }
 
     private void Awake()
     {
@@ -55,6 +56,11 @@ public class CurrentUserManager : MonoBehaviour
         {
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
+    }
+
+    public void SetCurrentTopScoreData(TopScoreData[] topScoreDatas)
+    {
+        CurrentTopScoreDatas = topScoreDatas;
     }
 
     public async Task<bool> UpdateNickname(string newNickname)
