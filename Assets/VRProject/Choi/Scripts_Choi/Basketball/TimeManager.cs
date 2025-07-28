@@ -3,14 +3,9 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    [Header("Time UI")]
-    [SerializeField] private float timeLimit = 60f; // 1분
+    [SerializeField] private float timeLimit = 60f;
     [SerializeField] private Text timerText;
-    [SerializeField] private ScoreManager scoreManager;
-
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private Text finalScoreText;
-    [SerializeField] private Text rewardText;
+    [SerializeField] private GameOverManager gameOverHandler;
 
     private float currentTime;
     private bool isRunning = false;
@@ -19,8 +14,9 @@ public class TimeManager : MonoBehaviour
     {
         currentTime = timeLimit;
         isRunning = true;
-        gameOverUI.gameObject.SetActive(false);
+        gameOverHandler.gameObject.SetActive(false);
     }
+
     void Update()
     {
         if (!isRunning) return;
@@ -30,24 +26,11 @@ public class TimeManager : MonoBehaviour
         {
             currentTime = 0;
             isRunning = false;
-            EndTimer();
+            gameOverHandler.HandleGameOver(); // 여기서 직접 호출
         }
 
         int minutes = Mathf.FloorToInt(currentTime / 60);
         int seconds = Mathf.FloorToInt(currentTime % 60);
         timerText.text = $"{minutes:00}:{seconds:00}";
-    }
-
-    void EndTimer()
-    {
-        gameOverUI.SetActive(true);
-        // 점수 UI 갱신
-        finalScoreText.text = " " + scoreManager.score;
-
-        // 점수 기반 보상 지급
-        int reward = scoreManager.score * 1000;
-        CoinManager.Instance.AddCoins(reward);
-        rewardText.text = $" + {reward}원";
-        Debug.Log($"[TimeManager] {reward}원 보상 지급됨");
     }
 }

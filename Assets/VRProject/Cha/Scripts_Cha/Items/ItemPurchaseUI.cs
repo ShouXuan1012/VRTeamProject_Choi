@@ -22,6 +22,7 @@ public class ItemPurchaseUI : MonoBehaviour
 
         if (CoinManager.Instance.UseCoins(price))
         {
+            QuestEvents.FoodPurchased();
             //사운드, 이펙트
         }
 
