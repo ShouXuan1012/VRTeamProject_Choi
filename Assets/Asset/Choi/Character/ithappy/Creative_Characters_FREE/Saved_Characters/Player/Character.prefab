@@ -1341,6 +1341,9 @@ GameObject:
   - component: {fileID: 8313471306548044026}
   - component: {fileID: 7846047125777167234}
   - component: {fileID: 8190978872587653547}
+  - component: {fileID: 771169258974811100}
+  - component: {fileID: 6814514178379636408}
+  - component: {fileID: 4681627503658658649}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1404,12 +1407,70 @@ MonoBehaviour:
   handModelRight: {fileID: 0}
   bodyMeshRoot: {fileID: 4886998766075358582}
   handMeshRoot: {fileID: 0}
+  leftHandPositionOffset: {x: 0.04, y: 0.02, z: 0.06}
   leftHandRotationOffset: {x: 90, y: 45, z: 0}
+  rightHandPositionOffset: {x: -0.04, y: 0.02, z: 0.06}
   rightHandRotationOffset: {x: -90, y: -45, z: 0}
   headTarget: {fileID: 0}
   headBone: {fileID: 813614022956034441}
-  chest: {fileID: 4385057555711349904}
+  neck: {fileID: 4385057555711349904}
   maxHeadOffset: 0.05
+  leftHandBone: {fileID: 6797138786801541469}
+  rightHandBone: {fileID: 4696828048925225213}
+  leftBoneRotationOffset: {x: -65, y: 200, z: 20}
+  rightBoneRotationOffset: {x: -65, y: 200, z: -40}
+--- !u!114 &771169258974811100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4081169789388439604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d853dfeba9eabc64685ad9fd9311e32f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveProvider: {fileID: 0}
+  inputThreshold: 0.05
+--- !u!114 &6814514178379636408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4081169789388439604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isMoving
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
+--- !u!114 &4681627503658658649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4081169789388439604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a8e31045f0a9d4588509884fee2af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 0
+  syncRotation: 1
+  lerpSpeed: 10
 --- !u!1 &4409759816098143134
 GameObject:
   m_ObjectHideFlags: 0
