@@ -24,6 +24,7 @@ public class ItemPurchaseUI : MonoBehaviour
         if (CoinManager.Instance.UseCoins(price))
         {
             AudioClip.LoadAudioData();
+            //사운드,이펙트
         }
 
         else
