@@ -46,16 +46,26 @@ public class VRAvatarIKController : MonoBehaviourPun
     {
         animator = GetComponent<Animator>();
 
-        // 멀티 체크 제거 → 항상 내 시점 기준
         if (photonView.IsMine)
         {
-            if (bodyMeshRoot != null) bodyMeshRoot.SetActive(false);
-            if (handMeshRoot != null) handMeshRoot.SetActive(true);
+            // 바디는 PlayerBody 레이어로 설정
+            if (bodyMeshRoot != null)
+            {
+                SetLayerRecursively(bodyMeshRoot, LayerMask.NameToLayer("PlayerBody"));
+                bodyMeshRoot.SetActive(true); // 카메라 제외 처리로 대체
+            }
+
+            if (handMeshRoot != null)
+                handMeshRoot.SetActive(true);
         }
         else
         {
-            if (bodyMeshRoot != null) bodyMeshRoot.SetActive(true);
-            if (handMeshRoot != null) handMeshRoot.SetActive(false);
+            // 다른 플레이어의 경우 모두 보이게
+            if (bodyMeshRoot != null)
+                bodyMeshRoot.SetActive(true);
+
+            if (handMeshRoot != null)
+                handMeshRoot.SetActive(false);
         }
     }
 
@@ -125,5 +135,12 @@ public class VRAvatarIKController : MonoBehaviourPun
             animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandTarget.position);
             animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandTarget.rotation);
         }
+    }
+
+    void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+            SetLayerRecursively(child.gameObject, layer);
     }
 }

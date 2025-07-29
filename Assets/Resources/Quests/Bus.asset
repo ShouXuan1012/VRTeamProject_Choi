@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bus
   m_EditorClassIdentifier: 
   questTitle: "\uBC84\uC2A4 \uD0D1\uC2B9\uD574\uBCF4\uAE30"
-  isComplete: 1
+  isComplete: 0
