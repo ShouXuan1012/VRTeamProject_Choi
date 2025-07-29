@@ -16,5 +16,14 @@ public class UserData
     public string avatar { get; set; }
 
     [FirestoreProperty]
+    public string profileImage { get; set; }
+
+    [FirestoreProperty]
     public int coin { get; set; }
+
+    [FirestoreProperty]
+    public bool isOnline { get; set; }
+
+    [FirestoreProperty]
+    public Timestamp signUpDate { get; set; }
 }

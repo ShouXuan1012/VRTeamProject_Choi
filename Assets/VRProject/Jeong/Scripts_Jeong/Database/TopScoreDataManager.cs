@@ -50,4 +50,9 @@ public class TopScoreDataManager
     {
         return await dbManager.GetCollectionAsync<TopScoreData>(GetUserScorePath(userId));
     }
+
+    public async Task<bool> CheckGameIdExists(string userId, string gameId)
+    {
+        return await dbManager.DocumentExistsAsync(GetUserScorePath(userId), gameId);
+    }
 }

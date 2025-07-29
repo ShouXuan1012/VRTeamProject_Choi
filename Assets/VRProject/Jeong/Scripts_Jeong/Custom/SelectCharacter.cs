@@ -21,6 +21,7 @@ public class SelectCharacter : MonoBehaviour
     private async void OnSelectButtonClicked()
     {
         string newAvatar = characterPreviewManager.GetCurrentCharacterName();
+        string newProfileImage = newAvatar;
 
         if (string.IsNullOrEmpty(newAvatar))
         {
@@ -30,17 +31,25 @@ public class SelectCharacter : MonoBehaviour
         }
 
         bool isSaved = await CurrentUserManager.Instance.UpdateAvatar(newAvatar);
-        if (isSaved)
-        {
-            CurrentUserManager.Instance.SetAvatar(newAvatar);
-
-            currentWindow.SetActive(false);
-            nextWindow.SetActive(true);
-        }
-        else
+        if (!isSaved)
         {
             characterNoticeMessage.gameObject.SetActive(true);
             characterNoticeMessage.text = "캐릭터 저장에 실패했습니다.\n다시 시도해주세요.";
+            return;
         }
+
+        bool isProfileImageUpdated = await CurrentUserManager.Instance.UpdateProfileImage(newProfileImage);
+        if (!isProfileImageUpdated)
+        {
+            characterNoticeMessage.gameObject.SetActive(true);
+            characterNoticeMessage.text = "프로필 이미지 업데이트에 실패했습니다.\n다시 시도해주세요.";
+            return;
+        }
+
+        CurrentUserManager.Instance.SetAvatar(newAvatar);
+        CurrentUserManager.Instance.SetProfileImage(newProfileImage);
+
+        currentWindow.SetActive(false);
+        nextWindow.SetActive(true);
     }
 }

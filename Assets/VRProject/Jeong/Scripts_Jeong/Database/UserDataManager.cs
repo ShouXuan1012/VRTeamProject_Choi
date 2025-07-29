@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Firebase.Firestore;
 
 public class UserDataManager
 {
@@ -29,7 +30,10 @@ public class UserDataManager
     private const string passwordPath = "password";
     private const string nicknamePath = "nickname";
     private const string avatarPath = "avatar";
+    private const string profileImagePath = "profileImage";
     private const string coinPath = "coin";
+    private const string isOnlinePath = "isOnline";
+    private const string signUpDatePath = "signUpDate";
 
     public async Task<bool> SaveUserData(UserData userData)
     {
@@ -51,9 +55,24 @@ public class UserDataManager
         return await dbManager.TryUpdateFieldAsync(collectionPath, userId, avatarPath, newAvatar);
     }
 
+    public async Task<bool> UpdateProfileImage(string userId, string newProfileImage)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, profileImagePath, newProfileImage);
+    }
+
     public async Task<bool> UpdateCoin(string userId, int newCoin)
     {
         return await dbManager.TryUpdateFieldAsync(collectionPath, userId, coinPath, newCoin);
+    }
+
+    public async Task<bool> UpdateIsOnline(string userId, bool isOnline)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, isOnlinePath, isOnline);
+    }
+
+    public async Task<bool> UpdateSignUpDate(string userId, Timestamp signUpDate)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, signUpDatePath, signUpDate);
     }
 
     public async Task<UserData> GetUserData(string userId)

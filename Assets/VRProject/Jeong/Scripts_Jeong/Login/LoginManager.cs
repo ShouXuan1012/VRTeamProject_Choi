@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Firebase.Firestore;
 
 public class LoginManager : MonoBehaviour
 {
@@ -43,21 +44,41 @@ public class LoginManager : MonoBehaviour
             uiController.SetUIByLoginState(LoginState.Error);
             return;
         }
-        else
+
+        // 아이디가 존재하는 경우 사용자 데이터를 가져와서 비밀번호 확인
+        UserData userData = await UserDataManager.Instance.GetUserData(loginId);
+        if (userData == null)
         {
-            // 아이디가 존재하는 경우 사용자 데이터를 가져와서 비밀번호 확인
-            UserData userData = await UserDataManager.Instance.GetUserData(loginId);
-            if (userData != null && userData.password == loginPassword)
-            {
-                uiController.SetUIByLoginState(LoginState.Success);
-                CurrentUserManager.Instance.SetCurrentUserData(userData);
-            }
-            else
-            {
-                uiController.SetLoginNoticeMessage("비밀번호가 일치하지 않습니다.");
-                uiController.SetUIByLoginState(LoginState.Error);
-            }
+            uiController.SetLoginNoticeMessage("아이디가 존재하지 않습니다.");
+            uiController.SetUIByLoginState(LoginState.Error);
+            return;
         }
+        if (userData.isOnline)
+        {
+            uiController.SetLoginNoticeMessage("이미 로그인된 상태입니다.\n다른 기기에서 로그아웃 후 다시 시도해주세요.");
+            uiController.SetUIByLoginState(LoginState.Error);
+            return;
+        }
+        if (userData.password != loginPassword)
+        {
+            uiController.SetLoginNoticeMessage("비밀번호가 일치하지 않습니다.");
+            uiController.SetUIByLoginState(LoginState.Error);
+            return;
+        }
+
+        bool isUpdated = await UserDataManager.Instance.UpdateIsOnline(loginId, true);
+        if (!isUpdated)
+        {
+            uiController.SetLoginNoticeMessage("로그인 중 오류가 발생했습니다.\n다시 시도해주세요.");
+            uiController.SetUIByLoginState(LoginState.Error);
+            return;
+        }
+
+        CurrentUserManager.Instance.SetCurrentUserData(userData);
+        CurrentUserManager.Instance.SetIsOnline(true);
+
+        uiController.SetUIByLoginState(LoginState.Success);
+
     }
 
     public async void HandleSignUp()
@@ -82,46 +103,32 @@ public class LoginManager : MonoBehaviour
             return;
         }
 
-        UserData newUser = new UserData
+        UserData userData = new UserData
         {
             userId = signUpId,
             password = signUpPassword,
             nickname = "Nickname",
             avatar = "Boy1_CharacterIcon",
-            coin = 316000
-        };
-
-        TopScoreData defaultTopScore1 = new TopScoreData
-        {
-            gameId = "basketball",
-            score = 0
-        };
-        TopScoreData defaultTopScore2 = new TopScoreData
-        {
-            gameId = "bowling",
-            score = 0
+            profileImage = "Boy1_ProfileImage",
+            coin = 316000,
+            isOnline = true,
+            signUpDate = Timestamp.GetCurrentTimestamp()
         };
 
         // 로딩 표시 활성화
         uiController.SetUIBySignUpState(SignUpState.Loading);
 
-        bool isSaved = await UserDataManager.Instance.SaveUserData(newUser);
+        bool isSaved = await UserDataManager.Instance.SaveUserData(userData);
         if (!isSaved)
         {
             uiController.SetSignUpNoticeMessage("회원가입 중 오류가 발생했습니다.\n다시 시도해주세요.");
             uiController.SetUIBySignUpState(SignUpState.Error);
             return;
         }
-        else
-        {
-            // TopScoreDataManager를 통해 기본 점수 데이터 저장
-            bool isTopScoreSaved1 = await TopScoreDataManager.Instance.SaveTopScoreData(newUser.userId, defaultTopScore1.gameId, defaultTopScore1);
-            bool isTopScoreSaved2 = await TopScoreDataManager.Instance.SaveTopScoreData(newUser.userId, defaultTopScore2.gameId, defaultTopScore2);
-            // TopScore 저장은 성공 여부 체크 안함
 
-            uiController.SetUIBySignUpState(SignUpState.Success);
-            CurrentUserManager.Instance.SetCurrentUserData(newUser);
-        }
+        CurrentUserManager.Instance.SetCurrentUserData(userData);
+
+        uiController.SetUIBySignUpState(SignUpState.Success);
     }
 
     public async void HandleCheckId()
@@ -141,12 +148,11 @@ public class LoginManager : MonoBehaviour
         {
             uiController.SetSignUpNoticeMessage("이미 존재하는 아이디입니다.\n다른 아이디를 사용해주세요.");
             uiController.SetUIBySignUpState(SignUpState.IdNotChecked);
+            return;
         }
-        else
-        {
-            uiController.SetSignUpNoticeMessage("사용 가능한 아이디입니다.", false);
-            uiController.SetUIBySignUpState(SignUpState.IdChecked);
-        }
+
+        uiController.SetSignUpNoticeMessage("사용 가능한 아이디입니다.", false);
+        uiController.SetUIBySignUpState(SignUpState.IdChecked);
     }
 
     private void OnSignUpIdChanged(string newId)

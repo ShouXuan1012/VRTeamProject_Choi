@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CurrentUserManager : MonoBehaviour
@@ -6,7 +7,7 @@ public class CurrentUserManager : MonoBehaviour
     public static CurrentUserManager Instance { get; private set; }
 
     public UserData CurrentUserData { get; private set; }
-    public TopScoreData[] CurrentTopScoreDatas { get; private set; }
+    public Dictionary<string, TopScoreData> TopScoreDict { get; private set; }
 
     private void Awake()
     {
@@ -46,6 +47,17 @@ public class CurrentUserManager : MonoBehaviour
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
+    public void SetProfileImage(string profileImage)
+    {
+        if (CurrentUserData != null)
+        {
+            CurrentUserData.profileImage = profileImage;
+        }
+        else
+        {
+            Debug.LogError("현재 사용자 데이터가 없습니다.");
+        }
+    }
     public void SetCoin(int coin)
     {
         if (CurrentUserData != null)
@@ -57,10 +69,28 @@ public class CurrentUserManager : MonoBehaviour
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
-
-    public void SetCurrentTopScoreData(TopScoreData[] topScoreDatas)
+    public void SetIsOnline(bool isOnline)
     {
-        CurrentTopScoreDatas = topScoreDatas;
+        if (CurrentUserData != null)
+        {
+            CurrentUserData.isOnline = isOnline;
+        }
+        else
+        {
+            Debug.LogError("현재 사용자 데이터가 없습니다.");
+        }
+    }
+
+    public void AddOrUpdateTopScore(TopScoreData topScoreData)
+    {
+        if (TopScoreDict.ContainsKey(topScoreData.gameId))
+        {
+            TopScoreDict[topScoreData.gameId] = topScoreData;
+        }
+        else
+        {
+            TopScoreDict.Add(topScoreData.gameId, topScoreData);
+        }
     }
 
     public async Task<bool> UpdateNickname(string newNickname)
@@ -71,8 +101,29 @@ public class CurrentUserManager : MonoBehaviour
     {
         return await UserDataManager.Instance.UpdateAvatar(CurrentUserData.userId, newAvatar);
     }
+    public async Task<bool> UpdateProfileImage(string newProfileImage)
+    {
+        return await UserDataManager.Instance.UpdateProfileImage(CurrentUserData.userId, newProfileImage);
+    }
     public async Task<bool> UpdateCoin(int newCoin)
     {
         return await UserDataManager.Instance.UpdateCoin(CurrentUserData.userId, newCoin);
+    }
+    public async Task<bool> UpdateIsOnline(bool isOnline)
+    {
+        return await UserDataManager.Instance.UpdateIsOnline(CurrentUserData.userId, isOnline);
+    }
+
+    public async Task<bool> AddOrUpdateTopScoreData(TopScoreData topScoreData)
+    {
+        bool isDataExists = await TopScoreDataManager.Instance.CheckGameIdExists(CurrentUserData.userId, topScoreData.gameId);
+        if (isDataExists)
+        {
+            return await TopScoreDataManager.Instance.UpdateScore(CurrentUserData.userId, topScoreData.gameId, topScoreData.score);
+        }
+        else
+        {
+            return await TopScoreDataManager.Instance.SaveTopScoreData(CurrentUserData.userId, topScoreData.gameId, topScoreData);
+        }
     }
 }

@@ -24,6 +24,8 @@ public class AppLifecycleManager : MonoBehaviour
         int coin = CurrentUserManager.Instance.CurrentUserData.coin;
         await CurrentUserManager.Instance.UpdateCoin(coin);
 
+        await CurrentUserManager.Instance.UpdateIsOnline(false);
+
         Application.Quit(); // 모든 작업이 완료된 후 게임 종료
     }
 }
