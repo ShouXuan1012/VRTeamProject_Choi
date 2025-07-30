@@ -6,7 +6,8 @@ public class ItemPurchaseUI : MonoBehaviour
     public int price;
     public Button yesButton;
     public Button noButton;
-   
+    public AudioClip AudioClip;
+     
     
 
     private void Start()
@@ -22,9 +23,9 @@ public class ItemPurchaseUI : MonoBehaviour
 
         if (CoinManager.Instance.UseCoins(price))
         {
-
             QuestEvents.FoodPurchased();
-            //»ç¿îµå, ÀÌÆåÆ®
+            AudioClip.LoadAudioData();
+            //ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Æ®
         }
 
         else

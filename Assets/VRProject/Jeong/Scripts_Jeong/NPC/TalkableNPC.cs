@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TalkableNPC : MonoBehaviour
 {
-    [SerializeField] private string npcID = "NPC_Frog";
+    [SerializeField] private string npcID = "NPC_Main";
     [SerializeField] private float textDelay = 0.05f;
 
     [Header("UI Elements")]
@@ -21,7 +21,6 @@ public class TalkableNPC : MonoBehaviour
     private int currentDialogueIndex = 0;
     private Coroutine typingCoroutine;
 
-    private bool isRead = false;
     private bool isTalking = false;
     private bool isTyping = false;
 
@@ -35,15 +34,12 @@ public class TalkableNPC : MonoBehaviour
             return;
         }
 
-        isRead = dialogueData.isRead;
-
         speechBalloon.SetActive(true);
         speechText.gameObject.SetActive(false);
         initialText.gameObject.SetActive(true);
 
         speechText.text = "";
-        if (isRead) initialText.text = "...";
-        else initialText.text = "?";
+        initialText.text = "?";
 
         speechButton.interactable = false;
         speechButton.onClick.AddListener(OnSpeechButtonClicked);
@@ -90,8 +86,7 @@ public class TalkableNPC : MonoBehaviour
             initialText.gameObject.SetActive(true);
 
             speechText.text = "";
-            if (isRead) initialText.text = "...";
-            else initialText.text = "?";
+            initialText.text = "?";
 
             speechButton.interactable = false;
         }
@@ -119,9 +114,6 @@ public class TalkableNPC : MonoBehaviour
         else
         {
             isTalking = false;
-            isRead = true;
-
-            SaveDialogueState(isRead);
 
             speechBalloon.SetActive(false);
             speechText.gameObject.SetActive(false);
@@ -157,16 +149,6 @@ public class TalkableNPC : MonoBehaviour
             if (letter != ' ') yield return new WaitForSeconds(textDelay);
         }
         isTyping = false;
-    }
-    private void SaveDialogueState(bool isRead)
-    {
-        if (dialogueData != null)
-        {
-            dialogueData.isRead = isRead;
-
-            string json = JsonUtility.ToJson(dialogueData, true);
-            System.IO.File.WriteAllText($"{Application.dataPath}/Resources/NPCDialogue/{npcID}.json", json);
-        }
     }
 
     private bool IsLocalPlayer(Collider other)
