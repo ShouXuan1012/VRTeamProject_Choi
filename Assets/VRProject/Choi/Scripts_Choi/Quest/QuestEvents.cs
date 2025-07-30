@@ -1,18 +1,26 @@
 using System;
+using System.Collections.Generic;
 
 public static class QuestEvents
 {
-    public static event Action OnBusBoarded;
-    public static event Action OnFoodPurchased;
-    public static event Action OnPhotoTaken;
-    public static event Action OnMuseumEntered;
-    public static event Action OnBuskingDonated;
-    public static event Action OnBasketballScored10;
+    private static Dictionary<EQuestType, Action> questEvents = new();
 
-    public static void BusBoarded() => OnBusBoarded?.Invoke();
-    public static void FoodPurchased() => OnFoodPurchased?.Invoke();
-    public static void PhotoTaken() => OnPhotoTaken?.Invoke();
-    public static void MuseumEntered() => OnMuseumEntered?.Invoke();
-    public static void BuskingDonated() => OnBuskingDonated?.Invoke();
-    public static void BasketballScored10() => OnBasketballScored10?.Invoke();
+    public static void Subscribe(EQuestType type, Action callback)
+    {
+        if (questEvents.ContainsKey(type))
+            questEvents[type] += callback;
+        else
+            questEvents[type] = callback;
+    }
+
+    public static void Unsubscribe(EQuestType type, Action callback)
+    {
+        if (questEvents.ContainsKey(type))
+            questEvents[type] -= callback;
+    }
+
+    public static void Invoke(EQuestType type)
+    {
+        questEvents[type]?.Invoke();
+    }
 }

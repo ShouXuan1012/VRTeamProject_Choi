@@ -8,30 +8,30 @@ public class QuestManager : MonoBehaviour
 
     private void OnEnable()
     {
-        QuestEvents.OnBusBoarded += HandleBusBoarded;
-        QuestEvents.OnFoodPurchased += HandleFoodPurchased;
-        QuestEvents.OnPhotoTaken += HandlePhotoTaken;
-        QuestEvents.OnMuseumEntered += HandleMuseumEntered;
-        QuestEvents.OnBuskingDonated += HandleBuskingDonated;
-        QuestEvents.OnBasketballScored10 += HandleBasketballScored10;
+        foreach (var quest in quests)
+        {
+            QuestEvents.Subscribe(quest.questType, () => TryComplete(quest.questType));
+        }
     }
 
     private void OnDisable()
     {
-        QuestEvents.OnBusBoarded -= HandleBusBoarded;
-        QuestEvents.OnFoodPurchased -= HandleFoodPurchased;
-        QuestEvents.OnPhotoTaken -= HandlePhotoTaken;
-        QuestEvents.OnMuseumEntered -= HandleMuseumEntered;
-        QuestEvents.OnBuskingDonated -= HandleBuskingDonated;
-        QuestEvents.OnBasketballScored10 -= HandleBasketballScored10;
+        foreach (var quest in quests)
+        {
+            QuestEvents.Unsubscribe(quest.questType, () => TryComplete(quest.questType));
+        }
     }
 
-    private void HandleBusBoarded() => TryComplete("버스 탑승해보기");
-    private void HandleFoodPurchased() => TryComplete("시장에서 먹을 것 사보기");
-    private void HandlePhotoTaken() => TryComplete("포토존에서 사진 찍어보기");
-    private void HandleMuseumEntered() => TryComplete("박물관에 들어가서 관람하기");
-    private void HandleBuskingDonated() => TryComplete("버스킹 후원하기");
-    private void HandleBasketballScored10() => TryComplete("농구게임 10점 이상 달성");
+    private void TryComplete(EQuestType questType)
+    {
+        var quest = quests.Find(q => q.questType == questType);
+        if (quest != null && !quest.isComplete)
+        {
+            quest.isComplete = true;
+            Debug.Log($"[퀘스트 완료] {quest.questTitle}");
+            uiManager?.RefreshUI();
+        }
+    }
 
     private void TryComplete(string questTitle)
     {

@@ -23,9 +23,8 @@ public class ItemPurchaseUI : MonoBehaviour
 
         if (CoinManager.Instance.UseCoins(price))
         {
-            QuestEvents.FoodPurchased();
+            QuestEvents.Invoke(EQuestType.FoodPurchased);
             AudioClip.LoadAudioData();
-            //����,����Ʈ
         }
 
         else

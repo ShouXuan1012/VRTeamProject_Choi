@@ -24,7 +24,7 @@ public class DonationButton : MonoBehaviour
         Debug.Log($"[DonationButton] {donationAmount}원 후원 성공");
 
         int countToPlay = (donationAmount == 5000) ? 2 : 6;
-        QuestEvents.BuskingDonated();
+        QuestEvents.Invoke(EQuestType.PhotoTaken);
 
         PhotonView particleTargetView = DonationParticleManager.Instance.GetView();
         if (particleTargetView != null)
