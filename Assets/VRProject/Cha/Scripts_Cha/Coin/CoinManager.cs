@@ -25,9 +25,14 @@ public class CoinManager : MonoBehaviour
         }
 
         Instance = this;
-        currentCoins = 316000;
         DontDestroyOnLoad(gameObject);
     }
+    private void Start()
+    {
+        currentCoins = CurrentUserManager.Instance.CurrentUserData?.coin ?? 0; // DB에서 가져온 데이터로 초기화
+        OnCoinChanged?.Invoke(currentCoins);
+    }
+
     /// <summary>
     /// 코인 추가. 최대 금액 초과 X.
     /// </summary>
@@ -44,6 +49,8 @@ public class CoinManager : MonoBehaviour
         }
 
         currentCoins += amount;
+        CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData에도 반영
+
         OnCoinChanged?.Invoke(currentCoins);
         return true;
     }
@@ -62,7 +69,9 @@ public class CoinManager : MonoBehaviour
         if (currentCoins >= amount)
         { 
             currentCoins -= amount;
-            OnCoinChanged?.Invoke(CurrentCoins);
+            CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData에도 반영
+
+            OnCoinChanged?.Invoke(currentCoins);
             
         }
         return true;
@@ -77,7 +86,6 @@ public class CoinManager : MonoBehaviour
     {
         PlayerSpawner.OnPlayerSpawned -= SetupUIFromPlayer;
     }
-
 
     public void SetupUIFromPlayer(GameObject player)
     {
