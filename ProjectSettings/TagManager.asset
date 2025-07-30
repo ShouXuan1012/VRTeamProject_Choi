@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Fluid
+  - Tile
   layers:
   - Default
   - TransparentFX
@@ -37,8 +38,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - PlayerHand
+  - PlayerBody
   m_SortingLayers:
   - name: Default
     uniqueID: 0
