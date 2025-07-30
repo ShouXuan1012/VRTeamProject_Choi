@@ -2095,9 +2095,9 @@ Transform:
   - {fileID: 5534171017977106089}
   - {fileID: 3183646794157269502}
   - {fileID: 4125100564918501433}
+  - {fileID: 73528867573563587}
   - {fileID: 8003979831914250743}
   - {fileID: 9051587794074367121}
-  - {fileID: 73528867573563587}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6671726247340853846
@@ -4227,6 +4227,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ray Interactor
       objectReference: {fileID: 0}
+    - target: {fileID: 1787346994484839025, guid: ad818c36731146e994540a1896ad8f24,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4924506573850889901, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
       propertyPath: m_LineOriginTransform
@@ -4357,6 +4362,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ray Interactor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787346994484839025, guid: ad818c36731146e994540a1896ad8f24,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4924506573850889901, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
@@ -4612,6 +4622,11 @@ PrefabInstance:
       propertyPath: headTarget
       value: 
       objectReference: {fileID: 5534171018059764360}
+    - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
+        type: 3}
+      propertyPath: phoneObject
+      value: 
+      objectReference: {fileID: 4968391521648025580}
     - target: {fileID: 8190978872587653547, guid: b1454b4ab36f3b34d821dd45a7541a34,
         type: 3}
       propertyPath: handMeshRoot

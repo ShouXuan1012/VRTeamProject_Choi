@@ -46,9 +46,15 @@ public class PhoneCameraController : MonoBehaviour
     void SwitchCamera()
     {
         if (currentCamera == selfieCamera)
+        {
             SetActiveCamera(normalCamera);
+            phoneScreenUI.rectTransform.localScale = new Vector3(-1, 1, 1);
+        }
         else
+        {
             SetActiveCamera(selfieCamera);
+            phoneScreenUI.rectTransform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     void TakePhoto()
