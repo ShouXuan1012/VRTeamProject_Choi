@@ -6,7 +6,8 @@ public class ItemPurchaseUI : MonoBehaviour
     public int price;
     public Button yesButton;
     public Button noButton;
-   
+    public AudioClip AudioClip;
+     
     
 
     private void Start()
@@ -22,7 +23,8 @@ public class ItemPurchaseUI : MonoBehaviour
 
         if (CoinManager.Instance.UseCoins(price))
         {
-            //사운드, 이펙트
+            AudioClip.LoadAudioData();
+            //사운드,이펙트
         }
 
         else
