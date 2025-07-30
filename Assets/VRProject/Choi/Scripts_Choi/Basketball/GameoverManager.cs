@@ -23,7 +23,7 @@ public class GameOverManager : MonoBehaviour
         if (score >= 10)
         {
             Debug.Log("[퀘스트] 농구게임 퀘스트 완료 조건 달성");
-            QuestEvents.BasketballScored10();
+            QuestEvents.Invoke(EQuestType.BasketballScored10);
         }
 
         // 최고 점수 갱신

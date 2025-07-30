@@ -4,5 +4,6 @@ using UnityEngine;
 public class QuestData : ScriptableObject
 {
     public string questTitle;
+    public EQuestType questType;
     public bool isComplete;
 }
