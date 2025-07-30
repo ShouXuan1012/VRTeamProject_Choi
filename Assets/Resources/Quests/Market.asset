@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Market
   m_EditorClassIdentifier: 
   questTitle: "\uC2DC\uC7A5\uC5D0\uC11C \uBA39\uC744 \uAC83 \uC0AC\uBCF4\uAE30"
+  questType: 1
   isComplete: 0
