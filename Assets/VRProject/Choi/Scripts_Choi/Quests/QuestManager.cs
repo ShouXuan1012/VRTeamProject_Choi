@@ -30,18 +30,8 @@ public class QuestManager : MonoBehaviour
             quest.isComplete = true;
             Debug.Log($"[Äù½ºÆ® ¿Ï·á] {quest.questTitle}");
             uiManager?.RefreshUI();
-        }
-    }
 
-    private void TryComplete(string questTitle)
-    {
-        Debug.Log($"TryComplete È£ÃâµÊ: {questTitle}");
-        QuestData quest = quests.Find(q => q.questTitle == questTitle);        
-        if (quest != null && !quest.isComplete)
-        {
-            quest.isComplete = true;
-            Debug.Log($"[Äù½ºÆ® ¿Ï·á] {quest.questTitle}");
-            uiManager?.RefreshUI(); // UI °»½Å
+            AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
         }
     }
 

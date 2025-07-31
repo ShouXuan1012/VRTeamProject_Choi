@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PhoneCameraController : MonoBehaviour
 {
@@ -71,5 +72,7 @@ public class PhoneCameraController : MonoBehaviour
         Debug.Log($"사진 저장됨: {path}");
 
         RenderTexture.active = null;
+        AchievementManager.Instance.AddProgress(EAchievementType.PhotoMaster, 1);
+
     }
 }

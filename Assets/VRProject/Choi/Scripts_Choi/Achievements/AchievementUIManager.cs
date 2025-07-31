@@ -1,12 +1,12 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class AchievementUIManager : MonoBehaviour
 {
-    [Header("프리팹 & 부모")]
     [SerializeField] private GameObject achievementItemPrefab;
     [SerializeField] private Transform contentParent;
+
+    private List<AchievementUIController> uiControllers = new();
 
     private void Start()
     {
@@ -22,6 +22,15 @@ public class AchievementUIManager : MonoBehaviour
             GameObject prefab = Instantiate(achievementItemPrefab, contentParent);
             var controller = prefab.GetComponent<AchievementUIController>();
             controller.Setup(data);
+            uiControllers.Add(controller);
+        }
+    }
+
+    public void RefreshUI()
+    {
+        foreach (var controller in uiControllers)
+        {
+            controller.Refresh(); // 이걸 만들자
         }
     }
 }

@@ -26,6 +26,13 @@ public class AchievementUIController : MonoBehaviour
         progressSlider.maxValue = data.goalAmount;
         progressSlider.value = data.currentAmount;
 
-        lockIcon.SetActive(!data.isUnlocked);
+        lockIcon.SetActive(data.isUnlocked);
+    }
+
+    public void Refresh()
+    {
+        currentAmountText.text = $"{data.currentAmount}";
+        progressSlider.value = data.currentAmount;
+        lockIcon.SetActive(data.isUnlocked);
     }
 }

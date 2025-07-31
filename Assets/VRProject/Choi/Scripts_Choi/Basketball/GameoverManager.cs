@@ -19,7 +19,7 @@ public class GameOverManager : MonoBehaviour
         int reward = score * 1000;
         CoinManager.Instance.AddCoins(reward);
         rewardText.text = $" + {reward}원";
-
+        AchievementManager.Instance.AddProgress(EAchievementType.BasketballScorer, score);
         if (score >= 10)
         {
             Debug.Log("[퀘스트] 농구게임 퀘스트 완료 조건 달성");

@@ -29,11 +29,13 @@ public class AchievementManager : MonoBehaviour
         if (data == null || data.isUnlocked) return;
 
         data.currentAmount += amount;
-
+        var uiManager = FindObjectOfType<AchievementUIManager>();
+        uiManager?.RefreshUI();
         if (data.currentAmount >= data.goalAmount)
         {
             data.isUnlocked = true;
             Debug.Log($"ÄªÈ£ È¹µæ: <color=yellow>{data.titleName}</color>");
+            uiManager?.RefreshUI();
             // TODO: UI ¿¬µ¿, Firestore ÀúÀå µî
         }
     }
