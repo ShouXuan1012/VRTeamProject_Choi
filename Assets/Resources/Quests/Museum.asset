@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Museum
   m_EditorClassIdentifier: 
   questTitle: "\uBC15\uBB3C\uAD00\uC5D0 \uB4E4\uC5B4\uAC00\uC11C \uAD00\uB78C\uD558\uAE30"
+  questType: 3
   isComplete: 0

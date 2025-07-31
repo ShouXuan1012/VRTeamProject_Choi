@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PhotoZone
   m_EditorClassIdentifier: 
   questTitle: "\uD3EC\uD1A0\uC874\uC5D0\uC11C \uC0AC\uC9C4 \uCC0D\uC5B4\uBCF4\uAE30"
+  questType: 2
   isComplete: 0
