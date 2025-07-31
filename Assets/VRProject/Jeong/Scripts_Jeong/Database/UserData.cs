@@ -1,4 +1,5 @@
 ﻿using Firebase.Firestore;
+using System.Collections.Generic;
 
 [FirestoreData]
 public class UserData
@@ -22,8 +23,24 @@ public class UserData
     public int coin { get; set; }
 
     [FirestoreProperty]
+    public List<QuestDataForDB> questProgresses { get; set; }
+
+    [FirestoreProperty]
     public bool isOnline { get; set; }
 
     [FirestoreProperty]
     public Timestamp signUpDate { get; set; }
+}
+
+[FirestoreData]
+public class QuestDataForDB
+{
+    [FirestoreProperty]
+    public string questTitle { get; set; }
+
+    [FirestoreProperty]
+    public EQuestType questType { get; set; }
+
+    [FirestoreProperty]
+    public bool isComplete { get; set; }
 }
