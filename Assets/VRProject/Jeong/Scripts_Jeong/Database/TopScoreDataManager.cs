@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class TopScoreDataManager
 {
@@ -41,12 +42,12 @@ public class TopScoreDataManager
         return await dbManager.TryUpdateFieldAsync(GetUserScorePath(userId), gameId, scorePath, newScore);
     }
 
-    public async Task<TopScoreData> GetUserScoreData(string userId, string gameId)
+    public async Task<TopScoreData> GetTopScoreData(string userId, string gameId)
     {
         return await dbManager.GetDocumentAsync<TopScoreData>(GetUserScorePath(userId), gameId);
     }
 
-    public async Task<TopScoreData[]> GetAllUserScores(string userId)
+    public async Task<List<TopScoreData>> GetAllTopScoreData(string userId)
     {
         return await dbManager.GetCollectionAsync<TopScoreData>(GetUserScorePath(userId));
     }

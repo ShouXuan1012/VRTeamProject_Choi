@@ -80,7 +80,7 @@ public class FirestoreDBManager
     }
 
     // 컬렉션 가져오기
-    public async Task<T[]> GetCollectionAsync<T>(string collection)
+    public async Task<List<T>> GetCollectionAsync<T>(string collection)
     {
         CollectionReference colRef = db.Collection(collection);
         QuerySnapshot snapshot = await colRef.GetSnapshotAsync();
@@ -94,7 +94,7 @@ public class FirestoreDBManager
             resultList.Add(data);
         }
         Debug.Log($"[Firestore] 컬렉션 가져오기 완료: {collection}, 문서 수: {resultList.Count}");
-        return resultList.ToArray();
+        return resultList;
     }
 
     // 문서 존재 여부 확인

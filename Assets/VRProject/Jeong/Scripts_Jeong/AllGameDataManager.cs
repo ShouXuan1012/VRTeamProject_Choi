@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AllGameDataManager : MonoBehaviour
 {
     public static AllGameDataManager Instance { get; private set; }
-    public GameData[] AllGameDatas { get; private set; }
+    public List<GameData> AllGameDatas { get; private set; }
 
     private void Awake()
     {
@@ -24,13 +25,13 @@ public class AllGameDataManager : MonoBehaviour
     public async void LoadAllGameData()
     {
         AllGameDatas = await GameDataManager.Instance.GetAllGames();
-        if (AllGameDatas == null || AllGameDatas.Length == 0)
+        if (AllGameDatas == null || AllGameDatas.Count == 0)
         {
             Debug.LogWarning("게임 데이터가 없습니다.");
         }
         else
         {
-            Debug.Log($"{AllGameDatas.Length}개의 게임 데이터를 로드했습니다.");
+            Debug.Log($"{AllGameDatas.Count}개의 게임 데이터를 로드했습니다.");
         }
     }
 }

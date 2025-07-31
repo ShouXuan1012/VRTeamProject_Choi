@@ -81,16 +81,24 @@ public class CurrentUserManager : MonoBehaviour
         }
     }
 
-    public void AddOrUpdateTopScore(TopScoreData topScoreData)
+    public void SetTopScoreDict(List<TopScoreData> topScoreList)
     {
-        if (TopScoreDict.ContainsKey(topScoreData.gameId))
+        TopScoreDict = new Dictionary<string, TopScoreData>();
+
+        if (topScoreList == null) return;
+
+        foreach (var topScoreData in topScoreList)
         {
-            TopScoreDict[topScoreData.gameId] = topScoreData;
+            if (topScoreData != null && !string.IsNullOrEmpty(topScoreData.gameId))
+            {
+                TopScoreDict[topScoreData.gameId] = topScoreData;
+            }
         }
-        else
-        {
-            TopScoreDict.Add(topScoreData.gameId, topScoreData);
-        }
+    }
+    public void SetTopScore(TopScoreData topScoreData)
+    {
+        TopScoreDict[topScoreData.gameId] = topScoreData;
+        Debug.Log($"TopScoreDict에 {topScoreData.gameId} 추가됨: {topScoreData.score}");
     }
 
     public async Task<bool> UpdateNickname(string newNickname)

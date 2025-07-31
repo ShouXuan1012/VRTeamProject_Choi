@@ -1,19 +1,14 @@
-
-
 using System;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    
     public static CoinManager Instance { get; private set; }
     
-
     private const int MAX_COINS = 500000;
     private int currentCoins;
     private CoinUI currentCoinUI;
 
-    public int CurrentCoins => currentCoins;
     public event Action<int> OnCoinChanged;
   
     private void Awake()
