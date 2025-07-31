@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 
 public class RankingUIManager : MonoBehaviour
@@ -9,28 +9,24 @@ public class RankingUIManager : MonoBehaviour
     [SerializeField] private Transform rankingSlotParent;
 
     private List<RankingSlotUI> slotUIs = new List<RankingSlotUI>();
-    private GameData rankingDataList;
+    private GameData gameData;
 
     void Start()
     {
-        rankingDataList = AllGameDataManager.Instance.AllGameDatas[gameId];
+        gameData = AllGameDataManager.Instance.AllGameDatas[gameId];
 
-        // ΩΩ∑‘ ª˝º∫
-        foreach (RankingEntry rankingEntry in rankingDataList.ranking)
+        List<RankingEntry> rankingEntries = gameData.ranking;
+        rankingEntries.Sort((a, b) => b.score.CompareTo(a.score));
+
+        // Ïä¨Î°Ø ÏÉùÏÑ±
+        int rank = 1;
+        foreach (RankingEntry rankingEntry in rankingEntries)
         {
             GameObject slot = Instantiate(rankingSlotPrefab, rankingSlotParent);
             RankingSlotUI ui = slot.GetComponent<RankingSlotUI>();
-            ui.SetRanking(rankingEntry);
+            ui.SetRanking(rankingEntry, rank);
             slotUIs.Add(ui);
-        }
-    }
-
-    // UI ∞ªΩ≈ «‘ºˆ
-    public void RefreshUI()
-    {
-        for (int i = 0; i < slotUIs.Count; i++)
-        {
-            slotUIs[i].SetRanking(rankingDataList.ranking[i]);
+            rank++;
         }
     }
 }
