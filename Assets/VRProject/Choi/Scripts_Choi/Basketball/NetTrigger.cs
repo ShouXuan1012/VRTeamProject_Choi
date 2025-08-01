@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class NetTrigger : MonoBehaviour
 {
-    [SerializeField] private ScoreManager scoreManager; // Á¡¼ö °ü¸® ½ºÅ©¸³Æ® ÂüÁ¶
+    [SerializeField] private ScoreManager scoreManager; // ì ìˆ˜ ê´€ë¦¬ ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
     [SerializeField] private Transform ballRespawnPoint;
 
     private void OnTriggerEnter(Collider other)

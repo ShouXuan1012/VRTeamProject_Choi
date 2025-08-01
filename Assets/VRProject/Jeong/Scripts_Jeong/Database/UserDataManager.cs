@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Firebase.Firestore;
 
 public class UserDataManager
@@ -80,7 +81,7 @@ public class UserDataManager
         return await dbManager.GetDocumentAsync<UserData>(collectionPath, userId);
     }
 
-    public async Task<UserData[]> GetAllUsers()
+    public async Task<List<UserData>> GetAllUsers()
     {
         return await dbManager.GetCollectionAsync<UserData>(collectionPath);
     }

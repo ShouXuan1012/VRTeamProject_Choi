@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14766668, g: 0.36471206, b: 0.57633466, a: 1}
+  m_IndirectSpecularColor: {r: 0.1470247, g: 0.36394262, b: 0.5799059, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2102,6 +2102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1c4d6b4d1d6cd4585ef8d55de49c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameId: basketball
   gameOverUI: {fileID: 1907177236}
   finalScoreText: {fileID: 1907177235}
   rewardText: {fileID: 1907177237}
@@ -2421,8 +2422,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4345221469272621083, guid: df0531cfa14f5614998ec09eaf8cc97e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8195653603686177624}
   m_SourcePrefab: {fileID: 100100000, guid: df0531cfa14f5614998ec09eaf8cc97e, type: 3}
+--- !u!1 &8195653603686177623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4345221469272621083, guid: df0531cfa14f5614998ec09eaf8cc97e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8195653603686177622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8195653603686177624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8195653603686177623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01a2ef70c83d204c8601adcfb5d9c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreManager: {fileID: 1301596486}
+  ballRespawnPoint: {fileID: 1922095975}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

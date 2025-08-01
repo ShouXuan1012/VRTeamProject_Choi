@@ -1,19 +1,14 @@
-
-
 using System;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    
     public static CoinManager Instance { get; private set; }
     
-
-    private const int MAX_COINS = 500000;
+    private const int MAX_COINS = 50000000;
     private int currentCoins;
     private CoinUI currentCoinUI;
 
-    public int CurrentCoins => currentCoins;
     public event Action<int> OnCoinChanged;
   
     private void Awake()
@@ -29,14 +24,14 @@ public class CoinManager : MonoBehaviour
     }
     private void Start()
     {
-        currentCoins = CurrentUserManager.Instance.CurrentUserData?.coin ?? 0; // DB¿¡¼­ °¡Á®¿Â µ¥ÀÌÅÍ·Î ÃÊ±âÈ­
+        currentCoins = CurrentUserManager.Instance.CurrentUserData?.coin ?? 0; // DBì—ì„œ ê°€ì ¸ì˜¨ ë°ì´í„°ë¡œ ì´ˆê¸°í™”
         OnCoinChanged?.Invoke(currentCoins);
     }
 
     /// <summary>
-    /// ÄÚÀÎ Ãß°¡. ÃÖ´ë ±İ¾× ÃÊ°ú X.
+    /// ì½”ì¸ ì¶”ê°€. ìµœëŒ€ ê¸ˆì•¡ ì´ˆê³¼ X.
     /// </summary>
-    /// <returns>¼º°ø ¿©ºÎ</returns>
+    /// <returns>ì„±ê³µ ì—¬ë¶€</returns>
     public bool AddCoins(int amount)
     {
         if (amount <= 0) return false;
@@ -45,20 +40,20 @@ public class CoinManager : MonoBehaviour
         {
             currentCoins = MAX_COINS;
             OnCoinChanged?.Invoke(currentCoins);
-            return false; // ÀÏºÎ¸¸ ¹İ¿µµÇ¾úÀ» ¼ö ÀÖÀ½
+            return false; // ì¼ë¶€ë§Œ ë°˜ì˜ë˜ì—ˆì„ ìˆ˜ ìˆìŒ
         }
 
         currentCoins += amount;
-        CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData¿¡µµ ¹İ¿µ
+        CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserDataì—ë„ ë°˜ì˜
 
         OnCoinChanged?.Invoke(currentCoins);
         return true;
     }
 
     /// <summary>
-    /// ÄÚÀÎ Â÷°¨. º¸À¯ ±İ¾×º¸´Ù Å¬ °æ¿ì ½ÇÆĞ.
+    /// ì½”ì¸ ì°¨ê°. ë³´ìœ  ê¸ˆì•¡ë³´ë‹¤ í´ ê²½ìš° ì‹¤íŒ¨.
     /// </summary>
-    /// <returns>¼º°ø ¿©ºÎ</returns>
+    /// <returns>ì„±ê³µ ì—¬ë¶€</returns>
     public bool UseCoins(int amount)
     {
         if (amount <= 0 || amount > currentCoins)
@@ -69,7 +64,7 @@ public class CoinManager : MonoBehaviour
         if (currentCoins >= amount)
         { 
             currentCoins -= amount;
-            CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData¿¡µµ ¹İ¿µ
+            CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserDataì—ë„ ë°˜ì˜
 
             OnCoinChanged?.Invoke(currentCoins);
             
@@ -92,17 +87,17 @@ public class CoinManager : MonoBehaviour
         var coinUI = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI/CoinCounterUI/Text")?.GetComponent<CoinUI>();
         if (coinUI == null)
         {
-            Debug.LogWarning("[CoinManager] CoinUI¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[CoinManager] CoinUIë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ÀÌÀü ¸®½º³Ê Á¦°Å
+        // ì´ì „ ë¦¬ìŠ¤ë„ˆ ì œê±°
         if (currentCoinUI != null)
             OnCoinChanged -= currentCoinUI.UpdateCoinText;
 
         currentCoinUI = coinUI;
 
-        // »õ ¸®½º³Ê µî·Ï
+        // ìƒˆ ë¦¬ìŠ¤ë„ˆ ë“±ë¡
         OnCoinChanged += coinUI.UpdateCoinText;
         coinUI.UpdateCoinText(currentCoins);
     }
