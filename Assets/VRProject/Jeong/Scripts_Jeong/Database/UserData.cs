@@ -1,4 +1,4 @@
-﻿using Firebase.Firestore;
+﻿using Firebase.Firestore; 
 
 [FirestoreData]
 public class UserData
