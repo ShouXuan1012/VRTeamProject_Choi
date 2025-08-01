@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CurrentUserManager : MonoBehaviour
 {
+
     public static CurrentUserManager Instance { get; private set; }
 
     public UserData CurrentUserData { get; private set; }

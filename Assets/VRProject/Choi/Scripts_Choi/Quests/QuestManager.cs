@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
+
 
 public class QuestManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class QuestManager : MonoBehaviour
         if (quest != null && !quest.isComplete)
         {
             quest.isComplete = true;
-            Debug.Log($"[Äù½ºÆ® ¿Ï·á] {quest.questTitle}");
+            Debug.Log($"[í€˜ìŠ¤íŠ¸ ì™„ë£Œ] {quest.questTitle}");
             uiManager?.RefreshUI();
 
             AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
