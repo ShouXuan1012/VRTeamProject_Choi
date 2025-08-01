@@ -110,6 +110,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
         string selectedCharacterName = CurrentUserManager.Instance.CurrentUserData?.avatar ?? "Boy1_CharacterIcon";
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "SelectedCharacter", selectedCharacterName } });
+        PhotonNetwork.LocalPlayer.NickName = CurrentUserManager.Instance.CurrentUserData.nickname ?? "Guest";
 
         PhotonNetwork.LoadLevel(sceneName);
     }

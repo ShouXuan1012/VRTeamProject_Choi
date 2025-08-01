@@ -21,11 +21,11 @@ public class PlayerNameTag : MonoBehaviourPun
         }
         mainCam = Camera.main;
 
-        var user = CurrentUserManager.Instance.CurrentUserData;
-        nicknameText.text = user.nickname;
+        
+        nicknameText.text = photonView.Owner.NickName;
 
         //나중에 칭호 서버에 저장하면 불러와서 쓰기(지금은 로컬에 선택한것 띄우기)
-        titleText.text = titleDropdownController.CurrentTitle; 
+        titleText.text = titleDropdownController.CurrentTitle;
     }
 
     void LateUpdate()
