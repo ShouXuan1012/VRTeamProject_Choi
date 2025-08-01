@@ -32,6 +32,6 @@ public class PlayerInfoLoader : MonoBehaviour
     private string FormatJoinDate(Firebase.Firestore.Timestamp timestamp)
     {
         System.DateTime dateTime = timestamp.ToDateTime();
-        return dateTime.ToString("yyyy.MM.dd") + " ∞°¿‘";
+        return dateTime.ToString("yyyy.MM.dd");
     }
 }
