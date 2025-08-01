@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8197779168918156190}
   - component: {fileID: 7169482516162377919}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: VoiceUIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localVoiceCanvas: {fileID: 3892189826498554479}
-  muteButton: {fileID: 8080562584047689900}
-  micIcon: {fileID: 4230562089876012008}
+  muteButton: {fileID: 0}
+  micIcon: {fileID: 0}
   micOnSprite: {fileID: 21300000, guid: f2f9800a1d8f6624db87fcc401513e95, type: 3}
   micOffSprite: {fileID: 21300000, guid: e4a9e167cc90cae43bb03120ccbe26ef, type: 3}
   micStatusText: {fileID: 8261359456136022615}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 7986142075730852714}
   - component: {fileID: 3679404251227804255}
   - component: {fileID: 6147869215328691393}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: LocalVoiceCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 10
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3679404251227804255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,13 +189,13 @@ GameObject:
   - component: {fileID: 6779027692101063937}
   - component: {fileID: 1766153994183460977}
   - component: {fileID: 8261359456136022615}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6779027692101063937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -269,13 +269,13 @@ GameObject:
   - component: {fileID: 359214058119602682}
   - component: {fileID: 4230562089876012008}
   - component: {fileID: 8080562584047689900}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1738811772788107488
 RectTransform:
   m_ObjectHideFlags: 0

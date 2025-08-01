@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 /// <summary>
@@ -177,6 +178,7 @@ public class BoardingManager : MonoBehaviourPun
 
         OnBoardedBus?.Invoke();
         QuestEvents.Invoke(EQuestType.BusBoarded);
+        AchievementManager.Instance.AddProgress(EAchievementType.BusRider, 1);
         yield return FadeUIController.Instance.FadeIn();
     }
 

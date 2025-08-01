@@ -51,5 +51,6 @@ public class SelectCharacter : MonoBehaviour
 
         currentWindow.SetActive(false);
         nextWindow.SetActive(true);
+
     }
 }

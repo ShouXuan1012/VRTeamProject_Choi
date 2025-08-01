@@ -24,8 +24,8 @@ public class ItemPurchaseUI : MonoBehaviour
         if (CoinManager.Instance.UseCoins(price))
         {
             QuestEvents.Invoke(EQuestType.FoodPurchased);
+            AchievementManager.Instance.AddProgress(EAchievementType.MarketSpender, price);
             AudioClip.LoadAudioData();
-            //����,����Ʈ
         }
 
         else

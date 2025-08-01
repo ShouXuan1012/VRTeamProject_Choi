@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8433669206947900533}
   - component: {fileID: 2005441973561031519}
   - component: {fileID: 5176996381718599091}
+  - component: {fileID: 3092260292421340253}
   m_Layer: 5
   m_Name: Achievement
   m_TagString: Untagged
@@ -146,6 +147,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3092260292421340253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114523554234298483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b199583ed31a940b7051f6ea0c7065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievementNameText: {fileID: 1852071622188173199}
+  titleText: {fileID: 532324208892414693}
+  currentAmountText: {fileID: 9076509552413166090}
+  goalAmountText: {fileID: 464825091718845746}
+  progressSlider: {fileID: 8875499459190797325}
+  lockIcon: {fileID: 222310475405249146}
 --- !u!1 &222310475405249146
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2775310081523022138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -388,7 +407,7 @@ GameObject:
   - component: {fileID: 4137706852996637178}
   - component: {fileID: 1852071622188173199}
   m_Layer: 5
-  m_Name: MissionName
+  m_Name: AchievementName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -467,7 +486,7 @@ GameObject:
   - component: {fileID: 8079535345950112922}
   - component: {fileID: 532324208892414693}
   m_Layer: 5
-  m_Name: AchievementName
+  m_Name: TitleName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,9 +772,45 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d34d5ab8fe44fba41bd90c25bc94bd3a, type: 3}
+--- !u!114 &464825091718845746 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2042076812466204443, guid: d34d5ab8fe44fba41bd90c25bc94bd3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1884063751352302121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3836320353257440843 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3393692078315273314, guid: d34d5ab8fe44fba41bd90c25bc94bd3a,
     type: 3}
   m_PrefabInstance: {fileID: 1884063751352302121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8875499459190797325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6992280718243401252, guid: d34d5ab8fe44fba41bd90c25bc94bd3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1884063751352302121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9076509552413166090 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7481522034565836835, guid: d34d5ab8fe44fba41bd90c25bc94bd3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1884063751352302121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

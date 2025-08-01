@@ -23,7 +23,7 @@ public class GameOverManager : MonoBehaviour
         int reward = score * 1000;
         CoinManager.Instance.AddCoins(reward);
         rewardText.text = $" + {reward}¿ø";
-
+        AchievementManager.Instance.AddProgress(EAchievementType.BasketballScorer, score);
         if(gameId == "basketball")
         {
             if (score >= 10)
