@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class LocalHighScore : MonoBehaviour
 {
+    public event Action<string, int> OnBestScoreUpdated;
+
     public static LocalHighScore Instance { get; private set; }
 
     private Dictionary<string, TopScoreData> topScoreDict;
@@ -60,6 +63,8 @@ public class LocalHighScore : MonoBehaviour
                 Debug.LogError($"최고 점수 저장에 실패했습니다.");
                 return false;
             }
+
+            OnBestScoreUpdated?.Invoke(gameId, bestScore);
 
             return true;
         }

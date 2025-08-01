@@ -20,7 +20,7 @@ public class RankingSlotUI : MonoBehaviour
         }
         else if (rank == 2)
         {
-            iconImage.color = Color.gray;
+            iconImage.color = new Color32(190, 190, 190, 255);
         }
         else if (rank == 3)
         {
@@ -28,7 +28,7 @@ public class RankingSlotUI : MonoBehaviour
         }
         else
         {
-            iconImage.color = Color.white;
+            iconImage.color = new Color32(0, 0, 0, 0);
         }
     }
 }

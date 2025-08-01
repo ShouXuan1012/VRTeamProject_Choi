@@ -13,10 +13,22 @@ public class RankingUIManager : MonoBehaviour
 
     void Start()
     {
-        gameData = AllGameDataManager.Instance.AllGameDatas[gameId];
+        if (AllGameDataManager.Instance.IsDataLoaded)
+        {
+            InitUI();
+        }
+        else
+        {
+            AllGameDataManager.Instance.OnDataLoaded += InitUI;
+        }
+
+    }
+
+    public void InitUI()
+    {
+        gameData = AllGameDataManager.Instance.GetGameData(gameId);
 
         List<RankingEntry> rankingEntries = gameData.ranking;
-        rankingEntries.Sort((a, b) => b.score.CompareTo(a.score));
 
         // 슬롯 생성
         int rank = 1;
@@ -24,9 +36,19 @@ public class RankingUIManager : MonoBehaviour
         {
             GameObject slot = Instantiate(rankingSlotPrefab, rankingSlotParent);
             RankingSlotUI ui = slot.GetComponent<RankingSlotUI>();
+
             ui.SetRanking(rankingEntry, rank);
             slotUIs.Add(ui);
+
             rank++;
+        }
+    }
+
+    public void UpdateUI()
+    {
+        for (int i = 0; i < slotUIs.Count; i++)
+        {
+            slotUIs[i].SetRanking(AllGameDataManager.Instance.GetGameData(gameId).ranking[i], i + 1);
         }
     }
 }
