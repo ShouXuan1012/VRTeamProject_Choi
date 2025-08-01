@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class AllGameDataManager : MonoBehaviour
 {
-    public event Action OnDataLoaded;
     public static AllGameDataManager Instance { get; private set; }
     public Dictionary<string, GameData> AllGameDatas { get; private set; }
-
-    private bool isDataLoaded = false;
-    public bool IsDataLoaded => isDataLoaded;
-
 
     private void Awake()
     {
@@ -55,10 +50,7 @@ public class AllGameDataManager : MonoBehaviour
                     Debug.LogWarning("게임 데이터가 유효하지 않습니다.");
                 }
             }
-            isDataLoaded = true;
         }
-
-        OnDataLoaded?.Invoke();
     }
 
     private async void HandleBestScoreUpdated(string gameId, int score)
@@ -83,7 +75,7 @@ public class AllGameDataManager : MonoBehaviour
         await UpdateRanking(gameData);
     }
 
-    public GameData GetGameData(string gameId)
+    private GameData GetGameData(string gameId)
     {
         if (AllGameDatas != null && AllGameDatas.TryGetValue(gameId, out GameData gameData))
         {
@@ -103,7 +95,7 @@ public class AllGameDataManager : MonoBehaviour
         }
     }
 
-    public void SetRanking(GameData gameData)
+    private void SetRanking(GameData gameData)
     {
         if (AllGameDatas != null && AllGameDatas.ContainsKey(gameData.gameId))
         {
@@ -116,17 +108,14 @@ public class AllGameDataManager : MonoBehaviour
         }
     }
 
-    public async Task<bool> UpdateRanking(GameData gameData)
+    public async Task<GameData> LoadGameData(string gameId)
     {
-        if (AllGameDatas != null && AllGameDatas.ContainsKey(gameData.gameId))
-        {
-            bool isUpdated = await GameDataManager.Instance.UpdateRanking(gameData.gameId, gameData.ranking);
-            return isUpdated;
-        }
-        else
-        {
-            Debug.LogWarning($"게임 데이터가 없습니다: {gameData.gameId}");
-            return false;
-        }
+        return await GameDataManager.Instance.GetGameData(gameId);
+    }
+
+    private async Task<bool> UpdateRanking(GameData gameData)
+    {
+        bool isUpdated = await GameDataManager.Instance.UpdateRanking(gameData.gameId, gameData.ranking);
+        return isUpdated;
     }
 }
