@@ -17,4 +17,4 @@ MonoBehaviour:
   description: "\uD018\uC2A4\uD2B8 \uBAA8\uB450 \uC644\uB8CC"
   goalAmount: 6
   currentAmount: 0
-  isUnlocked: 1
+  isUnlocked: 0
