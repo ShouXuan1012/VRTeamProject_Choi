@@ -1,24 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public static class LocalHighScore
+public class LocalHighScore : MonoBehaviour
 {
-    private const string Key = "BestScore";
+    public event Action<string, int> OnBestScoreUpdated;
 
-    public static int BestScore
+    public static LocalHighScore Instance { get; private set; }
+
+    private Dictionary<string, TopScoreData> topScoreDict;
+
+    private void Awake()
     {
-        get => PlayerPrefs.GetInt(Key, 0);
-        set
+        if (Instance != null && Instance != this)
         {
-            PlayerPrefs.SetInt(Key, value);
-            PlayerPrefs.Save();
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public static bool UpdateIfHigher(int score)
+    private void Start()
     {
-        if (score > BestScore)
+        topScoreDict = CurrentUserManager.Instance.TopScoreDict ?? new Dictionary<string, TopScoreData>();
+    }
+
+    public int GetBestScore(string gameId)
+    {
+        if (topScoreDict.TryGetValue(gameId, out TopScoreData data))
         {
-            BestScore = score;
+            return data.score;
+        }
+        return 0;
+    }
+
+    public async Task<bool> UpdateIfHigher(string gameId, int score)
+    {
+        int bestScore = 0;
+        if (topScoreDict.TryGetValue(gameId, out TopScoreData existingData))
+        {
+            bestScore = existingData.score;
+        }
+
+        if (score > bestScore)
+        {
+            bestScore = score;
+
+            TopScoreData data = new TopScoreData
+            {
+                gameId = gameId,
+                score = bestScore
+            };
+
+            topScoreDict[gameId] = data;
+            CurrentUserManager.Instance.SetTopScore(data);
+
+            bool isSaved = await CurrentUserManager.Instance.AddOrUpdateTopScoreData(data);
+            if (!isSaved)
+            {
+                Debug.LogError($"최고 점수 저장에 실패했습니다.");
+                return false;
+            }
+
+            OnBestScoreUpdated?.Invoke(gameId, bestScore);
+
             return true;
         }
         return false;

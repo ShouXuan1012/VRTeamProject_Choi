@@ -29,17 +29,16 @@ public class ChangeNickname : MonoBehaviour
         }
 
         bool isSaved = await CurrentUserManager.Instance.UpdateNickname(newNickname);
-        if (isSaved)
-        {
-            CurrentUserManager.Instance.SetNickname(newNickname);
-
-            currentWindow.SetActive(false);
-            nextWindow.SetActive(true);
-        }
-        else
+        if (!isSaved)
         {
             nicknameNoticeMessage.gameObject.SetActive(true);
             nicknameNoticeMessage.text = "닉네임 저장에 실패했습니다.\n다시 시도해주세요.";
+            return;
         }
+
+        CurrentUserManager.Instance.SetNickname(newNickname);
+
+        currentWindow.SetActive(false);
+        nextWindow.SetActive(true);
     }
 }

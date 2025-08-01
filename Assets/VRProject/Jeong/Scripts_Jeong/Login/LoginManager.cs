@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Firestore;
+using System.Collections.Generic;
 
 public class LoginManager : MonoBehaviour
 {
@@ -77,6 +78,14 @@ public class LoginManager : MonoBehaviour
         CurrentUserManager.Instance.SetCurrentUserData(userData);
         CurrentUserManager.Instance.SetIsOnline(true);
 
+        List<TopScoreData> topScoreList = await TopScoreDataManager.Instance.GetAllTopScoreData(loginId);
+        if (topScoreList == null)
+        {
+            topScoreList = new List<TopScoreData>();
+        }
+        
+        CurrentUserManager.Instance.SetTopScoreDict(topScoreList);
+
         uiController.SetUIByLoginState(LoginState.Success);
 
     }
@@ -127,6 +136,14 @@ public class LoginManager : MonoBehaviour
         }
 
         CurrentUserManager.Instance.SetCurrentUserData(userData);
+
+        List<TopScoreData> topScoreList = await TopScoreDataManager.Instance.GetAllTopScoreData(signUpId);
+        if (topScoreList == null)
+        {
+            topScoreList = new List<TopScoreData>();
+        }
+
+        CurrentUserManager.Instance.SetTopScoreDict(topScoreList);
 
         uiController.SetUIBySignUpState(SignUpState.Success);
     }

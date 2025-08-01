@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Busking
   m_EditorClassIdentifier: 
   questTitle: "\uBC84\uC2A4\uD0B9 \uD6C4\uC6D0\uD558\uAE30"
+  questType: 4
   isComplete: 0

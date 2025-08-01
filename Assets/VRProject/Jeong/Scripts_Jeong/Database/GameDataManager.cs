@@ -44,7 +44,7 @@ public class GameDataManager
         return await dbManager.GetDocumentAsync<GameData>(collectionPath, gameId);
     }
 
-    public async Task<GameData[]> GetAllGames()
+    public async Task<List<GameData>> GetAllGames()
     {
         return await dbManager.GetCollectionAsync<GameData>(collectionPath);
     }
