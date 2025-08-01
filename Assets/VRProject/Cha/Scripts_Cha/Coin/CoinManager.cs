@@ -9,7 +9,7 @@ public class CoinManager : MonoBehaviour
     public static CoinManager Instance { get; private set; }
     
 
-    private const int MAX_COINS = 500000;
+    private const int MAX_COINS = 50000000;
     private int currentCoins;
     private CoinUI currentCoinUI;
 
