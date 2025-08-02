@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +14,9 @@ public class TitleDropdownController : MonoBehaviour
     {
         titleDropdown.onValueChanged.AddListener(OnTitleSelected);
         RefreshDropdown();
+
+        // ì—…ì  ì™„ë£Œ ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ë“±ë¡
+        AchievementManager.Instance.OnAchievementUnlocked += RefreshDropdown;
     }
 
     private void RefreshDropdown()
@@ -35,8 +38,8 @@ public class TitleDropdownController : MonoBehaviour
     private void OnTitleSelected(int index)
     {
         currentTitle = unlockedTitles[index].titleName;
-        Debug.Log("¼±ÅÃÇÑ ÄªÈ£: " + currentTitle);
+        Debug.Log("ì„ íƒí•œ ì¹­í˜¸: " + currentTitle);
 
-        // TODO: ÀÌ °ªÀ» ÇÃ·¹ÀÌ¾î Á¤º¸¿¡ ¹İ¿µÇÏ°Å³ª ÀúÀå
+        // TODO: ì´ ê°’ì„ í”Œë ˆì´ì–´ ì •ë³´ì— ë°˜ì˜í•˜ê±°ë‚˜ ì €ì¥
     }
 }

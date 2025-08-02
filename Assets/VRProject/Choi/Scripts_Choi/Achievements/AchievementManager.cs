@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
+    // 업적 완료 이벤트
+    public event System.Action OnAchievementUnlocked;
+
     public static AchievementManager Instance { get; private set; }
 
     [Header("모든 업적 데이터")]
@@ -43,6 +46,9 @@ public class AchievementManager : MonoBehaviour
             }
             else
             {
+                achievement.currentAmount = 0;
+                achievement.isUnlocked = false;
+
                 // 업적 진행 정보가 없으면 새로 추가
                 AchievementDataForDB newAchievementData = new AchievementDataForDB
                 {
@@ -50,8 +56,8 @@ public class AchievementManager : MonoBehaviour
                     titleName = achievement.titleName,
                     description = achievement.description,
                     goalAmount = achievement.goalAmount,
-                    currentAmount = 0,
-                    isUnlocked = false
+                    currentAmount = achievement.currentAmount,
+                    isUnlocked = achievement.isUnlocked
                 };
                 achievementProgresses.Add(newAchievementData);
             }
@@ -88,6 +94,8 @@ public class AchievementManager : MonoBehaviour
             {
                 progress.isUnlocked = true;
             }
+
+            OnAchievementUnlocked?.Invoke();
         }
 
         CurrentUserManager.Instance.SetAchievementProgresses(achievementProgresses);
