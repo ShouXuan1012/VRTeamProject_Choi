@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 3039140832593049666}
   - component: {fileID: 4490913027672599272}
   - component: {fileID: 1181100016676844435}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: SpeechCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,19 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/VRProject/Dev/Scenes/MainMenuScene_Dev.unity
-    guid: 7b4a270d68a66f744bb9d7794f17cd75
-  - enabled: 1
-    path: Assets/VRProject/Bae/Scenes_Bae/SpawnScene_Bae.unity
-    guid: 1ba583969fc81ce48bb20d0a363158b1
+    guid: 2295304a9ccfee642a27295fee3235b1
   - enabled: 1
     path: Assets/VRProject/Dev/Scenes/InGameScene_Dev.unity
     guid: 2b270008c96056540ac5112fd2af618d
   - enabled: 1
     path: Assets/VRProject/Dev/Scenes/BasketballScene.unity
-    guid: 76ea83f0ac65ee24e8635b4e7a30014b
-  - enabled: 1
-    path: Assets/VRProject/Bae/Scenes_Bae/MainScene_Bae.unity
-    guid: 0829fbcd010a1264ea889158d65a725f
+    guid: 2757308fb5adeea4880df61096df7b4c
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: edb99493ef8d2384d826af77143a6360,
       type: 2}
