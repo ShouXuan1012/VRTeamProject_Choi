@@ -70,6 +70,17 @@ public class CurrentUserManager : MonoBehaviour
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
+    public void SetQuestProgresses(List<QuestDataForDB> questProgresses)
+    {
+        if (CurrentUserData != null)
+        {
+            CurrentUserData.questProgresses = questProgresses;
+        }
+        else
+        {
+            Debug.LogError("현재 사용자 데이터가 없습니다.");
+        }
+    }
     public void SetIsOnline(bool isOnline)
     {
         if (CurrentUserData != null)
@@ -99,9 +110,9 @@ public class CurrentUserManager : MonoBehaviour
     public void SetTopScore(TopScoreData topScoreData)
     {
         TopScoreDict[topScoreData.gameId] = topScoreData;
-        Debug.Log($"TopScoreDict에 {topScoreData.gameId} 추가됨: {topScoreData.score}");
     }
 
+    // DB 저장
     public async Task<bool> UpdateNickname(string newNickname)
     {
         return await UserDataManager.Instance.UpdateNickname(CurrentUserData.userId, newNickname);
@@ -117,6 +128,10 @@ public class CurrentUserManager : MonoBehaviour
     public async Task<bool> UpdateCoin(int newCoin)
     {
         return await UserDataManager.Instance.UpdateCoin(CurrentUserData.userId, newCoin);
+    }
+    public async Task<bool> UpdateQuestProgresses(List<QuestDataForDB> questProgresses)
+    {
+        return await UserDataManager.Instance.UpdateQuestProgresses(CurrentUserData.userId, questProgresses);
     }
     public async Task<bool> UpdateIsOnline(bool isOnline)
     {
