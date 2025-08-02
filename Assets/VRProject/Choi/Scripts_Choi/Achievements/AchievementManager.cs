@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Photon.Pun;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -112,6 +113,12 @@ public class AchievementManager : MonoBehaviour
     {
         CurrentUserManager.Instance.SetTitleName(titleName);
         await CurrentUserManager.Instance.UpdateTitleName(titleName);
+
+        // 포톤 유저 정보 업데이트
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
+        {
+            { "TitleName", titleName }
+        });
     }
 
     /// <summary>

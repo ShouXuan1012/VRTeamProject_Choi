@@ -1,4 +1,4 @@
-using UnityEngine;
+癤퓎sing UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
@@ -6,9 +6,6 @@ public class PlayerNameTag : MonoBehaviourPun
 {
     [SerializeField] private Text nicknameText;
     [SerializeField] private Text titleText;
-
-    //지금은 업적을 저장을 안해서 제가 바로 할당을 합니다
-    [SerializeField] private TitleDropdownController titleDropdownController;
 
     private Camera mainCam;
 
@@ -23,9 +20,8 @@ public class PlayerNameTag : MonoBehaviourPun
 
         
         nicknameText.text = photonView.Owner.NickName;
-
-        //나중에 칭호 서버에 저장하면 불러와서 쓰기(지금은 로컬에 선택한것 띄우기)
-        titleText.text = titleDropdownController.CurrentTitle;
+        titleText.text = photonView.Owner.CustomProperties.ContainsKey("titleName") ? 
+            photonView.Owner.CustomProperties["titleName"].ToString() : "No Title";
     }
 
     void LateUpdate()
