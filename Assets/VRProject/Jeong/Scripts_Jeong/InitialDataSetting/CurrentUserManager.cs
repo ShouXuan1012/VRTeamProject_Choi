@@ -32,20 +32,12 @@ public class CurrentUserManager : MonoBehaviour
         {
             CurrentUserData.nickname = nickname;
         }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
-        }
     }
     public void SetAvatar(string avatar)
     {
         if (CurrentUserData != null)
         {
             CurrentUserData.avatar = avatar;
-        }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
     public void SetProfileImage(string profileImage)
@@ -54,20 +46,12 @@ public class CurrentUserManager : MonoBehaviour
         {
             CurrentUserData.profileImage = profileImage;
         }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
-        }
     }
     public void SetCoin(int coin)
     {
         if (CurrentUserData != null)
         {
             CurrentUserData.coin = coin;
-        }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
     public void SetQuestProgresses(List<QuestDataForDB> questProgresses)
@@ -76,10 +60,6 @@ public class CurrentUserManager : MonoBehaviour
         {
             CurrentUserData.questProgresses = questProgresses;
         }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
-        }
     }
     public void SetAchievementProgresses(List<AchievementDataForDB> achievementProgresses)
     {
@@ -87,9 +67,12 @@ public class CurrentUserManager : MonoBehaviour
         {
             CurrentUserData.achievementProgresses = achievementProgresses;
         }
-        else
+    }
+    public void SetTitleName(string titleName)
+    {
+        if (CurrentUserData != null)
         {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
+            CurrentUserData.titleName = titleName;
         }
     }
     public void SetIsOnline(bool isOnline)
@@ -97,10 +80,6 @@ public class CurrentUserManager : MonoBehaviour
         if (CurrentUserData != null)
         {
             CurrentUserData.isOnline = isOnline;
-        }
-        else
-        {
-            Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
 
@@ -147,6 +126,10 @@ public class CurrentUserManager : MonoBehaviour
     public async Task<bool> UpdateAchievementProgresses(List<AchievementDataForDB> achievementProgresses)
     {
         return await UserDataManager.Instance.UpdateAchievementProgresses(CurrentUserData.userId, achievementProgresses);
+    }
+    public async Task<bool> UpdateTitleName(string newTitleName)
+    {
+        return await UserDataManager.Instance.UpdateTitleName(CurrentUserData.userId, newTitleName);
     }
     public async Task<bool> UpdateIsOnline(bool isOnline)
     {

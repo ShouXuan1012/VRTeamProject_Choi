@@ -30,6 +30,9 @@ public class UserData
     public List<AchievementDataForDB> achievementProgresses { get; set; }
 
     [FirestoreProperty]
+    public string titleName { get; set; }
+
+    [FirestoreProperty]
     public bool isOnline { get; set; }
 
     [FirestoreProperty]

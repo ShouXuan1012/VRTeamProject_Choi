@@ -35,11 +35,13 @@ public class TitleDropdownController : MonoBehaviour
         titleDropdown.AddOptions(options);
     }
 
-    private void OnTitleSelected(int index)
+    private async void OnTitleSelected(int index)
     {
         currentTitle = unlockedTitles[index].titleName;
         Debug.Log("선택한 칭호: " + currentTitle);
 
-        // TODO: 이 값을 플레이어 정보에 반영하거나 저장
+        // DB 반영
+        CurrentUserManager.Instance.SetTitleName(currentTitle);
+        await CurrentUserManager.Instance.UpdateTitleName(currentTitle);
     }
 }

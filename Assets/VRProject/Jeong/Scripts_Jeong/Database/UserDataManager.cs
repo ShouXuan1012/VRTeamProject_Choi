@@ -35,6 +35,7 @@ public class UserDataManager
     private const string coinPath = "coin";
     private const string questProgressesPath = "questProgresses";
     private const string achievementProgressesPath = "achievementProgresses";
+    private const string titleNamePath = "titleName";
     private const string isOnlinePath = "isOnline";
     private const string signUpDatePath = "signUpDate";
 
@@ -76,6 +77,11 @@ public class UserDataManager
     public async Task<bool> UpdateAchievementProgresses(string userId, List<AchievementDataForDB> achievementProgresses)
     {
         return await dbManager.TryUpdateFieldAsync(collectionPath, userId, achievementProgressesPath, achievementProgresses);
+    }
+
+    public async Task<bool> UpdateTitleName(string userId, string titleName)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, titleNamePath, titleName);
     }
 
     public async Task<bool> UpdateIsOnline(string userId, bool isOnline)
