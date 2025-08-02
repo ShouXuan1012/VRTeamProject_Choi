@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerNameTag : MonoBehaviourPun
+public class PlayerNameTag : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Text nicknameText;
     [SerializeField] private Text titleText;
@@ -18,10 +20,8 @@ public class PlayerNameTag : MonoBehaviourPun
         }
         mainCam = Camera.main;
 
-        
         nicknameText.text = photonView.Owner.NickName;
-        titleText.text = photonView.Owner.CustomProperties.ContainsKey("titleName") ? 
-            photonView.Owner.CustomProperties["titleName"].ToString() : "No Title";
+        UpdateTitleText(photonView.Owner);
     }
 
     void LateUpdate()
@@ -29,6 +29,26 @@ public class PlayerNameTag : MonoBehaviourPun
         if (Camera.main != null)
         {
             transform.forward = Camera.main.transform.forward;
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        // 해당 플레이어의 titleName이 변경됐을 때만 반영
+        if (targetPlayer == photonView.Owner && changedProps.ContainsKey("titleName"))
+        {
+            UpdateTitleText(targetPlayer);
+        }
+    }
+    private void UpdateTitleText(Player player)
+    {
+        if (player.CustomProperties.ContainsKey("titleName"))
+        {
+            titleText.text = player.CustomProperties["titleName"].ToString();
+        }
+        else
+        {
+            titleText.text = "No Title";
         }
     }
 }
