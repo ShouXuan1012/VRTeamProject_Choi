@@ -1,5 +1,6 @@
-using Firebase.Firestore;
+﻿using Firebase.Firestore;
 using System.Collections.Generic;
+using UnityEngine;
 
 [FirestoreData]
 public class UserData
@@ -26,6 +27,9 @@ public class UserData
     public List<QuestDataForDB> questProgresses { get; set; }
 
     [FirestoreProperty]
+    public List<AchievementDataForDB> achievementProgresses { get; set; }
+
+    [FirestoreProperty]
     public bool isOnline { get; set; }
 
     [FirestoreProperty]
@@ -43,4 +47,26 @@ public class QuestDataForDB
 
     [FirestoreProperty]
     public bool isComplete { get; set; }
+}
+
+[FirestoreData]
+public class AchievementDataForDB
+{
+    [FirestoreProperty]
+    public EAchievementType achievementType { get; set; }
+
+    [FirestoreProperty]
+    public string titleName { get; set; }
+
+    [FirestoreProperty]
+    public string description { get; set; }
+
+    [FirestoreProperty]
+    public int goalAmount { get; set; }
+
+    [FirestoreProperty]
+    public int currentAmount { get; set; }
+
+    [FirestoreProperty]
+    public bool isUnlocked { get; set; }
 }

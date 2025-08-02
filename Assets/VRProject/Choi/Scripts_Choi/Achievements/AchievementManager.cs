@@ -1,29 +1,67 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager Instance { get; private set; }
 
-    [Header("¸ğµç ¾÷Àû µ¥ÀÌÅÍ")]
+    [Header("ëª¨ë“  ì—…ì  ë°ì´í„°")]
     [SerializeField] private List<AchievementData> achievements;
+
+    private List<AchievementDataForDB> achievementProgresses;
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ Áßº¹ ¹æÁö
+        // ì‹±ê¸€í†¤ ì¤‘ë³µ ë°©ì§€
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯ ½Ã À¯Áö (ÇÊ¿ä½Ã)
+        DontDestroyOnLoad(gameObject); // ì”¬ ì „í™˜ ì‹œ ìœ ì§€ (í•„ìš”ì‹œ)
+    }
+
+    private void Start()
+    {
+        // DB ê°’ìœ¼ë¡œ ì´ˆê¸°í™”
+        achievementProgresses = CurrentUserManager.Instance.CurrentUserData.achievementProgresses;
+        if (achievementProgresses == null)
+        {
+            achievementProgresses = new List<AchievementDataForDB>();
+            CurrentUserManager.Instance.SetAchievementProgresses(achievementProgresses);
+        }
+
+        foreach (var achievement in achievements)
+        {
+            var progress = achievementProgresses.Find(a => a.achievementType == achievement.achievementType);
+            if (progress != null)
+            {
+                achievement.currentAmount = progress.currentAmount;
+                achievement.isUnlocked = progress.isUnlocked;
+            }
+            else
+            {
+                // ì—…ì  ì§„í–‰ ì •ë³´ê°€ ì—†ìœ¼ë©´ ìƒˆë¡œ ì¶”ê°€
+                AchievementDataForDB newAchievementData = new AchievementDataForDB
+                {
+                    achievementType = achievement.achievementType,
+                    titleName = achievement.titleName,
+                    description = achievement.description,
+                    goalAmount = achievement.goalAmount,
+                    currentAmount = 0,
+                    isUnlocked = false
+                };
+                achievementProgresses.Add(newAchievementData);
+            }
+        }
     }
 
     /// <summary>
-    /// ¾÷Àû Á¶°Ç ÁøÇàµµ Áõ°¡
+    /// ì—…ì  ì¡°ê±´ ì§„í–‰ë„ ì¦ê°€
     /// </summary>
-    public void AddProgress(EAchievementType type, int amount)
+    public async Task AddProgress(EAchievementType type, int amount)
     {
         AchievementData data = achievements.Find(a => a.achievementType == type);
         if (data == null || data.isUnlocked) return;
@@ -31,17 +69,33 @@ public class AchievementManager : MonoBehaviour
         data.currentAmount += amount;
         var uiManager = FindObjectOfType<AchievementUIManager>();
         uiManager?.RefreshUI();
+
+        // ìœ ì € ë°ì´í„° ì—…ë°ì´íŠ¸
+        var progress = achievementProgresses.Find(a => a.achievementType == type);
+        if (progress != null)
+        {
+            progress.currentAmount = data.currentAmount;
+        }
+
         if (data.currentAmount >= data.goalAmount)
         {
             data.isUnlocked = true;
-            Debug.Log($"ÄªÈ£ È¹µæ: <color=yellow>{data.titleName}</color>");
+            Debug.Log($"ì¹­í˜¸ íšë“: <color=yellow>{data.titleName}</color>");
             uiManager?.RefreshUI();
-            // TODO: UI ¿¬µ¿, Firestore ÀúÀå µî
+
+            // ìœ ì € ë°ì´í„° ì—…ë°ì´íŠ¸
+            if (progress != null)
+            {
+                progress.isUnlocked = true;
+            }
         }
+
+        CurrentUserManager.Instance.SetAchievementProgresses(achievementProgresses);
+        await CurrentUserManager.Instance.UpdateAchievementProgresses(achievementProgresses);
     }
 
     /// <summary>
-    /// ÇöÀç ¾÷Àû µ¥ÀÌÅÍ¸¦ ¿ÜºÎ¿¡¼­ ÀĞÀ» ¼ö ÀÖµµ·Ï Á¦°ø
+    /// í˜„ì¬ ì—…ì  ë°ì´í„°ë¥¼ ì™¸ë¶€ì—ì„œ ì½ì„ ìˆ˜ ìˆë„ë¡ ì œê³µ
     /// </summary>
     public List<AchievementData> GetAllAchievements()
     {
@@ -49,7 +103,7 @@ public class AchievementManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾÷ÀûÀ» °­Á¦·Î Àá±İ ÇØÁ¦ (µğ¹ö±×¿ë)
+    /// ì—…ì ì„ ê°•ì œë¡œ ì ê¸ˆ í•´ì œ (ë””ë²„ê·¸ìš©)
     /// </summary>
     public void UnlockAchievement(EAchievementType type)
     {
@@ -58,7 +112,7 @@ public class AchievementManager : MonoBehaviour
         {
             data.currentAmount = data.goalAmount;
             data.isUnlocked = true;
-            Debug.Log($"[µğ¹ö±×] {data.titleName} °­Á¦ ÇØ±İ");
+            Debug.Log($"[ë””ë²„ê·¸] {data.titleName} ê°•ì œ í•´ê¸ˆ");
         }
     }
 }

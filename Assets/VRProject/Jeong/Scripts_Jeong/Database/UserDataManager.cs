@@ -34,6 +34,7 @@ public class UserDataManager
     private const string profileImagePath = "profileImage";
     private const string coinPath = "coin";
     private const string questProgressesPath = "questProgresses";
+    private const string achievementProgressesPath = "achievementProgresses";
     private const string isOnlinePath = "isOnline";
     private const string signUpDatePath = "signUpDate";
 
@@ -70,6 +71,11 @@ public class UserDataManager
     public async Task<bool> UpdateQuestProgresses(string userId, List<QuestDataForDB> questProgresses)
     {
         return await dbManager.TryUpdateFieldAsync(collectionPath, userId, questProgressesPath, questProgresses);
+    }
+
+    public async Task<bool> UpdateAchievementProgresses(string userId, List<AchievementDataForDB> achievementProgresses)
+    {
+        return await dbManager.TryUpdateFieldAsync(collectionPath, userId, achievementProgressesPath, achievementProgresses);
     }
 
     public async Task<bool> UpdateIsOnline(string userId, bool isOnline)

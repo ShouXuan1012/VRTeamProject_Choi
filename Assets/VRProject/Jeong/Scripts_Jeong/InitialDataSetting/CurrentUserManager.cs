@@ -81,6 +81,17 @@ public class CurrentUserManager : MonoBehaviour
             Debug.LogError("현재 사용자 데이터가 없습니다.");
         }
     }
+    public void SetAchievementProgresses(List<AchievementDataForDB> achievementProgresses)
+    {
+        if (CurrentUserData != null)
+        {
+            CurrentUserData.achievementProgresses = achievementProgresses;
+        }
+        else
+        {
+            Debug.LogError("현재 사용자 데이터가 없습니다.");
+        }
+    }
     public void SetIsOnline(bool isOnline)
     {
         if (CurrentUserData != null)
@@ -132,6 +143,10 @@ public class CurrentUserManager : MonoBehaviour
     public async Task<bool> UpdateQuestProgresses(List<QuestDataForDB> questProgresses)
     {
         return await UserDataManager.Instance.UpdateQuestProgresses(CurrentUserData.userId, questProgresses);
+    }
+    public async Task<bool> UpdateAchievementProgresses(List<AchievementDataForDB> achievementProgresses)
+    {
+        return await UserDataManager.Instance.UpdateAchievementProgresses(CurrentUserData.userId, achievementProgresses);
     }
     public async Task<bool> UpdateIsOnline(bool isOnline)
     {

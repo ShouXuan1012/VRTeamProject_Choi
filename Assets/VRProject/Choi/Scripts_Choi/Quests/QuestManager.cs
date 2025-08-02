@@ -63,16 +63,17 @@ public class QuestManager : MonoBehaviour
             Debug.Log($"[퀘스트 완료] {quest.questTitle}");
             uiManager?.RefreshUI();
 
-            // 사용자 데이터 업데이트
+            // 유저 데이터 업데이트
             var progress = questProgresses.Find(qp => qp.questType == questType);
             if (progress != null)
             {
                 progress.isComplete = true;
             }
+
             CurrentUserManager.Instance.SetQuestProgresses(questProgresses);
             await CurrentUserManager.Instance.UpdateQuestProgresses(questProgresses);
 
-            AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
+            await AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
         }
     }
 }
