@@ -13,6 +13,11 @@ public class AchievementUIManager : MonoBehaviour
         LoadAndGenerateAchievements();
     }
 
+    private void OnEnable()
+    {
+        RefreshUI();
+    }
+
     private void LoadAndGenerateAchievements()
     {
         AchievementData[] allAchievements = Resources.LoadAll<AchievementData>("Achievements");
