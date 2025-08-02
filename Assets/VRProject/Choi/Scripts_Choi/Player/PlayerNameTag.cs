@@ -34,17 +34,17 @@ public class PlayerNameTag : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        // 해당 플레이어의 titleName이 변경됐을 때만 반영
-        if (targetPlayer == photonView.Owner && changedProps.ContainsKey("titleName"))
+        // 해당 플레이어의 TitleName이 변경됐을 때만 반영
+        if (targetPlayer == photonView.Owner && changedProps.ContainsKey("TitleName"))
         {
             UpdateTitleText(targetPlayer);
         }
     }
     private void UpdateTitleText(Player player)
     {
-        if (player.CustomProperties.ContainsKey("titleName"))
+        if (player.CustomProperties.ContainsKey("TitleName"))
         {
-            titleText.text = player.CustomProperties["titleName"].ToString();
+            titleText.text = player.CustomProperties["TitleName"].ToString();
         }
         else
         {
