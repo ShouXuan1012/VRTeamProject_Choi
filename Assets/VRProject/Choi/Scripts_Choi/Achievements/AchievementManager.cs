@@ -5,7 +5,7 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
     // 업적 완료 이벤트
-    public event System.Action OnAchievementUnlocked;
+    public event System.Action<AchievementData> OnAchievementUnlocked;
 
     public static AchievementManager Instance { get; private set; }
 
@@ -67,7 +67,7 @@ public class AchievementManager : MonoBehaviour
     /// <summary>
     /// 업적 조건 진행도 증가
     /// </summary>
-    public async Task AddProgress(EAchievementType type, int amount)
+    public async void AddProgress(EAchievementType type, int amount)
     {
         AchievementData data = achievements.Find(a => a.achievementType == type);
         if (data == null || data.isUnlocked) return;
@@ -95,11 +95,23 @@ public class AchievementManager : MonoBehaviour
                 progress.isUnlocked = true;
             }
 
-            OnAchievementUnlocked?.Invoke();
+            // 완료된 업적이 하나만 있다면 칭호 업데이트
+            if (achievementProgresses.FindAll(a => a.isUnlocked).Count == 1)
+            {
+                UpdateTitle(data.titleName);
+            }
+
+            OnAchievementUnlocked?.Invoke(data);
         }
 
         CurrentUserManager.Instance.SetAchievementProgresses(achievementProgresses);
         await CurrentUserManager.Instance.UpdateAchievementProgresses(achievementProgresses);
+    }
+
+    public async void UpdateTitle(string titleName)
+    {
+        CurrentUserManager.Instance.SetTitleName(titleName);
+        await CurrentUserManager.Instance.UpdateTitleName(titleName);
     }
 
     /// <summary>

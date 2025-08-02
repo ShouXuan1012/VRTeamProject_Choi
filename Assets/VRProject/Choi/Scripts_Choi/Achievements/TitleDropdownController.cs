@@ -12,11 +12,14 @@ public class TitleDropdownController : MonoBehaviour
 
     private void Start()
     {
-        titleDropdown.onValueChanged.AddListener(OnTitleSelected);
+        currentTitle = CurrentUserManager.Instance.CurrentUserData.titleName;
+
+        // 초기화 후 리스너 등록(초기화에서 값 변경 시에도 OnTitleSelected가 호출되면 안되므로)
         RefreshDropdown();
+        titleDropdown.onValueChanged.AddListener(OnTitleSelected);
 
         // 업적 완료 이벤트 리스너 등록
-        AchievementManager.Instance.OnAchievementUnlocked += RefreshDropdown;
+        AchievementManager.Instance.OnAchievementUnlocked += AddDropdown;
     }
 
     private void RefreshDropdown()
@@ -33,15 +36,36 @@ public class TitleDropdownController : MonoBehaviour
 
         titleDropdown.ClearOptions();
         titleDropdown.AddOptions(options);
+
+        int selectedIndex = unlockedTitles.FindIndex(a => a.titleName == currentTitle);
+        titleDropdown.value = selectedIndex >= 0 ? selectedIndex : 0;
+        titleDropdown.RefreshShownValue();
+    }
+    private void AddDropdown(AchievementData newAchievement)
+    {
+        if (!newAchievement.isUnlocked) return;
+
+        // 중복 방지
+        if (unlockedTitles.Exists(a => a.titleName == newAchievement.titleName)) return;
+
+        unlockedTitles.Add(newAchievement);
+        titleDropdown.options.Add(new Dropdown.OptionData(newAchievement.titleName));
+
+        // 칭호가 1개일 경우 해당 칭호를 현재 칭호로 설정
+        if (unlockedTitles.Count == 1)
+        {
+            currentTitle = newAchievement.titleName;
+            titleDropdown.value = 0;
+            titleDropdown.RefreshShownValue();
+        }
     }
 
-    private async void OnTitleSelected(int index)
+    private void OnTitleSelected(int index)
     {
         currentTitle = unlockedTitles[index].titleName;
         Debug.Log("선택한 칭호: " + currentTitle);
 
-        // DB 반영
-        CurrentUserManager.Instance.SetTitleName(currentTitle);
-        await CurrentUserManager.Instance.UpdateTitleName(currentTitle);
+        // 데이터 반영
+        AchievementManager.Instance.UpdateTitle(currentTitle);
     }
 }

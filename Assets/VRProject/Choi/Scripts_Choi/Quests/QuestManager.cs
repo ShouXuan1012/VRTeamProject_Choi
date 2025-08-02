@@ -73,7 +73,7 @@ public class QuestManager : MonoBehaviour
             CurrentUserManager.Instance.SetQuestProgresses(questProgresses);
             await CurrentUserManager.Instance.UpdateQuestProgresses(questProgresses);
 
-            await AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
+            AchievementManager.Instance.AddProgress(EAchievementType.AllQuestsCompleted, 1);
         }
     }
 }
