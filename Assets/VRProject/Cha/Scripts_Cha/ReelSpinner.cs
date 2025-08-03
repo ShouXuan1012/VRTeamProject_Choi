@@ -8,7 +8,7 @@ public class ReelSpinner : MonoBehaviour
     public float deceleration = 2000f;
 
     private int symbolCount;
-    private float symbolHeight;
+    private float symbolHeight=20;
     private RectTransform rect;
 
     public void Init(int count)
