@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7741412287301553343}
   - component: {fileID: 7401631823381853340}
   - component: {fileID: 1563045494603971173}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: InitialText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1533678987099281342}
   - component: {fileID: 8834660800696623258}
   - component: {fileID: 6937876113578264385}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: SpeechText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 742792289940138314}
   - component: {fileID: 1424725370660879516}
   - component: {fileID: 7630364889908885951}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: SpeechBalloon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 3039140832593049666}
   - component: {fileID: 4490913027672599272}
   - component: {fileID: 1181100016676844435}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SpeechCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
