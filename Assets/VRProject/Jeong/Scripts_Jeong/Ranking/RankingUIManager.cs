@@ -14,6 +14,7 @@ public class RankingUIManager : MonoBehaviour
     [SerializeField] Button refreshButton;
     [SerializeField] Text lastUpdateText;
 
+    [SerializeField] private float rotateSpeed = 1000f;
     [SerializeField] private int refreshInterval = 10000; // 10초
 
     private List<RankingSlotUI> slotUIs = new List<RankingSlotUI>();
@@ -38,7 +39,7 @@ public class RankingUIManager : MonoBehaviour
     {
         if (isRefreshing)
         {
-            buttonRectComponent.Rotate(0f, 0f, 200f * Time.deltaTime);
+            buttonRectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
         }
     }
 
@@ -57,6 +58,7 @@ public class RankingUIManager : MonoBehaviour
         isRefreshing = false;
         lastUpdateTime = DateTime.Now;
         lastUpdateText.text = $"마지막 업데이트 {lastUpdateTime:HH:mm:ss}";
+        buttonRectComponent.rotation = Quaternion.identity;
 
         await Task.Delay(refreshInterval);
         refreshButton.interactable = true;
