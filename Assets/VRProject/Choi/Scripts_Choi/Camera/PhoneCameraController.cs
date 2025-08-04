@@ -50,15 +50,24 @@ public class PhoneCameraController : MonoBehaviourPun
 
     void SwitchCamera()
     {
-        if (currentCamera == selfieCamera)
-        {
-            SetActiveCamera(normalCamera);
-            phoneScreenUI.rectTransform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
+        if (!photonView.IsMine) return; // 내 조작만 가능
+
+        bool isSelfie = (currentCamera == selfieCamera) ? false : true;
+        photonView.RPC(nameof(RPC_SwitchCamera), RpcTarget.AllBuffered, isSelfie);
+    }
+
+    [PunRPC]
+    void RPC_SwitchCamera(bool toSelfie)
+    {
+        if (toSelfie)
         {
             SetActiveCamera(selfieCamera);
             phoneScreenUI.rectTransform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            SetActiveCamera(normalCamera);
+            phoneScreenUI.rectTransform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
