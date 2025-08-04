@@ -24,13 +24,21 @@ public class PhoneCameraController : MonoBehaviourPun
     void Start()
     {
         // 내 전용 RenderTexture 생성
-        renderTexture = new RenderTexture(512, 512, 16); // 크기 자유 설정
+        renderTexture = new RenderTexture(512, 512, 16);
         renderTexture.name = $"RenderTexture_{photonView.ViewID}";
 
         SetActiveCamera(selfieCamera);
 
-        switchCameraButton.onClick.AddListener(SwitchCamera);
-        takePhotoButton.onClick.AddListener(TakePhoto);
+        if (photonView.IsMine)
+        {
+            switchCameraButton.onClick.AddListener(SwitchCamera);
+            takePhotoButton.onClick.AddListener(TakePhoto);
+        }
+        else
+        {
+            switchCameraButton.gameObject.SetActive(false);
+            takePhotoButton.gameObject.SetActive(false);
+        }
     }
 
     void SetActiveCamera(Camera cam)
