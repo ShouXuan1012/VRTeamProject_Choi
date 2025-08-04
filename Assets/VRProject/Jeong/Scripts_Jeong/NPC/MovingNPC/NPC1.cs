@@ -1,21 +1,112 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /*
-¸®Áöµå¹Ùµğ´Â ¾È¾²±â
-Root Motion »ç¿ë
-Á¤ÇØÁø °æ·Î·Î ÀÌµ¿
-Á¤ÇØÁø À§Ä¡¿¡ µµ´ŞÇÏ¸é Àá±ñ ¸ØÃè´Ù°¡ ¹æÇâ ¹Ù²Ù±â
-Ä³¸¯ÅÍ ¾Õ¿¡ overlap µÎ°í ±× ¾È¿¡ ÇÃ·¹ÀÌ¾î ÀÖÀ¸¸é Á¤Áö
+ë¦¬ì§€ë“œë°”ë””ëŠ” ì•ˆì“°ê¸°
+Root Motion ì‚¬ìš©
+ì •í•´ì§„ ê²½ë¡œë¡œ ì´ë™
+ì •í•´ì§„ ìœ„ì¹˜ì— ë„ë‹¬í•˜ë©´ ì ê¹ ë©ˆì·„ë‹¤ê°€ ë°©í–¥ ë°”ê¾¸ê¸°
+ìºë¦­í„° ì•ì— overlap ë‘ê³  ê·¸ ì•ˆì— í”Œë ˆì´ì–´ ìˆìœ¼ë©´ ì •ì§€
  */
 public class NPC1 : MonoBehaviour
 {
+    [Header("Waypoint Settings")]
+    [SerializeField] private Transform[] waypoints;
+    private int currentIndex = 0;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float waitTime = 2f;
+    private float waitTimer = 0f;
+    private bool isWaiting = false;
+
+    [Header("Detection Settings")]
+    [SerializeField] private float detectionRadius = 2f;
+    [SerializeField] private LayerMask detectionLayers;
+    [SerializeField] private float surpriseDuration = 1.5f;
+    private bool isSurprised = false;
+    private float surpriseTimer = 0f;
+
+
+    [Header("Animation")]
+    private Animator animator;
+
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        transform.LookAt(waypoints[currentIndex].position);
     }
 
     void Update()
     {
-        
+        // ë†€ëŒ ìƒíƒœ ì²˜ë¦¬
+        if (isSurprised)
+        {
+            surpriseTimer += Time.deltaTime;
+            if (surpriseTimer >= surpriseDuration)
+            {
+                isSurprised = false;
+                surpriseTimer = 0f;
+            }
+            return;
+        }
+
+        // ì¥ì• ë¬¼ ê°ì§€
+        if (IsObstacleInFront())
+        {
+            animator.SetBool("isWalking", false);
+
+            if (!isSurprised)
+            {
+                animator.SetTrigger("surprised");
+                isSurprised = true;
+            }
+            return;
+        }
+
+        // ë©ˆì¶¤ ì²˜ë¦¬
+        if (isWaiting)
+        {
+            waitTimer += Time.deltaTime;
+            if (waitTimer >= waitTime)
+            {
+                isWaiting = false;
+                waitTimer = 0f;
+                currentIndex = (currentIndex + 1) % waypoints.Length;
+                transform.LookAt(waypoints[currentIndex].position);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+                return;
+            }
+        }
+
+        // ì´ë™ ì²˜ë¦¬ (Root Motion ê¸°ë°˜)
+        Vector3 targetPos = waypoints[currentIndex].position;
+        Vector3 direction = targetPos - transform.position;
+        direction.y = 0f;
+
+        if (direction.magnitude < 0.2f)
+        {
+            isWaiting = true;
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
+        }
+    }
+
+    bool IsObstacleInFront()
+    {
+        Vector3 origin = transform.position + transform.forward * 1f;
+        Collider[] hits = Physics.OverlapSphere(origin, detectionRadius, detectionLayers);
+        return hits.Length > 0;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Vector3 origin = transform.position + transform.forward * 1f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin, detectionRadius);
     }
 }
