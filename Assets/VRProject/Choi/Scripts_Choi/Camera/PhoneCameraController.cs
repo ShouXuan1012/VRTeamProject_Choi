@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using UnityEngine.SocialPlatforms.Impl;
+using Photon.Pun;
 
-public class PhoneCameraController : MonoBehaviour
+public class PhoneCameraController : MonoBehaviourPun
 {
     [Header("카메라들")]
     [SerializeField] private Camera selfieCamera;
@@ -23,7 +23,11 @@ public class PhoneCameraController : MonoBehaviour
 
     void Start()
     {
-        SetActiveCamera(selfieCamera); // 시작은 셀피카메라
+        // 내 전용 RenderTexture 생성
+        renderTexture = new RenderTexture(512, 512, 16); // 크기 자유 설정
+        renderTexture.name = $"RenderTexture_{photonView.ViewID}";
+
+        SetActiveCamera(selfieCamera);
 
         switchCameraButton.onClick.AddListener(SwitchCamera);
         takePhotoButton.onClick.AddListener(TakePhoto);
