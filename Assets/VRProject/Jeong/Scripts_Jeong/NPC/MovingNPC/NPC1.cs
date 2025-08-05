@@ -14,7 +14,7 @@ public class NPC1 : MonoBehaviour
     private int currentIndex = 0;
 
     [Header("Movement Settings")]
-    [SerializeField] private float waitTime = 2f;
+    [SerializeField] private float waitTime = 5f;
     private float waitTimer = 0f;
     private bool isWaiting = false;
 
@@ -37,7 +37,7 @@ public class NPC1 : MonoBehaviour
 
     void Update()
     {
-        // 놀람 상태 처리
+        // 놀람 처리
         if (isSurprised)
         {
             surpriseTimer += Time.deltaTime;
@@ -70,22 +70,41 @@ public class NPC1 : MonoBehaviour
             {
                 isWaiting = false;
                 waitTimer = 0f;
+
                 currentIndex = (currentIndex + 1) % waypoints.Length;
-                transform.LookAt(waypoints[currentIndex].position);
+
+                Vector3 targetPos = waypoints[currentIndex].position;
+                Vector3 direction = targetPos - transform.position;
+                direction.y = 0f;
+
+                float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+                float turnAmount = Mathf.Clamp(angle / 90f, -1f, 1f);
+
+                if (turnAmount < -0.1f)
+                {
+                    animator.SetTrigger("LeftTurn");
+                }
+                else if (turnAmount > 0.1f)
+                {
+                    animator.SetTrigger("RightTurn");
+                }
+
+                transform.LookAt(targetPos);
             }
             else
             {
                 animator.SetBool("isWalking", false);
+
                 return;
             }
         }
 
         // 이동 처리 (Root Motion 기반)
-        Vector3 targetPos = waypoints[currentIndex].position;
-        Vector3 direction = targetPos - transform.position;
-        direction.y = 0f;
+        Vector3 moveTarget = waypoints[currentIndex].position;
+        Vector3 moveDirection = moveTarget - transform.position;
+        moveDirection.y = 0f;
 
-        if (direction.magnitude < 0.2f)
+        if (moveDirection.magnitude < 0.3f)
         {
             isWaiting = true;
             animator.SetBool("isWalking", false);
