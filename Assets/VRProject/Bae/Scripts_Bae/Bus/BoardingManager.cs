@@ -66,7 +66,7 @@ public class BoardingManager : MonoBehaviourPun
         if (loco != null) locomotionProvider = loco.gameObject;
         else Debug.LogWarning("LocomotionProvider 찾기 실패");
 
-        Transform buttonTr = player.transform.Find("UI/ExitCanvas/E_Button");
+        Transform buttonTr = player.transform.Find("UI/ExitCanvas/PlayerBusGuideUI/Viewport/ExitButton");
         if (buttonTr != null)
         {
             var button = buttonTr.GetComponent<Button>();
