@@ -43,6 +43,16 @@ public class ReelSpinner : MonoBehaviour
 
         symbolCount = spawnedSymbols.Count;
     }
+    public void ClearSymbols()
+    {
+        foreach (var sym in spawnedSymbols)
+        {
+            if (sym != null)
+                Destroy(sym.gameObject);
+        }
+        spawnedSymbols.Clear();
+    }
+
 
     public IEnumerator Spin(int targetIndex, float spinTime)
     {

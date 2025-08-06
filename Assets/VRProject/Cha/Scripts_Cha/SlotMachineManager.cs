@@ -26,11 +26,12 @@ public class SlotMachineManager : MonoBehaviour
     {
         spinButton.onClick.AddListener(() => { if (!isSpinning) StartCoroutine(SpinRoutine()); });
         exitButton.onClick.AddListener(CloseUI);
-
+    }
+    void OnEnable()
+    {
         foreach (var reel in reels)
             reel.Init();
     }
-
     IEnumerator SpinRoutine()
     {
         // 베팅 처리
@@ -45,7 +46,7 @@ public class SlotMachineManager : MonoBehaviour
         else
         {
             testCoins -= baseBet;
-            Debug.Log($"[TEST] 베팅 후 잔액: {testCoins}");
+           
         }
 
         isSpinning = true;
@@ -143,6 +144,6 @@ public class SlotMachineManager : MonoBehaviour
 
     void CloseUI()
     {
-        gameObject.SetActive(false);
+      
     }
 }
