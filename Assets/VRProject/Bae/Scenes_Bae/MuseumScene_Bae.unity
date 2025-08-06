@@ -8322,7 +8322,7 @@ GameObject:
   - component: {fileID: 159088222}
   - component: {fileID: 159088221}
   m_Layer: 5
-  m_Name: B_A_UITrigger_01
+  m_Name: B_A_UITrigger_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8359,7 +8359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724ee9aa99d36344b7afc24f08a37b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuseumUI: {fileID: 1910390587}
+  MuseumUI: {fileID: 1878716200}
 --- !u!65 &159088222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8379,8 +8379,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2725.2234, y: 1224.917, z: 5.285757}
-  m_Center: {x: -238.75793, y: -430.20007, z: -11.91499}
+  m_Size: {x: 2725.2236, y: 1387.0454, z: 5.285757}
+  m_Center: {x: -238.75793, y: -511.26434, z: -11.91499}
 --- !u!1 &162113081
 GameObject:
   m_ObjectHideFlags: 0
@@ -12014,7 +12014,7 @@ GameObject:
   - component: {fileID: 262915061}
   - component: {fileID: 262915060}
   m_Layer: 5
-  m_Name: B_A_UITrigger_02
+  m_Name: B_A_UITrigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12051,7 +12051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724ee9aa99d36344b7afc24f08a37b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuseumUI: {fileID: 1878716200}
+  MuseumUI: {fileID: 1910390587}
 --- !u!65 &262915061
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12071,8 +12071,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2552.6719, y: 1224.917, z: 6.169615}
-  m_Center: {x: -325.02676, y: -430.20007, z: -1.7993593}
+  m_Size: {x: 2552.6719, y: 1503.3146, z: 6.169615}
+  m_Center: {x: -325.02676, y: -569.3987, z: -1.7993593}
 --- !u!1001 &268042653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13256,7 +13256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.84, y: 0.98}
+  m_AnchoredPosition: {x: -7.84, y: -1.64}
   m_SizeDelta: {x: 670, y: 474.521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &289093790
@@ -82290,7 +82290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.865, y: 0.98}
+  m_AnchoredPosition: {x: -2.865, y: -1.6399999}
   m_SizeDelta: {x: 670, y: 474.521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803900453
