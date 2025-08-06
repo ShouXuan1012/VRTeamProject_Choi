@@ -31917,6 +31917,11 @@ PrefabInstance:
       propertyPath: joinRoomButton
       value: 
       objectReference: {fileID: 4231007252863449584}
+    - target: {fileID: 7819238556177151466, guid: e84e34c6bdb674b4a873fb278db4cbc6,
+        type: 3}
+      propertyPath: sceneName
+      value: InGameScene_Jeong
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
