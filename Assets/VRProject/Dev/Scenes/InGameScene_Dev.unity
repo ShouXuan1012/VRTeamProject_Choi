@@ -52567,10 +52567,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 782626830}
     m_Modifications:
+    - target: {fileID: 54825422011829225, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423835477664885032, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 560921730832547695, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2913180275906510230, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3412567414001241517, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_Name
       value: ScoreRanking
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412567414001241517, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5263744963798268777, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
@@ -52670,6 +52695,21 @@ PrefabInstance:
     - target: {fileID: 5263744963798268777, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878503462996868131, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351538351837192977, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024933546891594291, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -173025,7 +173065,7 @@ GameObject:
   - component: {fileID: 782626829}
   - component: {fileID: 782626828}
   - component: {fileID: 782626827}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RankingCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

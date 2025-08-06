@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8556638965117781558}
   - component: {fileID: 1816385058613065148}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: RemoteSpeakerUIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 1896053274323049838}
   - component: {fileID: 4150361055376066249}
   - component: {fileID: 8076777853866024811}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: RemoteVoiceCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 2993652941620554052}
   - component: {fileID: 1930864840695639619}
   - component: {fileID: 6895349813779428388}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

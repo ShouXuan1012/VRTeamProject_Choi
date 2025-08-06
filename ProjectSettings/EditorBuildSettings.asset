@@ -6,14 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/VRProject/Dev/Scenes/MainMenuScene_Dev.unity
-    guid: 2295304a9ccfee642a27295fee3235b1
+    path: Assets/VRProject/Choi/Scene_Choi/MainMenuScene_Choi.unity
+    guid: 28230cd0d28c92545ad1a403f9a1d30d
   - enabled: 1
-    path: Assets/VRProject/Dev/Scenes/InGameScene_Dev.unity
-    guid: 2b270008c96056540ac5112fd2af618d
-  - enabled: 1
-    path: Assets/VRProject/Dev/Scenes/BasketballScene.unity
-    guid: 2757308fb5adeea4880df61096df7b4c
+    path: Assets/VRProject/Choi/Scene_Choi/InGameScene_Choi.unity
+    guid: dca4a1e1e64954e41ae5d947174f134f
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: edb99493ef8d2384d826af77143a6360,
       type: 2}

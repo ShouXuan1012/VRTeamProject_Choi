@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using UnityEngine.SocialPlatforms.Impl;
+using Photon.Pun;
 
-public class PhoneCameraController : MonoBehaviour
+public class PhoneCameraController : MonoBehaviourPun
 {
     [Header("카메라들")]
     [SerializeField] private Camera selfieCamera;
@@ -23,10 +23,22 @@ public class PhoneCameraController : MonoBehaviour
 
     void Start()
     {
-        SetActiveCamera(selfieCamera); // 시작은 셀피카메라
+        // 내 전용 RenderTexture 생성
+        renderTexture = new RenderTexture(512, 512, 16);
+        renderTexture.name = $"RenderTexture_{photonView.ViewID}";
 
-        switchCameraButton.onClick.AddListener(SwitchCamera);
-        takePhotoButton.onClick.AddListener(TakePhoto);
+        SetActiveCamera(selfieCamera);
+
+        if (photonView.IsMine)
+        {
+            switchCameraButton.onClick.AddListener(SwitchCamera);
+            takePhotoButton.onClick.AddListener(TakePhoto);
+        }
+        else
+        {
+            switchCameraButton.gameObject.SetActive(false);
+            takePhotoButton.gameObject.SetActive(false);
+        }
     }
 
     void SetActiveCamera(Camera cam)
@@ -46,15 +58,24 @@ public class PhoneCameraController : MonoBehaviour
 
     void SwitchCamera()
     {
-        if (currentCamera == selfieCamera)
-        {
-            SetActiveCamera(normalCamera);
-            phoneScreenUI.rectTransform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
+        if (!photonView.IsMine) return; // 내 조작만 가능
+
+        bool isSelfie = (currentCamera == selfieCamera) ? false : true;
+        photonView.RPC(nameof(RPC_SwitchCamera), RpcTarget.AllBuffered, isSelfie);
+    }
+
+    [PunRPC]
+    void RPC_SwitchCamera(bool toSelfie)
+    {
+        if (toSelfie)
         {
             SetActiveCamera(selfieCamera);
             phoneScreenUI.rectTransform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            SetActiveCamera(normalCamera);
+            phoneScreenUI.rectTransform.localScale = new Vector3(-1, 1, 1);
         }
     }
 

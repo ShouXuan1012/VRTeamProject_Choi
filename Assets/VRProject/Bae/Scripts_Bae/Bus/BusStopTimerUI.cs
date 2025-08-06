@@ -43,7 +43,7 @@ public class BusStopTimerUI : MonoBehaviourPun
     private void OnPlayerSpawned(GameObject spawnedPlayer)
     {
         player = spawnedPlayer.transform;
-        timerText = player.Find("UI/ExitCanvas/B_E_Count_BackGround/E_CountDown_BackGround/E_Countdown_Text")?.GetComponent<Text>();
+        timerText = player.Find("UI/ExitCanvas/PlayerBusGuideUI/Viewport/Content/Countdown")?.GetComponent<Text>();
 
         if (timerText == null)
         {
