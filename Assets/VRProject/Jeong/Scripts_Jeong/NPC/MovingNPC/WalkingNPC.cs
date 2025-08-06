@@ -6,15 +6,15 @@ using UnityEngine.Splines;
 public class WalkingNPC : MonoBehaviour
 {
     [SerializeField] SplineContainer spline;
-    [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float surpriseDuration = 1.5f;
     [SerializeField] private float detectionRadious = 1f;
-    [SerializeField] private float detectionOffsetX = 1f;
-    [SerializeField] private float detectionOffsetY = 1f;
+    [SerializeField] private float detectionOffsetForward = 1f;
+    [SerializeField] private float detectionOffsetUp = 1f;
     [SerializeField] LayerMask obstacleLayer;
 
     private Animator animator;
 
+    private float moveSpeed = 2f;
     private float t = 0f;
 
     private bool isBlocked = false;
@@ -32,6 +32,7 @@ public class WalkingNPC : MonoBehaviour
             enabled = false;
             return;
         }
+        moveSpeed = Random.Range(1.5f, 2.5f);
         t = 0f;
         animator.SetBool("isWalking", true);
     }
@@ -73,11 +74,12 @@ public class WalkingNPC : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(tangent);
 
         animator.SetBool("isWalking", true);
+        animator.speed = moveSpeed / 2f;
     }
 
     void CheckObstacle()
     {
-        Vector3 origin = transform.position + new Vector3(detectionOffsetX, detectionOffsetY, 0);
+        Vector3 origin = transform.position + transform.forward * detectionOffsetForward + transform.up * detectionOffsetUp;
         float radius = detectionRadious;
 
         Collider[] hits = Physics.OverlapSphere(origin, radius, obstacleLayer);
@@ -118,7 +120,7 @@ public class WalkingNPC : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Vector3 origin = transform.position + new Vector3(detectionOffsetX, detectionOffsetY, 0);
+        Vector3 origin = transform.position + transform.forward * detectionOffsetForward + transform.up * detectionOffsetUp;
         float radius = detectionRadious;
 
         Gizmos.color = Color.red;
