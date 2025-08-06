@@ -2,23 +2,23 @@
 using UnityEngine.UI;
 using System.Collections;
 
-
 public class SlotMachineManager : MonoBehaviour
 {
     [Header("UI References")]
-    public ReelSpinner[] reels;       // 3개의 릴
-    public Button spinButton;         // 스핀 버튼
-    public Button exitButton;         // 종료 버튼
+    public ReelSpinner[] reels;
+    public Button spinButton;
+    public Button exitButton;
 
     [Header("Settings")]
-    public int baseBet = 50000;       // 고정 베팅 금액
-    public int[] symbolRewards = { 100000, 200000, 500000, 10000000 };
-    public float[] symbolWeights = { 30f, 15f, 5f,50f };
-    public float[] jackpotSymbolChances = { 10f, 3.8f, 0.2f,25f };
+    public int baseBet = 50000;
+    public int[] symbolRewards = { 100000, 200000, 1000000, 10000000 };
+    public float[] symbolWeights = { 25f, 25f, 25f, 25f };        // 일반 심볼 확률
+    public float[] jackpotSymbolChances = { 77.6f, 20f, 2.3f, 0.1f }; // 잭팟 심볼 확률
+    public float jackpotRate = 25f;   // 잭팟이 나올 전체 확률(%)
 
-    [Header("Debug / Test Mode")]
-    public bool testMode = true;          // ✅ 테스트모드 ON/OFF
-    public int testCoins = 9999999;       // 테스트용 코인 수량
+    [Header("Test Mode")]
+    public bool isTestMode = true;
+    public int testCoins = 9999999;
 
     private bool isSpinning = false;
 
@@ -28,86 +28,117 @@ public class SlotMachineManager : MonoBehaviour
         exitButton.onClick.AddListener(CloseUI);
 
         foreach (var reel in reels)
-        {
             reel.Init();
-        }
     }
 
     IEnumerator SpinRoutine()
     {
-        // ✅ 코인 체크
-        if (testMode)
+        // 베팅 처리
+        if (!isTestMode)
         {
-            if (testCoins < baseBet)
+            if (!CoinManager.Instance.UseCoins(baseBet))
+            {
+                Debug.Log("코인 부족!");
                 yield break;
-
-            testCoins -= baseBet;
+            }
         }
         else
         {
-            if (!CoinManager.Instance.UseCoins(baseBet))
-                yield break;
+            testCoins -= baseBet;
+            Debug.Log($"[TEST] 베팅 후 잔액: {testCoins}");
         }
 
         isSpinning = true;
 
-        int[] results = new int[reels.Length];
+        // 1️ 결과 뽑기
+        int[] results = GetSpinResults();
 
-        // 1️⃣ 결과 뽑기
+        // 2️ 릴 회전 (동시에 돌리고 순차 멈춤)
         for (int i = 0; i < reels.Length; i++)
-        {
-            results[i] = GetWeightedRandomIndex();
-        }
-
-        // 2️⃣ 릴 동시에 회전 시작
-        for (int i = 0; i < reels.Length; i++)
-        {
             StartCoroutine(reels[i].Spin(results[i], 1.5f + (i * 0.5f)));
-        }
 
-        // 3️⃣ 릴 순차 멈춤 대기
-        yield return new WaitForSeconds(1.5f + (reels.Length * 0.5f));
+        yield return new WaitForSeconds(1.5f + reels.Length * 0.5f);
 
-        // 4️⃣ 결과 판정
+        // 3️ 결과 체크
         if (results[0] == results[1] && results[1] == results[2])
         {
             int reward = symbolRewards[results[0]];
-
-            if (testMode)
+            if (isTestMode)
             {
                 testCoins += reward;
+                Debug.Log($"[TEST WIN] {results[0]}번 심볼 당첨, 보상: {reward}, 잔액: {testCoins}");
             }
             else
             {
                 CoinManager.Instance.AddCoins(reward);
+                Debug.Log($"[WIN] {results[0]}번 심볼 당첨, 보상: {reward}");
             }
-
-            // 보상 UI 호출
-            Debug.Log($"보상 획득: {reward} 코인");
         }
         else
         {
-            // 실패 UI 호출
+            Debug.Log($"[LOSE] 결과: {results[0]}, {results[1]}, {results[2]}");
         }
 
         isSpinning = false;
     }
 
-    private int GetWeightedRandomIndex()
+    /// <summary>
+    /// 3릴 결과값 생성 (잭팟 확률 포함)
+    /// </summary>
+    private int[] GetSpinResults()
+    {
+        int[] results = new int[reels.Length];
+
+        // 🎰 잭팟 모드
+        float jackpotRoll = Random.Range(0f, 100f);
+        if (jackpotRoll <= jackpotRate)
+        {
+            int jackpotSymbol = GetWeightedRandomIndex(jackpotSymbolChances);
+            for (int i = 0; i < reels.Length; i++)
+                results[i] = jackpotSymbol;
+
+            Debug.Log($"[JACKPOT TRIGGER] {jackpotSymbol}번 심볼 강제!");
+        }
+        else
+        {
+            // 3릴 모두 다른 값 강제
+            results[0] = GetWeightedRandomIndex(symbolWeights);
+
+            // 2번째 릴 (1번과 같으면 다시 뽑음)
+            do
+            {
+                results[1] = GetWeightedRandomIndex(symbolWeights);
+            } while (results[1] == results[0]);
+
+            // 3번째 릴 (1, 2번과 같으면 다시 뽑음)
+            do
+            {
+                results[2] = GetWeightedRandomIndex(symbolWeights);
+            } while (results[2] == results[0] || results[2] == results[1]);
+        }
+
+        return results;
+    }
+
+
+    /// <summary>
+    /// 가중치 랜덤 추출
+    /// </summary>
+    private int GetWeightedRandomIndex(float[] weights)
     {
         float totalWeight = 0;
-        foreach (float w in symbolWeights) totalWeight += w;
+        foreach (float w in weights) totalWeight += w;
 
         float rnd = Random.Range(0, totalWeight);
         float cumulative = 0;
 
-        for (int i = 0; i < symbolWeights.Length; i++)
+        for (int i = 0; i < weights.Length; i++)
         {
-            cumulative += symbolWeights[i];
+            cumulative += weights[i];
             if (rnd <= cumulative)
                 return i;
         }
-        return symbolWeights.Length - 1;
+        return weights.Length - 1;
     }
 
     void CloseUI()
@@ -115,4 +146,3 @@ public class SlotMachineManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 }
-

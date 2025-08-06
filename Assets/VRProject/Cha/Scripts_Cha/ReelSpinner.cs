@@ -4,99 +4,75 @@ using UnityEngine;
 
 public class ReelSpinner : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public RectTransform[] symbolPrefabs;
+    public RectTransform[] symbolPrefabs;   // 원본 심볼(1~4)
+    public float spinSpeed = 1200f;
+    public float spacing = 10f;
 
-    [Header("Settings")]
-    public float spinSpeed = 1000f;
-    public float deceleration = 2000f;
-    public float spacing = 10f;   // Layout Group의 Spacing과 동일하게 설정
-
-    private List<RectTransform> symbols = new();
+    private List<RectTransform> spawnedSymbols = new List<RectTransform>();
     private RectTransform rect;
-    private float slotHeight;
+    private float symbolHeight;
     private int symbolCount;
 
     public void Init()
     {
         rect = GetComponent<RectTransform>();
-        symbols.Clear();
+        spawnedSymbols.Clear();
 
-        // ✅ 심볼 높이 계산
-        if (symbolPrefabs.Length > 0)
-            slotHeight = symbolPrefabs[0].sizeDelta.y + spacing;
+        if (symbolPrefabs.Length == 0) return;
 
-        symbolCount = symbolPrefabs.Length;
+        symbolHeight = symbolPrefabs[0].sizeDelta.y + spacing;
 
-        // 🔹 [4] → [1,2,3,4] → [1,2,3,4] → [1,2,3,4] → [1]
-        // 맨 앞에 마지막 심볼(4)
-        RectTransform firstClone = Instantiate(symbolPrefabs[symbolCount - 1], rect);
-        symbols.Add(firstClone);
+        // 🔹 첫번째 세트 앞에 "4"(index 3) 추가
+        int[] order = { 3, 0, 1, 2 }; // 4 → 1 → 2 → 3
 
-        // 3세트 반복
-        for (int loop = 0; loop < 3; loop++)
+        // 🔹 두 세트 반복 (4123 | 4123)
+        for (int loop = 0; loop < 2; loop++)
         {
-            for (int i = 0; i < symbolCount; i++)
+            foreach (int i in order)
             {
                 RectTransform clone = Instantiate(symbolPrefabs[i], rect);
-                symbols.Add(clone);
+                clone.name = symbolPrefabs[i].name + "_clone_" + loop;
+                spawnedSymbols.Add(clone);
             }
         }
 
-        // 맨 끝에 첫번째 심볼(1)
-        RectTransform lastClone = Instantiate(symbolPrefabs[0], rect);
-        symbols.Add(lastClone);
+        // 🔹 마지막 보정(1번) 추가 → 빈칸 방지
+        RectTransform lastClone = Instantiate(symbolPrefabs[3], rect);
+        lastClone.name = symbolPrefabs[3].name + "_clone_end";
+        spawnedSymbols.Add(lastClone);
+
+        symbolCount = spawnedSymbols.Count;
     }
 
     public IEnumerator Spin(int targetIndex, float spinTime)
     {
         float elapsed = 0f;
-        float currentSpeed = spinSpeed;
-        float totalHeight = symbols.Count * slotHeight;
+        float totalHeight = symbolCount * symbolHeight;
 
-        // 🔹 랜덤 회전
+        // 랜덤 스타트 위치
+        float posY = Random.Range(0f, totalHeight);
+        rect.anchoredPosition = new Vector2(0, posY);
+
+        // 1️⃣ 자유 회전
         while (elapsed < spinTime)
         {
-            Vector2 pos = rect.anchoredPosition;
-            pos.y -= currentSpeed * Time.deltaTime;
-
-            pos.y = Mathf.Repeat(pos.y, totalHeight);
-            rect.anchoredPosition = pos;
+            posY += spinSpeed * Time.deltaTime;
+            posY = Mathf.Repeat(posY, totalHeight);
+            rect.anchoredPosition = new Vector2(0, posY);
 
             elapsed += Time.deltaTime;
-
-            if (spinTime - elapsed < 0.5f)
-                currentSpeed = Mathf.Lerp(currentSpeed, 200f, Time.deltaTime * 5f);
-
             yield return null;
         }
 
-        // 🔹 두 번째 세트 시작 위치
-        float secondSetStart = slotHeight; // [4] 하나 제외 후 시작
-        float targetPos = secondSetStart + (targetIndex * slotHeight);
+        // 2️⃣ 결과 스냅 위치 계산 (두 번째 세트 기준)
+        int baseIndex = symbolPrefabs.Length;        // 2번째 세트 시작 인덱스
+        int finalIndex = baseIndex + targetIndex;    // 결과 심볼 위치
+        float targetPos = finalIndex * symbolHeight;
 
-       
-        targetPos = Mathf.Repeat(targetPos, totalHeight);
+        // 중앙 보정 (두 번째 슬롯을 중앙으로)
+        float centerOffset = symbolHeight;
 
-        // 🔹 최종 정렬 보정
-        float currentPos = Mathf.Repeat(rect.anchoredPosition.y, totalHeight);
-        float distance = targetPos - currentPos;
-        if (distance > totalHeight / 2) distance -= totalHeight;
-        if (distance < -totalHeight / 2) distance += totalHeight;
-
-        float moveTime = 0.25f;
-        float startPos = rect.anchoredPosition.y;
-        float timer = 0f;
-
-        while (timer < moveTime)
-        {
-            float y = Mathf.Lerp(startPos, startPos + distance, timer / moveTime);
-            rect.anchoredPosition = new Vector2(0, Mathf.Repeat(y, totalHeight));
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        
-        // ✅ 최종 스냅
-        rect.anchoredPosition = new Vector2(0, targetPos);
+        // 3️⃣ 결과 위치 강제 스냅
+        rect.anchoredPosition = new Vector2(0, targetPos - centerOffset);
     }
 }

@@ -763,8 +763,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -782,13 +782,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9475cba27dea9624891e732315a241fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbols:
-  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
+  symbolPrefabs:
   - {fileID: 5037700791768835170, guid: 83424c6046c86ab46a65f6810900d221, type: 3}
   - {fileID: 1531965536169325658, guid: a240e9fb2c337894b9291085f1a87419, type: 3}
   - {fileID: 5461200294309833865, guid: 5078929524314354da0dfe77f0c13f12, type: 3}
+  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
   spinSpeed: 1000
-  deceleration: 2000
+  spacing: 10
 --- !u!1 &3891324352582503139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4505912801982584668}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -2195,8 +2195,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -2214,13 +2214,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9475cba27dea9624891e732315a241fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbols:
-  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
+  symbolPrefabs:
   - {fileID: 5037700791768835170, guid: 83424c6046c86ab46a65f6810900d221, type: 3}
   - {fileID: 1531965536169325658, guid: a240e9fb2c337894b9291085f1a87419, type: 3}
   - {fileID: 5461200294309833865, guid: 5078929524314354da0dfe77f0c13f12, type: 3}
+  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
   spinSpeed: 1000
-  deceleration: 2000
+  spacing: 10
 --- !u!1 &8523318425257610608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2396,8 +2396,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -2415,10 +2415,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9475cba27dea9624891e732315a241fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbols:
-  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
+  symbolPrefabs:
   - {fileID: 5037700791768835170, guid: 83424c6046c86ab46a65f6810900d221, type: 3}
   - {fileID: 1531965536169325658, guid: a240e9fb2c337894b9291085f1a87419, type: 3}
   - {fileID: 5461200294309833865, guid: 5078929524314354da0dfe77f0c13f12, type: 3}
+  - {fileID: 737304625955915221, guid: 3078b5e1616d3a24986be7a833b732a0, type: 3}
   spinSpeed: 1000
-  deceleration: 2000
+  spacing: 10
