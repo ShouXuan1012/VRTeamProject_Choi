@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -65,13 +65,17 @@ public class WalkingNPC : MonoBehaviour
     void Move()
     {
         t += Time.deltaTime * moveSpeed / spline.CalculateLength();
-        if (t > 1f) t -= 1f; // ���� ó��
+        if (t > 1f) t -= 1f; // 루프 처리
 
         Vector3 position = spline.EvaluatePosition(t);
         Vector3 tangent = spline.EvaluateTangent(t);
 
+        // y축 회전만 반영하도록 tangent의 y값 제거
+        Vector3 flatTangent = new Vector3(tangent.x, 0f, tangent.z);
+        if (flatTangent == Vector3.zero) flatTangent = transform.forward; // 안전 처리
+
         transform.position = position;
-        transform.rotation = Quaternion.LookRotation(tangent);
+        transform.rotation = Quaternion.LookRotation(flatTangent);
 
         animator.SetBool("isWalking", true);
         animator.speed = moveSpeed / 2f;
