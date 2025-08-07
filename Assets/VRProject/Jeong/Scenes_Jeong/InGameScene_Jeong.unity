@@ -16164,7 +16164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 1729512905}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
@@ -100830,7 +100830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 191657751}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
@@ -189722,7 +189722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 1708781364}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
@@ -367713,7 +367713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 938959296}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
@@ -397862,7 +397862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 1730935659}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
@@ -586906,7 +586906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5443c1b1b373734ba438cb69b3d9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  spline: {fileID: 1236956958}
   surpriseDuration: 2
   detectionRadious: 0.7
   detectionOffsetForward: 1
