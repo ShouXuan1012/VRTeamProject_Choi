@@ -68440,6 +68440,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -32.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5.899994
+      objectReference: {fileID: 0}
     - target: {fileID: 7351538351837192977, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_Layer
@@ -224651,6 +224671,7 @@ GameObject:
   - component: {fileID: 782626829}
   - component: {fileID: 782626828}
   - component: {fileID: 782626827}
+  - component: {fileID: 782626831}
   m_Layer: 0
   m_Name: RankingCanvas
   m_TagString: Untagged
@@ -224741,6 +224762,25 @@ RectTransform:
   m_AnchoredPosition: {x: 153.5, y: 1.7}
   m_SizeDelta: {x: 600, y: 1075}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &782626831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782626826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!1001 &782984956
 PrefabInstance:
   m_ObjectHideFlags: 0
