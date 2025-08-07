@@ -57,7 +57,8 @@ public class CoinManager : MonoBehaviour
     public bool UseCoins(int amount)
     {
         if (amount <= 0 || amount > currentCoins)
-        { 
+        {
+            UIManager.Instance.OpenUI("Purchase_Fail");
             return false; 
         }
 

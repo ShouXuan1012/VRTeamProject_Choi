@@ -150,6 +150,5 @@ public class SpinWheel {
 
         reward(index + 1);
 
-        Debug.Log("스핀중");
     }
 }
