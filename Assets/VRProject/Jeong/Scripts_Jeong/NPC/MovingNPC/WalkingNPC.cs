@@ -23,7 +23,7 @@ public class WalkingNPC : MonoBehaviour
 
     void Start()
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         animator = GetComponent<Animator>();
         if (spline == null)
@@ -39,7 +39,7 @@ public class WalkingNPC : MonoBehaviour
 
     void Update()
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         CheckObstacle();
 
