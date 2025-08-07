@@ -90762,6 +90762,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 612473955}
     m_Modifications:
+    - target: {fileID: 2109854686882385345, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242114401231293767, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6785627443864374809, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -90816,6 +90826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AcademyPortal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210509495371615021, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7823685181864650129, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
@@ -108325,6 +108340,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 601641303}
     m_Modifications:
+    - target: {fileID: 2109854686882385345, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242114401231293767, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6785627443864374809, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -108379,6 +108404,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210509495371615021, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8400858430752708345, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
@@ -164829,6 +164859,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 612473955}
     m_Modifications:
+    - target: {fileID: 2109854686882385345, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242114401231293767, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6785627443864374809, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -164883,6 +164923,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MuseumPortal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210509495371615021, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8400858430752708345, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
@@ -175759,7 +175804,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &612473955
 Transform:
@@ -613847,6 +613892,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1902629653}
     m_Modifications:
+    - target: {fileID: 2109854686882385345, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242114401231293767, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6785627443864374809, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -613901,6 +613956,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210509495371615021, guid: 2c98328adcba46749bb7b4d4a188e283,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7823685181864650129, guid: 2c98328adcba46749bb7b4d4a188e283,
         type: 3}
