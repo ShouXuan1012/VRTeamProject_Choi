@@ -23,7 +23,11 @@ public class WalkingNPC : MonoBehaviour
 
     void Start()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        // 포톤 뷰 있을 경우에만 마스터 클라이언트에서 처리
+        if (GetComponent<PhotonView>() != null)
+        {
+            if (!PhotonNetwork.IsMasterClient) return;
+        }
 
         animator = GetComponent<Animator>();
         if (spline == null)
@@ -39,7 +43,10 @@ public class WalkingNPC : MonoBehaviour
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (GetComponent<PhotonView>() != null)
+        {
+            if (!PhotonNetwork.IsMasterClient) return;
+        }
 
         CheckObstacle();
 
