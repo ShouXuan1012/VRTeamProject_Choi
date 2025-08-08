@@ -28,10 +28,6 @@ public class ItemPurchaseUI : MonoBehaviour
             AudioClip.LoadAudioData();
         }
 
-        else
-        {
-            UIManager.Instance.OpenUI("Purchase_Fail");
-        }
         Destroy(gameObject);
     }
 }

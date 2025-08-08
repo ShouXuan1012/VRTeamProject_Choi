@@ -53,8 +53,7 @@ MonoBehaviour:
   price: 10000
   yesButton: {fileID: 2086254894595892357}
   noButton: {fileID: 4873932372361528445}
-  purchasefailUI: {fileID: 6954077166591726960, guid: ea943aa7d00d4894dac235fd53c91794,
-    type: 3}
+  AudioClip: {fileID: 8300000, guid: 5538be8fef6aa5d4daeaab1add6eba60, type: 3}
 --- !u!1001 &1818313061375536621
 PrefabInstance:
   m_ObjectHideFlags: 0
