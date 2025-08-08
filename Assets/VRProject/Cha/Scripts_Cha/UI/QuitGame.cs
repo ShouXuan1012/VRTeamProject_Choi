@@ -1,10 +1,34 @@
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class QuitGame : MonoBehaviour
 {
     public void Quit()
     {
+        StartCoroutine(QuitSequenceCoroutine());
+    }
+    private IEnumerator QuitSequenceCoroutine()
+    {
+        var quitTask = HandleQuitSequence();
+        while (!quitTask.IsCompleted)
+        {
+            yield return null; // Task가 끝날 때까지 기다림
+        }
+
+        Debug.Log("게임 종료");
         Application.Quit();
-        Debug.Log("게임 종료 시도"); // 에디터에서는 종료되지 않기 때문에 디버그 로그로 확인
+    }
+
+    private async Task HandleQuitSequence()
+    {
+        if (CurrentUserManager.Instance.CurrentUserData == null)
+        {
+            return; // 현재 사용자 데이터가 없으면 바로 종료
+        }
+
+        int coin = CurrentUserManager.Instance.CurrentUserData.coin;
+        await CurrentUserManager.Instance.UpdateCoin(coin);
+        await CurrentUserManager.Instance.UpdateIsOnline(false);
     }
 }
