@@ -68443,22 +68443,22 @@ PrefabInstance:
     - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -32.5
+      value: -42.5
       objectReference: {fileID: 0}
     - target: {fileID: 7185651400401338682, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.899994
+      value: 5.9
       objectReference: {fileID: 0}
     - target: {fileID: 7351538351837192977, guid: 5cbac759f8fdcae44b21a25b0b450856,
         type: 3}
