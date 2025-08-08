@@ -44,17 +44,19 @@ public class SlotMachineManager : MonoBehaviour
     IEnumerator SpinRoutine()
     {
         // 베팅 처리
-       
-          testCoins -= baseBet;
+
+        //testCoins -= baseBet;
         //CoinManager.Instance.UseCoins(baseBet);
-
-
+        if (!CoinManager.Instance.UseCoins(baseBet))
+        {
+            yield return null; // 소지금 부족 시 종료
+        }
 
         isSpinning = true;
 
         // 1️ 결과 뽑기
         int[] results = GetSpinResults();
-        
+
 
         // 2️ 릴 회전 (동시에 돌리고 순차 멈춤)
         for (int i = 0; i < reels.Length; i++)
@@ -67,11 +69,10 @@ public class SlotMachineManager : MonoBehaviour
         {
             int reward = symbolRewards[results[0]];
             rewardText.text = $"+{reward:N0}";
-            testCoins += reward;             
-            //CoinManager.Instance.AddCoins(reward);
+            //testCoins += reward;
+            CoinManager.Instance.AddCoins(reward);
             rewardUI.SetActive(true);
         }
-       
 
         isSpinning = false;
     }
@@ -91,10 +92,10 @@ public class SlotMachineManager : MonoBehaviour
             for (int i = 0; i < reels.Length; i++)
                 results[i] = jackpotSymbol;
             // 잭팟 심볼에 따른 rewardUI처리
-            if (jackpotSymbol==0)
+            if (jackpotSymbol == 0)
             {
                 Reward(0); // 체리
-                
+
             }
             else if (jackpotSymbol == 1)
             {
@@ -156,8 +157,8 @@ public class SlotMachineManager : MonoBehaviour
 
         // 보상 이미지 설정
         for (int i = 0; i < rewardImage.Length; i++)
-        { 
-            rewardImage[i].sprite = rewardSprites[index]; 
+        {
+            rewardImage[i].sprite = rewardSprites[index];
         }
 
         // 보상 텍스트 설정
@@ -179,6 +180,6 @@ public class SlotMachineManager : MonoBehaviour
     }
     void CloseUI()
     {
-      
+
     }
 }

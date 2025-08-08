@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VRProject/Dev/Scenes/MainMenuScene.unity
     guid: a730ab25bd47f7645b9554c7ce99e646
+  - enabled: 1
+    path: Assets/VRProject/Dev/Scenes/InGameScene.unity
+    guid: 693a49b78508e774fba89cbfeae2fbce
+  - enabled: 1
+    path: Assets/VRProject/Dev/Scenes/BasketballScene.unity
+    guid: 2757308fb5adeea4880df61096df7b4c
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: edb99493ef8d2384d826af77143a6360,
       type: 2}
