@@ -5301,71 +5301,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9150120607035329996}
     m_Modifications:
-    - target: {fileID: 244480605380086775, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1085070002020395134, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346526454202952382, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656331326136074765, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2068995760281829951, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2670936757607410201, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2775958030608184905, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4903704450553354898, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4903704450553354898, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 6330940886692328719, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6928294472505422024, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6928294472505422024, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6928294472505422024, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 6928294472505422024, guid: 31bd0f31530a10b4296e50470d26ba22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5421,33 +5356,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Casino
       objectReference: {fileID: 0}
-    - target: {fileID: 8660521503158348167, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 9052219308809366360, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9096701196284926626, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9103293814146329930, guid: 31bd0f31530a10b4296e50470d26ba22,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.23
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2145403434615163206, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
-    - {fileID: 2865734542542398042, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
-    - {fileID: 1587956291162319895, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
-    - {fileID: 6217365433630052717, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
-    - {fileID: 8178944461474866267, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31bd0f31530a10b4296e50470d26ba22, type: 3}
@@ -5841,9 +5751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88ff19f74a985344b2baed4188c6cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinUseSound: {fileID: 8300000, guid: f8f5ba723712a9b42a779526501b03b3, type: 3}
-  coinAddSound: {fileID: 8300000, guid: 7fcd198573cf6d34bb0964669bb8ff33, type: 3}
-  purchasefailedSound: {fileID: 8300000, guid: a89f889b053d7e241b4638affbf1d9e3, type: 3}
 --- !u!4 &4375568277087541554 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5931255541652531177, guid: 6befab66f5faf5040940129d616c4576,

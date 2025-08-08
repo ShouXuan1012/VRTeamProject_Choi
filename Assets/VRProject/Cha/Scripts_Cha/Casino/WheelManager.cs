@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+
 public class WheelManager : MonoBehaviour {
 
     //Creates the wheel

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ReelSpinner : MonoBehaviour
 {
     public RectTransform[] symbolPrefabs;   // 원본 심볼(1~4)

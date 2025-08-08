@@ -1446,6 +1446,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 88066958}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &94506399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5812770186826709976, guid: 2731aa68f4400424bab59c95e75d2cb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1608502599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &116179381
 GameObject:
   m_ObjectHideFlags: 0
@@ -26756,6 +26762,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3584138597237594028, guid: 2731aa68f4400424bab59c95e75d2cb6,
+        type: 3}
+      propertyPath: slotMachineUI
+      value: 
+      objectReference: {fileID: 94506399}
     - target: {fileID: 4274622897010709862, guid: 2731aa68f4400424bab59c95e75d2cb6,
         type: 3}
       propertyPath: m_AnchorMax.y
