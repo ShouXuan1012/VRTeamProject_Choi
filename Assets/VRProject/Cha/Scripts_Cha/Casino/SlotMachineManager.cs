@@ -9,7 +9,7 @@ public class SlotMachineManager : MonoBehaviour
     public GameObject slotMachineUI;
     public ReelSpinner[] reels;
     public Button spinButton;
-    public Button exitButton;
+    
 
     [Header("Settings")]
     public int baseBet = 50000;
@@ -34,7 +34,7 @@ public class SlotMachineManager : MonoBehaviour
     void Start()
     {
         spinButton.onClick.AddListener(() => { if (!isSpinning) StartCoroutine(SpinRoutine()); });
-        exitButton.onClick.AddListener(CloseUI);
+        
     }
     void OnEnable()
     {
@@ -49,10 +49,9 @@ public class SlotMachineManager : MonoBehaviour
         //CoinManager.Instance.UseCoins(baseBet);
         if (!CoinManager.Instance.UseCoins(baseBet))
         {
-            yield return null; // 소지금 부족 시 종료
-        }
-
-        isSpinning = true;
+            // 소지금 부족 시 종료
+            isSpinning = true;
+        }      
 
         // 1️ 결과 뽑기
         int[] results = GetSpinResults();
@@ -178,8 +177,5 @@ public class SlotMachineManager : MonoBehaviour
                 break;
         }
     }
-    void CloseUI()
-    {
-
-    }
+    
 }
