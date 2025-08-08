@@ -5,6 +5,7 @@ using System.Collections;
 public class SlotMachineManager : MonoBehaviour
 {
     [Header("UI References")]
+    public GameObject slotMachineUI;
     public ReelSpinner[] reels;
     public Button spinButton;
     public Button exitButton;
@@ -22,6 +23,13 @@ public class SlotMachineManager : MonoBehaviour
 
     private bool isSpinning = false;
 
+    [Header("RewardUI")]
+    public GameObject rewardUI;
+    public Image[] rewardImage;
+    public Sprite[] rewardSprites;
+    public Text rewardTitleText;
+    public Text rewardText;
+
     void Start()
     {
         spinButton.onClick.AddListener(() => { if (!isSpinning) StartCoroutine(SpinRoutine()); });
@@ -35,24 +43,17 @@ public class SlotMachineManager : MonoBehaviour
     IEnumerator SpinRoutine()
     {
         // 베팅 처리
-        if (!isTestMode)
-        {
-            if (!CoinManager.Instance.UseCoins(baseBet))
-            {
-                Debug.Log("코인 부족!");
-                yield break;
-            }
-        }
-        else
-        {
-            testCoins -= baseBet;
-           
-        }
+       
+          testCoins -= baseBet;
+        //CoinManager.Instance.UseCoins(baseBet);
+
+
 
         isSpinning = true;
 
         // 1️ 결과 뽑기
         int[] results = GetSpinResults();
+        
 
         // 2️ 릴 회전 (동시에 돌리고 순차 멈춤)
         for (int i = 0; i < reels.Length; i++)
@@ -64,21 +65,12 @@ public class SlotMachineManager : MonoBehaviour
         if (results[0] == results[1] && results[1] == results[2])
         {
             int reward = symbolRewards[results[0]];
-            if (isTestMode)
-            {
-                testCoins += reward;
-                Debug.Log($"[TEST WIN] {results[0]}번 심볼 당첨, 보상: {reward}, 잔액: {testCoins}");
-            }
-            else
-            {
-                CoinManager.Instance.AddCoins(reward);
-                Debug.Log($"[WIN] {results[0]}번 심볼 당첨, 보상: {reward}");
-            }
+            rewardText.text = $"+{reward:N0}";
+            testCoins += reward;             
+            //CoinManager.Instance.AddCoins(reward);
+            rewardUI.SetActive(true);
         }
-        else
-        {
-            Debug.Log($"[LOSE] 결과: {results[0]}, {results[1]}, {results[2]}");
-        }
+       
 
         isSpinning = false;
     }
@@ -97,8 +89,24 @@ public class SlotMachineManager : MonoBehaviour
             int jackpotSymbol = GetWeightedRandomIndex(jackpotSymbolChances);
             for (int i = 0; i < reels.Length; i++)
                 results[i] = jackpotSymbol;
-
-            Debug.Log($"[JACKPOT TRIGGER] {jackpotSymbol}번 심볼 강제!");
+            // 잭팟 심볼에 따른 rewardUI처리
+            if (jackpotSymbol==0)
+            {
+                Reward(0); // 체리
+                
+            }
+            else if (jackpotSymbol == 1)
+            {
+                Reward(1); // 포도
+            }
+            else if (jackpotSymbol == 2)
+            {
+                Reward(2); // 키위
+            }
+            else if (jackpotSymbol == 3)
+            {
+                Reward(3); // 잭팟
+            }
         }
         else
         {
@@ -142,6 +150,32 @@ public class SlotMachineManager : MonoBehaviour
         return weights.Length - 1;
     }
 
+    private void Reward(int index)
+    {
+
+        // 보상 이미지 설정
+        for (int i = 0; i < rewardImage.Length; i++)
+        { 
+            rewardImage[i].sprite = rewardSprites[index]; 
+        }
+
+        // 보상 텍스트 설정
+        switch (index)
+        {
+            case 0:
+                rewardTitleText.text = "Cherry!";
+                break;
+            case 1:
+                rewardTitleText.text = "Grapes!";
+                break;
+            case 2:
+                rewardTitleText.text = "Kiwi";
+                break;
+            case 3:
+                rewardTitleText.text = "JACKPOT!";
+                break;
+        }
+    }
     void CloseUI()
     {
       

@@ -4,10 +4,10 @@ using UnityEngine;
 public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance { get; private set; }
-    
     private const int MAX_COINS = 50000000;
     private int currentCoins;
     private CoinUI currentCoinUI;
+    
 
     public event Action<int> OnCoinChanged;
   
@@ -44,6 +44,12 @@ public class CoinManager : MonoBehaviour
         }
 
         currentCoins += amount;
+        if (currentCoinUI != null)
+        {
+            currentCoinUI.PlayCoinSound(0);
+            currentCoinUI.StartCoroutine(currentCoinUI.PlayForSeconds(3f));
+        }
+
         CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData에도 반영
 
         OnCoinChanged?.Invoke(currentCoins);
@@ -59,12 +65,22 @@ public class CoinManager : MonoBehaviour
         if (amount <= 0 || amount > currentCoins)
         {
             UIManager.Instance.OpenUI("Purchase_Fail");
+            if (currentCoinUI != null)
+            {
+                currentCoinUI.PlayCoinSound(2);               
+            }
             return false; 
         }
 
         if (currentCoins >= amount)
         { 
             currentCoins -= amount;
+            if (currentCoinUI!=null)
+            {
+                currentCoinUI.PlayCoinSound(1);
+                currentCoinUI.StartCoroutine(currentCoinUI.PlayForSeconds(3f));
+            }
+            
             CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData에도 반영
 
             OnCoinChanged?.Invoke(currentCoins);
