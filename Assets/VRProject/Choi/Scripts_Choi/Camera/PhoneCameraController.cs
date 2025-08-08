@@ -87,13 +87,21 @@ public class PhoneCameraController : MonoBehaviourPun
         photo.Apply();
 
         string filename = $"photo_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
-        string path = Path.Combine(Application.persistentDataPath, filename);
-        File.WriteAllBytes(path, photo.EncodeToPNG());
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+    string picturesPath = "/storage/emulated/0/Pictures/MyVRPhotos"; // 갤러리 폴더
+    if (!Directory.Exists(picturesPath))
+        Directory.CreateDirectory(picturesPath);
+
+    string path = Path.Combine(picturesPath, filename);
+#else
+        string path = Path.Combine(Application.persistentDataPath, filename);
+#endif
+
+        File.WriteAllBytes(path, photo.EncodeToPNG());
         Debug.Log($"사진 저장됨: {path}");
 
         RenderTexture.active = null;
         AchievementManager.Instance.AddProgress(EAchievementType.PhotoMaster, 1);
-
     }
 }
