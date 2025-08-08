@@ -38,6 +38,7 @@ public class LoginManager : MonoBehaviour
 
         uiController.SetUIByLoginState(LoginState.Loading);
 
+        uiController.SetLoginNoticeMessage("아이디 검사 시작");
         isIdExists = await UserDataManager.Instance.CheckIdExists(loginId);
         if (!isIdExists)
         {
@@ -47,6 +48,7 @@ public class LoginManager : MonoBehaviour
         }
 
         // 아이디가 존재하는 경우 사용자 데이터를 가져와서 비밀번호 확인
+        uiController.SetLoginNoticeMessage("데이터 가져오기 시작");
         UserData userData = await UserDataManager.Instance.GetUserData(loginId);
         if (userData == null)
         {
@@ -67,6 +69,7 @@ public class LoginManager : MonoBehaviour
             return;
         }
 
+        uiController.SetLoginNoticeMessage("온라인 여부 업데이트 시작");
         bool isUpdated = await UserDataManager.Instance.UpdateIsOnline(loginId, true);
         if (!isUpdated)
         {
@@ -78,6 +81,7 @@ public class LoginManager : MonoBehaviour
         CurrentUserManager.Instance.SetCurrentUserData(userData);
         CurrentUserManager.Instance.SetIsOnline(true);
 
+        uiController.SetLoginNoticeMessage("최고점수 데이터 가져오기 시작");
         List<TopScoreData> topScoreList = await TopScoreDataManager.Instance.GetAllTopScoreData(loginId);
         if (topScoreList == null)
         {
@@ -87,7 +91,6 @@ public class LoginManager : MonoBehaviour
         CurrentUserManager.Instance.SetTopScoreDict(topScoreList);
 
         uiController.SetUIByLoginState(LoginState.Success);
-
     }
 
     public async void HandleSignUp()
