@@ -87,13 +87,49 @@ public class PhoneCameraController : MonoBehaviourPun
         photo.Apply();
 
         string filename = $"photo_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
-        string path = Path.Combine(Application.persistentDataPath, filename);
-        File.WriteAllBytes(path, photo.EncodeToPNG());
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string picturesPath = "/storage/emulated/0/Pictures/MyVRPhotos";
+        if (!Directory.Exists(picturesPath))
+            Directory.CreateDirectory(picturesPath);
+
+        string path = Path.Combine(picturesPath, filename);
+#else
+        string path = Path.Combine(Application.persistentDataPath, filename);
+#endif
+
+        File.WriteAllBytes(path, photo.EncodeToPNG());
         Debug.Log($"사진 저장됨: {path}");
 
-        RenderTexture.active = null;
-        AchievementManager.Instance.AddProgress(EAchievementType.PhotoMaster, 1);
+        // 갤러리에 반영 (안드로이드 전용)
+        RefreshAndroidGallery(path, "image/png");
 
+        RenderTexture.active = null;
+
+        AchievementManager.Instance.AddProgress(EAchievementType.PhotoMaster, 1);
+    }
+
+    // --- 안드로이드 갤러리 새로고침 ---
+    static void RefreshAndroidGallery(string path, string mimeType)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var context = activity.Call<AndroidJavaObject>("getApplicationContext"))
+            using (var mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection"))
+            {
+                string[] paths = new string[] { path };
+                string[] mimes = new string[] { mimeType };
+                mediaScanner.CallStatic("scanFile", context, paths, mimes, null);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"MediaScanner 스캔 실패: {e}");
+        }
+#endif
     }
 }
+
