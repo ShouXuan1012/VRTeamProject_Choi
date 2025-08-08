@@ -89,11 +89,11 @@ public class PhoneCameraController : MonoBehaviourPun
         string filename = $"photo_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-    string picturesPath = "/storage/emulated/0/Pictures/MyVRPhotos"; // 갤러리 폴더
-    if (!Directory.Exists(picturesPath))
-        Directory.CreateDirectory(picturesPath);
+        string picturesPath = "/storage/emulated/0/Pictures/MyVRPhotos";
+        if (!Directory.Exists(picturesPath))
+            Directory.CreateDirectory(picturesPath);
 
-    string path = Path.Combine(picturesPath, filename);
+        string path = Path.Combine(picturesPath, filename);
 #else
         string path = Path.Combine(Application.persistentDataPath, filename);
 #endif
@@ -101,7 +101,35 @@ public class PhoneCameraController : MonoBehaviourPun
         File.WriteAllBytes(path, photo.EncodeToPNG());
         Debug.Log($"사진 저장됨: {path}");
 
+        // 갤러리에 반영 (안드로이드 전용)
+        RefreshAndroidGallery(path, "image/png");
+
         RenderTexture.active = null;
+
         AchievementManager.Instance.AddProgress(EAchievementType.PhotoMaster, 1);
     }
+
+    // --- 안드로이드 갤러리 새로고침 ---
+    static void RefreshAndroidGallery(string path, string mimeType)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var context = activity.Call<AndroidJavaObject>("getApplicationContext"))
+            using (var mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection"))
+            {
+                string[] paths = new string[] { path };
+                string[] mimes = new string[] { mimeType };
+                mediaScanner.CallStatic("scanFile", context, paths, mimes, null);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"MediaScanner 스캔 실패: {e}");
+        }
+#endif
+    }
 }
+
