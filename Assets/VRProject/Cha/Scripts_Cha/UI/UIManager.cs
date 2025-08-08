@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviourPun
 {
-    public static UIManager Instance {  get; private set; }
+    public static UIManager Instance { get; private set; }
     [System.Serializable]
     public class UIEntry
     {
