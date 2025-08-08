@@ -47,7 +47,7 @@ public class CoinManager : MonoBehaviour
         if (currentCoinUI != null)
         {
             currentCoinUI.PlayCoinSound(0);
-            currentCoinUI.StartCoroutine(currentCoinUI.PlayForSeconds(3f));
+            currentCoinUI.StartCoroutine(currentCoinUI.PlayForSeconds(0.5f));
         }
 
         CurrentUserManager.Instance.SetCoin(currentCoins); // CurrentUserData에도 반영
