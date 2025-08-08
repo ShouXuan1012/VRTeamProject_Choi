@@ -18,13 +18,12 @@ public class SlotMachineManager : MonoBehaviour
     public float[] jackpotSymbolChances = { 77.6f, 20f, 2.3f, 0.1f }; // 잭팟 심볼 확률
     public float jackpotRate = 25f;   // 잭팟이 나올 전체 확률(%)
 
-    [Header("Test Mode")]
-    public bool isTestMode = true;
-    public int testCoins = 9999999;
+  
 
     private bool isSpinning = false;
 
     [Header("RewardUI")]
+    public GameObject Background;
     public GameObject rewardUI;
     public Image[] rewardImage;
     public Sprite[] rewardSprites;
@@ -49,10 +48,10 @@ public class SlotMachineManager : MonoBehaviour
         //CoinManager.Instance.UseCoins(baseBet);
         if (!CoinManager.Instance.UseCoins(baseBet))
         {
-            // 소지금 부족 시 종료
-            isSpinning = true;
-        }      
+            yield break; // 코인이 부족하면 중단
 
+        }
+        isSpinning = true;
         // 1️ 결과 뽑기
         int[] results = GetSpinResults();
 
@@ -70,7 +69,9 @@ public class SlotMachineManager : MonoBehaviour
             rewardText.text = $"+{reward:N0}";
             //testCoins += reward;
             CoinManager.Instance.AddCoins(reward);
+            Background.SetActive(true);
             rewardUI.SetActive(true);
+            spinButton.interactable = false;
         }
 
         isSpinning = false;
