@@ -471923,6 +471923,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.84
       objectReference: {fileID: 0}
+    - target: {fileID: 6657447526465854516, guid: d13cb6de176b8af4cbddd0bcae03811f,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657447526465854516, guid: d13cb6de176b8af4cbddd0bcae03811f,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -597640,6 +597650,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 438844432825706409, guid: 2d12f0be3be2a7b4aaa1b1202924fb8d,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594668610670335297, guid: 2d12f0be3be2a7b4aaa1b1202924fb8d,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1982073040072407288, guid: 8860a1c90e32fb84cb49bda0b3159247,
         type: 3}
       propertyPath: sceneViewId
@@ -597704,16 +597724,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Busking]ver.3'
-      objectReference: {fileID: 0}
-    - target: {fileID: 438844432825706409, guid: 2d12f0be3be2a7b4aaa1b1202924fb8d,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594668610670335297, guid: 2d12f0be3be2a7b4aaa1b1202924fb8d,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
