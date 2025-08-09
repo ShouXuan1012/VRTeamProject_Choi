@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,16 +40,16 @@ public class UIManager : MonoBehaviourPun
 
     private void OnPlayerSpawned(GameObject player)
     {        
-        // ÇÃ·¹ÀÌ¾î ÇÏÀ§¿¡¼­ MainUI Ã£±â
+        // í”Œë ˆì´ì–´ í•˜ìœ„ì—ì„œ MainUI ì°¾ê¸°
         Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
         if (found != null)
         {
             uiParent = found;
-            Debug.LogWarning("[MagnifierUI] MainUI ¿¬°á¼º°ø");
+            Debug.Log("[UIManager] MainUI ì—°ê²°ì„±ê³µ");
         }
         else
         {
-            Debug.LogWarning("[MagnifierUI] ÇÃ·¹ÀÌ¾î ÇÏÀ§¿¡¼­ MainUI¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[UIManager] í”Œë ˆì´ì–´ í•˜ìœ„ì—ì„œ MainUIë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
