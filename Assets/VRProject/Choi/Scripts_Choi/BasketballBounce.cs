@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class BasketballBounce : MonoBehaviour
 {
@@ -6,12 +6,12 @@ public class BasketballBounce : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Basketball"))
+        if (collision.gameObject.CompareTag("Ball"))
         {
             Rigidbody ballRb = collision.gameObject.GetComponent<Rigidbody>();
             if (ballRb != null)
             {
-                // ¿ß πÊ«‚¿∏∑Œ »˚¿ª ∞°«‘
+                // ÏúÑ Î∞©Ìñ•ÏúºÎ°ú ÌûòÏùÑ Í∞ÄÌï®
                 Vector3 forceDirection = Vector3.down;
                 ballRb.AddForce(forceDirection * bounceForce, ForceMode.Impulse);
             }
