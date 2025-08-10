@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
@@ -40,7 +40,7 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.LeaveRoom();
 
-        // ¥Î±‚
+        // ÎåÄÍ∏∞
         while (PhotonNetwork.InRoom || PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer)
         {
             yield return null;
@@ -51,7 +51,7 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
 
     private void JoinOrCreateMainRoom()
     {
-        string roomName = "DefaultRoom";  // ∏ﬁ¿Œ ∏÷∆º πÊ ¿Ã∏ß
+        string roomName = "DefaultRoom";  // Î©îÏù∏ Î©ÄÌã∞ Î∞© Ïù¥Î¶Ñ
         RoomOptions options = new RoomOptions { MaxPlayers = 20 };
 
         if (PhotonNetwork.IsConnectedAndReady)
@@ -62,6 +62,6 @@ public class BasketballEndUI : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("InGameScene_Dev");
+        PhotonNetwork.LoadLevel("InGameScene");
     }
 }
