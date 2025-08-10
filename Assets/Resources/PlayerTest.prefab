@@ -830,6 +830,12 @@ MonoBehaviour:
   - key: Purchase_Fail
     prefab: {fileID: 6570840324697642286, guid: ea943aa7d00d4894dac235fd53c91794,
       type: 3}
+  - key: SlotMachine
+    prefab: {fileID: 6267653283706951646, guid: 2731aa68f4400424bab59c95e75d2cb6,
+      type: 3}
+  - key: Roulette
+    prefab: {fileID: 5872871917577275024, guid: 21aee7cc887d3ce42b407be86998fe5b,
+      type: 3}
 --- !u!1 &4341620761901287891
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,7 +3383,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7456189413191062533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0.3}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3387,7 +3393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.90000004}
+  m_AnchoredPosition: {x: -0.1, y: 1.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2321183864428296032
