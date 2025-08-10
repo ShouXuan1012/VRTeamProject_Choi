@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviourPun
     private void OnPlayerSpawned(GameObject player)
     {        
         // 플레이어 하위에서 MainUI 찾기
-        Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
+        Transform found = player.transform.Find("UI/MainUI");
         if (found != null)
         {
             uiParent = found;

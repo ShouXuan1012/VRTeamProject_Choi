@@ -1,4 +1,4 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using UnityEngine;
 
 public class MagnifierUI : MonoBehaviourPun
@@ -22,8 +22,8 @@ public class MagnifierUI : MonoBehaviourPun
         if (pv == null || !pv.IsMine)
             return;
 
-        // ÇÃ·¹ÀÌ¾î ÇÏÀ§¿¡¼­ MainUI Ã£±â
-        Transform found = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI");
+        // í”Œë ˆì´ì–´ í•˜ìœ„ì—ì„œ MainUI ì°¾ê¸°
+        Transform found = player.transform.Find("UI/MainUI");
         if (found != null)
             uiParent = found;
         gameObject.SetActive(false);

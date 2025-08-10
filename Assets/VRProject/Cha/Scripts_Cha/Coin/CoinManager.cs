@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
@@ -89,7 +89,7 @@ public class CoinManager : MonoBehaviour
 
     public void SetupUIFromPlayer(GameObject player)
     {
-        var coinUI = player.transform.Find("Camera Offset/Main Camera/UICamera/MainUI/CoinCounterUI")?.GetComponent<CoinUI>();
+        var coinUI = player.transform.Find("UI/MainUI/CoinCounterUI")?.GetComponent<CoinUI>();
         if (coinUI == null)
         {
             Debug.LogWarning("[CoinManager] CoinUI를 찾을 수 없습니다.");
