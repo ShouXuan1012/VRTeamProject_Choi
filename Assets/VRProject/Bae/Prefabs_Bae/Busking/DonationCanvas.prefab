@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 22.13, y: -26.424, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.256, y: 0.787}
+  m_AnchoredPosition: {x: -0.25598145, y: 0.7869873}
   m_SizeDelta: {x: 109.5962, y: 40.5744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4389038258279123958
@@ -132,21 +132,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1410262965663731589, guid: 1a93aa1e723788040adcc4d47f29fde8,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410262965663731589, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410262965663731589, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410262965663731589, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 25
       objectReference: {fileID: 0}
@@ -225,11 +210,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5359509825551521140, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5482663280698664882, guid: 1a93aa1e723788040adcc4d47f29fde8,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -295,133 +275,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DonationUI
       objectReference: {fileID: 0}
-    - target: {fileID: 7420184614968567090, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8393542218051946428, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5359509825551521140, guid: 1a93aa1e723788040adcc4d47f29fde8, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6725229195001267742, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3073323121809167704}
-    - targetCorrespondingSourceObject: {fileID: 1750777789608829143, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6089610678837373320}
-    - targetCorrespondingSourceObject: {fileID: 2520274062296700545, guid: 1a93aa1e723788040adcc4d47f29fde8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7721186690840667786}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a93aa1e723788040adcc4d47f29fde8, type: 3}
---- !u!1 &866718735612970574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6725229195001267742, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3073323121809167704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866718735612970574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74db34400f4d734a8a67038440b2c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  donationAmount: 5000
-  button: {fileID: 8796267132587208665}
---- !u!114 &4717562535745663346 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1165238691435622690, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8334522040532031185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4810309465939546069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1410262965663731589, guid: 1a93aa1e723788040adcc4d47f29fde8,
     type: 3}
   m_PrefabInstance: {fileID: 5860278551537778768}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5269184439208321159 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1750777789608829143, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6089610678837373320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269184439208321159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74db34400f4d734a8a67038440b2c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  donationAmount: 10000
-  button: {fileID: 7817073387933846522}
---- !u!114 &7817073387933846522 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4406832293045652394, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269184439208321159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &8334522040532031185 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2520274062296700545, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7721186690840667786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8334522040532031185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74db34400f4d734a8a67038440b2c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  donationAmount: 500000
-  button: {fileID: 4717562535745663346}
---- !u!114 &8796267132587208665 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3116906631054356361, guid: 1a93aa1e723788040adcc4d47f29fde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5860278551537778768}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866718735612970574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

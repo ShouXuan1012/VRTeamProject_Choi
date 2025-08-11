@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 public class WheelManager : MonoBehaviour {
 
@@ -24,11 +25,11 @@ public class WheelManager : MonoBehaviour {
    
     private int currentCost = baseBet;
     private int getcoin;
-   
+    private bool isSpinning = false;
     void Awake () {
-        
-        
-       
+
+        spinButton.onClick.AddListener(() => { if (!isSpinning) StartCoroutine(Spin()); });
+
         if (costInput != null)
         {
             if (string.IsNullOrWhiteSpace(costInput.text))
@@ -93,22 +94,22 @@ public class WheelManager : MonoBehaviour {
         });
 	}
    
-    public void Spin()
+    IEnumerator Spin()
     {
-       
-        if (currentCost < baseBet)
-        {                
-            return;
+
+        if (!CoinManager.Instance.UseCoins(currentCost))
+        {   
+            yield break; // 코인이 부족하면 중단
         }
 
-        else if(CoinManager.Instance != null&&currentCost>=100000)
-        {
-            
-            CoinManager.Instance.UseCoins(currentCost); // 코인 매니저에서 차감
-            StartCoroutine(wheel.StartNewRun()); // 네 기존 로직
-   
-        }
-        
+            isSpinning = true; // 스핀 시작
+        spinButton.interactable = false;
+        yield return StartCoroutine(wheel.StartNewRun()); // 네 기존 로직
+
+
+        spinButton.interactable = true;
+        isSpinning = false;
+
     }
     public void AddCost(int amount)
     {

@@ -30,7 +30,7 @@ public class SlotMachineManager : MonoBehaviour
     public Text rewardTitleText;
     public Text rewardText;
 
-    void Start()
+    void Awake()
     {
         spinButton.onClick.AddListener(() => { if (!isSpinning) StartCoroutine(SpinRoutine()); });
         
@@ -42,16 +42,14 @@ public class SlotMachineManager : MonoBehaviour
     }
     IEnumerator SpinRoutine()
     {
-        // 베팅 처리
-
-        //testCoins -= baseBet;
-        //CoinManager.Instance.UseCoins(baseBet);
+       
         if (!CoinManager.Instance.UseCoins(baseBet))
         {
             yield break; // 코인이 부족하면 중단
 
         }
         isSpinning = true;
+        spinButton.interactable = false;
         // 1️ 결과 뽑기
         int[] results = GetSpinResults();
 
@@ -75,6 +73,7 @@ public class SlotMachineManager : MonoBehaviour
         }
 
         isSpinning = false;
+        spinButton.interactable = true;
     }
 
     /// <summary>
@@ -177,6 +176,7 @@ public class SlotMachineManager : MonoBehaviour
                 rewardTitleText.text = "JACKPOT!";
                 break;
         }
+        spinButton.interactable = false;
     }
     
 }
