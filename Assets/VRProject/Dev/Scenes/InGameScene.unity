@@ -257783,7 +257783,7 @@ GameObject:
   - component: {fileID: 923148571}
   - component: {fileID: 923148570}
   m_Layer: 5
-  m_Name: B_A_UITrigger_02
+  m_Name: B_A_UITrigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257820,7 +257820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724ee9aa99d36344b7afc24f08a37b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuseumUI: {fileID: 1741892596}
+  MuseumUI: {fileID: 499107544}
 --- !u!65 &923148571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -406817,7 +406817,7 @@ GameObject:
   - component: {fileID: 1451681172}
   - component: {fileID: 1451681171}
   m_Layer: 5
-  m_Name: B_A_UITrigger_01
+  m_Name: B_A_UITrigger_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406854,7 +406854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724ee9aa99d36344b7afc24f08a37b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MuseumUI: {fileID: 499107544}
+  MuseumUI: {fileID: 1741892596}
 --- !u!65 &1451681172
 BoxCollider:
   m_ObjectHideFlags: 0
